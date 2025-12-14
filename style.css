@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  background: #0f172a;
+  font-family: Arial, sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 12px;
+}
+
+.pad {
+  aspect-ratio: 1 / 1;
+  background: #1e293b;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+}
+
+.pad.active {
+  outline: 4px solid white;
+}
