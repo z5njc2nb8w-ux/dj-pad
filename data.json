@@ -1,6 +1,6 @@
 {
- "rev": 10,
- "updated": "2026-11-12T10:14:34.142Z",
+ "rev": 11,
+ "updated": "2026-11-12T10:15:11.309Z",
  "pads": [
   {
    "label": "Выход героя",
@@ -185,20 +185,20 @@
  ],
  "bg": [
   {
-   "title": "Фон 1",
-   "file": "01.mp3"
+   "title": "Wood - Never A Day (OST Интуиция)",
+   "file": "01-mwde4r3244tr.mp3"
   },
   {
-   "title": "Фон 2",
-   "file": "02.mp3"
+   "title": "Barenaked Ladies - Green Christmas (OST",
+   "file": "02-mwde4r5e6nbx.mp3"
   },
   {
-   "title": "Фон 3",
-   "file": "03.mp3"
+   "title": "Dean Martin - Let It Snow! Let It Snow!",
+   "file": "03-mwde4r7y948i.mp3"
   },
   {
-   "title": "Фон 4",
-   "file": "04.mp3"
+   "title": "Andy Williams - It's The Most Wonderful",
+   "file": "04-mwde4radc7ly.mp3"
   },
   {
    "title": "Фон 5",
