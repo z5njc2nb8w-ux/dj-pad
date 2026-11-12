@@ -401,7 +401,12 @@ const API = `https://api.github.com/repos/${REPO.owner}/${REPO.repo}`;
 
 /* ===== service worker ===== */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+  const hadController = !!navigator.serviceWorker.controller; let swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || swReloaded || isDirty() || curPad >= 0 || !bgAudio.paused) return;
+    swReloaded = true; location.reload();
+  });
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(r => r.update && r.update()).catch(() => {});
 }
 
 /* ===== данные (подписи, цвета, файлы) ===== */
