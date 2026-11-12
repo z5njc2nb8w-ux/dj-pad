@@ -25,6 +25,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
   overflow:hidden;overscroll-behavior:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+.pad{touch-action:pan-y}
 #app{height:100dvh;display:flex;flex-direction:column;gap:8px;
   padding:calc(var(--safe-t) + 8px) 10px calc(var(--safe-b) + 8px)}
 
@@ -53,7 +54,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 
 /* ---------- фон ---------- */
 .bgbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 10px;display:flex;align-items:center;gap:10px}
-.bgplay{width:44px;height:44px;border-radius:12px;flex-shrink:0;font-size:18px;
+.bgplay{width:58px;height:58px;border-radius:15px;flex-shrink:0;font-size:22px;
   background:color-mix(in srgb,#bf5af2 18%,#15151f);border:1px solid color-mix(in srgb,#bf5af2 55%,transparent);color:#e3c2ff}
 .bgplay.on{background:#bf5af2;color:#1a0526;box-shadow:0 0 16px #bf5af2}
 .bginfo{flex:1;min-width:0}
@@ -62,31 +63,35 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 .bgname{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 5px}
 .bgbar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
 .bgbar i{display:block;height:100%;width:0;background:#bf5af2;box-shadow:0 0 6px #bf5af2}
-.bgnext{width:40px;height:44px;border-radius:12px;background:var(--panel2);font-size:16px;color:var(--mut);flex-shrink:0}
+.bgnext{width:58px;height:58px;border-radius:15px;flex-shrink:0;font-size:24px;color:#e3c2ff;background:color-mix(in srgb,#bf5af2 12%,#15151f);border:1px solid color-mix(in srgb,#bf5af2 40%,transparent)}
+.bgnext:active,.bgplay:active{transform:scale(.94)}
 .vol{width:100%;margin-top:6px;accent-color:#bf5af2;height:18px}
 
 /* ---------- пэды ---------- */
-.padhead{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--mut);letter-spacing:1.5px;padding:0 2px}
-.stopbtn{font-size:12px;letter-spacing:0;font-weight:700;padding:6px 12px;border-radius:9px;background:var(--panel2);color:var(--txt)}
+.padhead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--mut);letter-spacing:1.5px;padding:0 2px}
+.stopbtn{font-size:17px;letter-spacing:0;font-weight:700;height:50px;padding:0 16px;border-radius:13px;background:var(--panel2);color:var(--txt)}
 .stopbtn:active{background:var(--bad)}
-.stopbtn.speed{background:color-mix(in srgb,#ffd60a 15%,#15151f);border:1px solid color-mix(in srgb,#ffd60a 50%,transparent);color:#ffe866;min-width:72px}
+.stopbtn.speed{background:color-mix(in srgb,#ffd60a 15%,#15151f);border:1px solid color-mix(in srgb,#ffd60a 50%,transparent);color:#ffe866;min-width:96px}
 .stopbtn.speed.on{background:#ffd60a;color:#1a1400;box-shadow:0 0 14px #ffd60a}
 .stopbtn.speed:active{background:#ffd60a;color:#1a1400}
-#gridwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+#gridwrap{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  touch-action:pan-y;display:flex;justify-content:center;align-items:flex-start;padding-bottom:12px;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 18px),transparent)}
+#gridwrap::-webkit-scrollbar{display:none}
 .grid{display:grid;gap:6px}
-.pad{--c:#888;position:relative;overflow:hidden;border-radius:12px;
+.pad{--c:#888;position:relative;overflow:hidden;border-radius:14px;
   background:color-mix(in srgb,var(--c) 13%,#12121b);
   border:1px solid color-mix(in srgb,var(--c) 42%,transparent);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -6px 14px rgba(0,0,0,.35),0 0 8px color-mix(in srgb,var(--c) 12%,transparent);
   display:flex;align-items:center;justify-content:center;padding:4px;transition:transform .06s,box-shadow .15s}
-.pad .led{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:34%;height:3px;border-radius:2px;background:color-mix(in srgb,var(--c) 55%,#000)}
-.pad .num{position:absolute;top:3px;left:6px;font-size:9px;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#fff);opacity:.75}
+.pad .led{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:34%;height:3px;border-radius:2px;background:color-mix(in srgb,var(--c) 55%,#000)}
+.pad .num{position:absolute;top:5px;left:8px;font-size:11px;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#fff);opacity:.75}
 .pad .lab{position:relative;z-index:2;font-size:var(--fs,12px);line-height:1.15;font-weight:700;text-align:center;
   color:color-mix(in srgb,var(--c) 35%,#fff);word-break:break-word;hyphens:auto;margin-top:4px}
 .pad .fill{position:absolute;left:0;right:0;bottom:0;height:0;z-index:1;
   background:color-mix(in srgb,var(--c) 78%,#000);box-shadow:0 -2px 10px var(--c)}
-.pad .rem{position:absolute;bottom:3px;right:6px;z-index:3;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums;color:#fff;opacity:0}
-.pad .chk{position:absolute;top:2px;right:5px;font-size:10px;color:var(--c);opacity:0;z-index:3}
+.pad .rem{position:absolute;bottom:5px;right:8px;z-index:3;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:#fff;opacity:0}
+.pad .chk{position:absolute;top:4px;right:8px;font-size:13px;color:var(--c);opacity:0;z-index:3}
 .pad.press{transform:scale(.94)}
 .pad.playing{border-color:var(--c);
   box-shadow:0 0 0 1px var(--c),0 0 18px var(--c),0 0 36px color-mix(in srgb,var(--c) 45%,transparent);
@@ -156,11 +161,11 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
       <div class="bgbar"><i id="bgBar"></i></div>
       <input type="range" class="vol" id="bgVol" min="0" max="100" value="70" aria-label="Громкость фона">
     </div>
-    <button class="bgnext" id="bgNext" aria-label="Следующий фон">⏭</button>
+    <button class="bgnext" id="bgNext" aria-label="Следующий фон">⏭︎</button>
   </div>
 
   <div class="padhead"><span>ПЭДЫ</span>
-    <div style="display:flex;gap:6px">
+    <div style="display:flex;gap:8px;flex:1;justify-content:flex-end">
       <button class="stopbtn speed" id="speedBtn">⚡ ×1</button>
       <button class="stopbtn" id="speedReset">1×</button>
       <button class="stopbtn" id="stopPad">■ Стоп</button>
@@ -431,7 +436,7 @@ function padPress(i){
   padAudio.currentTime = 0;
   setRate(padAudio, 1);
   const pr = padAudio.play();
-  if (pr) pr.catch(() => { if (curPad === i) { p.el.classList.remove('playing'); p.el.classList.add('err'); setTimeout(() => p.el.classList.remove('err'), 400); curPad = -1; unduck(); toast('Трек не найден. Скачайте треки в меню'); } });
+  if (pr) pr.catch(e => { if (e && e.name === 'AbortError') return; if (curPad === i) { p.el.classList.remove('playing'); p.el.classList.add('err'); setTimeout(() => p.el.classList.remove('err'), 400); curPad = -1; unduck(); toast('Трек не найден. Скачайте треки в меню'); } });
   duck();
   setMedia(C.PADS[i].label, 'Пэд ' + (i + 1));
   cancelAnimationFrame(raf); raf = requestAnimationFrame(tickPad);
@@ -479,7 +484,7 @@ function bgStart(i){
   if (volSupported) bgAudio.volume = bgVolume;
   $('bgName').textContent = C.BACKGROUND[i].title;
   if (ducked) { bgPausedByDuck = true; bgUI(); return; }
-  bgAudio.play().catch(() => toast('Фон не найден. Скачайте треки в меню'));
+  bgAudio.play().catch(e => { if (e && e.name === 'AbortError') return; toast('Фон не найден. Скачайте треки в меню'); });
   setMedia(C.BACKGROUND[i].title, 'Фон');
 }
 function bgNextTrack(){
@@ -569,13 +574,14 @@ setInterval(tDraw, 250); tDraw();
 
 /* ===== размер сетки: квадратные пэды на весь экран ===== */
 function layout(){
-  const w = $('gridwrap'), W = w.clientWidth, H = w.clientHeight, gap = 6;
+  const w = $('gridwrap'), W = w.clientWidth, gap = 8;
   const cols = C.COLUMNS || 4, rows = Math.ceil(C.PADS.length / cols);
   const s = Math.floor((W - gap * (cols - 1)) / cols);
-  const h = Math.floor(Math.min(s * 1.1, (H - gap * (rows - 1)) / rows));
+  const h = Math.floor(s * (C.PAD_HEIGHT || 1));
+  grid.style.gap = gap + 'px';
   grid.style.gridTemplateColumns = `repeat(${cols}, ${s}px)`;
   grid.style.gridTemplateRows = `repeat(${rows}, ${h}px)`;
-  grid.style.setProperty('--fs', Math.max(10, Math.min(14, Math.min(s, h * 1.3) * 0.135)) + 'px');
+  grid.style.setProperty('--fs', Math.max(12, Math.min(18, Math.min(s, h) * 0.165)) + 'px');
 }
 window.addEventListener('resize', layout);
 window.addEventListener('orientationchange', () => setTimeout(layout, 300));
