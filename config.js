@@ -1,83 +1,54 @@
 // =====================================================
-//  НАСТРОЙКИ ПУЛЬТА — меняйте только этот файл
-// =====================================================
-//  label — подпись на кнопке
-//  file  — имя файла в папке tracks/pads/
-//  color — цвет пэда: red, orange, yellow, green, cyan, blue, purple, pink, white
-//  Если поменяли треки или подписи — увеличьте VERSION на 1,
-//  чтобы телефоны скачали обновление.
+//  НАСТРОЙКИ ПУЛЬТА
+//  Подписи, цвета и треки теперь меняются с телефона в режиме бога 👑
+//  и хранятся в data.json. Здесь — только общие настройки.
 // =====================================================
 
 window.PULT_CONFIG = {
-  VERSION: 6,
+  // Меняйте, только если правили index.html / config.js вручную
+  VERSION: 8,
   TITLE: "Новогодняя программа",
 
-  // Пока играет пэд, фон стоит на паузе и сам продолжается после пэда.
-  // Громкость фона меняется только ползунком.
-  RESUME_BACKGROUND: true,
-
-  // Сколько пэдов в ряду
+  // Сколько пэдов в ряду и их высота (1 — квадрат)
   COLUMNS: 4,
-  // Высота пэда относительно ширины: 1 — квадрат, 1.2 — чуть выше
   PAD_HEIGHT: 1,
 
-  // Кнопка ускорения: шаги скорости (нажатие ⚡ переключает на следующий)
+  // Ускорение: шаги скорости и сохранять ли тон
   SPEED_STEPS: [1, 1.25, 1.5, 1.75, 2],
-  // true — ускоряется без изменения тона; false — с повышением тона («мультяшный» голос)
   SPEED_KEEP_PITCH: true,
+
+  // После пэда фон сам продолжается
+  RESUME_BACKGROUND: true,
 
   // Таймер по умолчанию, минуты
   TIMER_DEFAULT_MIN: 60,
 
+  // Режим бога: SHA-256 от пароля (сам пароль здесь не хранится)
+  ADMIN_PASSWORD_HASH: "b81b28b000dbceebf0c9342d84ff2b3a192e10c4b69ccdc94d09faff74d2aaea",
+
+  // Репозиторий GitHub (пусто — определится по адресу сайта автоматически)
+  GITHUB_OWNER: "",
+  GITHUB_REPO: "",
+  GITHUB_BRANCH: "main",
+
+  // Запасной список — используется, только если data.json не найден
   PADS: [
-    { label: "Старт программы",     file: "01.mp3", color: "red" },
-    { label: "Выход персонажа",     file: "02.mp3", color: "orange" },
-    { label: "Выход Снегурочки",    file: "03.mp3", color: "cyan" },
-    { label: "Выход Деда Мороза",   file: "04.mp3", color: "blue" },
-    { label: "Зовём Деда Мороза",   file: "05.mp3", color: "blue" },
+    { label: "Старт программы", color: "red" }, { label: "Выход персонажа", color: "orange" },
+    { label: "Выход Снегурочки", color: "cyan" }, { label: "Выход Деда Мороза", color: "blue" },
+    { label: "Зовём Деда Мороза", color: "blue" }, { label: "Хоровод", color: "green" },
+    { label: "Ёлочка, гори!", color: "yellow" }, { label: "Зажигаем ёлку", color: "yellow" },
+    { label: "Игра «Снежки»", color: "purple" }, { label: "Конкурс 1", color: "purple" },
+    { label: "Конкурс 2", color: "purple" }, { label: "Конкурс 3", color: "purple" },
+    { label: "Танец снежинок", color: "cyan" }, { label: "Выход Бабы-яги", color: "orange" },
+    { label: "Выход Снеговика", color: "orange" }, { label: "Волшебство", color: "pink" },
+    { label: "Фанфары", color: "white" }, { label: "Аплодисменты", color: "white" },
+    { label: "Барабанная дробь", color: "white" }, { label: "Сюрприз", color: "pink" },
+    { label: "Подарки", color: "red" }, { label: "Мешок с подарками", color: "red" },
+    { label: "Фото с Дедом Морозом", color: "blue" }, { label: "Дискотека 1", color: "green" },
+    { label: "Дискотека 2", color: "green" }, { label: "Медленный танец", color: "pink" },
+    { label: "Бой курантов", color: "yellow" }, { label: "С Новым годом!", color: "red" },
+    { label: "Прощание", color: "cyan" }, { label: "Финал", color: "red" },
+  ].map((p, i) => ({ ...p, file: String(i + 1).padStart(2, "0") + ".mp3" })),
 
-    { label: "Хоровод",             file: "06.mp3", color: "green" },
-    { label: "Ёлочка, гори!",       file: "07.mp3", color: "yellow" },
-    { label: "Зажигаем ёлку",       file: "08.mp3", color: "yellow" },
-    { label: "Игра «Снежки»",       file: "09.mp3", color: "purple" },
-    { label: "Конкурс 1",           file: "10.mp3", color: "purple" },
-
-    { label: "Конкурс 2",           file: "11.mp3", color: "purple" },
-    { label: "Конкурс 3",           file: "12.mp3", color: "purple" },
-    { label: "Танец снежинок",      file: "13.mp3", color: "cyan" },
-    { label: "Выход Бабы-яги",      file: "14.mp3", color: "orange" },
-    { label: "Выход Снеговика",     file: "15.mp3", color: "orange" },
-
-    { label: "Волшебство",          file: "16.mp3", color: "pink" },
-    { label: "Фанфары",             file: "17.mp3", color: "white" },
-    { label: "Аплодисменты",        file: "18.mp3", color: "white" },
-    { label: "Барабанная дробь",    file: "19.mp3", color: "white" },
-    { label: "Сюрприз",             file: "20.mp3", color: "pink" },
-
-    { label: "Подарки",             file: "21.mp3", color: "red" },
-    { label: "Мешок с подарками",   file: "22.mp3", color: "red" },
-    { label: "Фото с Дедом Морозом",file: "23.mp3", color: "blue" },
-    { label: "Дискотека 1",         file: "24.mp3", color: "green" },
-    { label: "Дискотека 2",         file: "25.mp3", color: "green" },
-
-    { label: "Медленный танец",     file: "26.mp3", color: "pink" },
-    { label: "Бой курантов",        file: "27.mp3", color: "yellow" },
-    { label: "С Новым годом!",      file: "28.mp3", color: "red" },
-    { label: "Прощание",            file: "29.mp3", color: "cyan" },
-    { label: "Финал",               file: "30.mp3", color: "red" },
-  ],
-
-  // Фоновая музыка — папка tracks/bg/. Играет в случайном порядке без повторов.
-  BACKGROUND: [
-    { title: "Фон 1",  file: "01.mp3" },
-    { title: "Фон 2",  file: "02.mp3" },
-    { title: "Фон 3",  file: "03.mp3" },
-    { title: "Фон 4",  file: "04.mp3" },
-    { title: "Фон 5",  file: "05.mp3" },
-    { title: "Фон 6",  file: "06.mp3" },
-    { title: "Фон 7",  file: "07.mp3" },
-    { title: "Фон 8",  file: "08.mp3" },
-    { title: "Фон 9",  file: "09.mp3" },
-    { title: "Фон 10", file: "10.mp3" },
-  ],
+  BACKGROUND: Array.from({ length: 10 }, (_, i) => ({ title: "Фон " + (i + 1), file: String(i + 1).padStart(2, "0") + ".mp3" })),
 };

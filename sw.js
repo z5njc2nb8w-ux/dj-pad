@@ -37,6 +37,7 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+  if (url.pathname.endsWith('/data.json')) { e.respondWith(fetch(req).catch(() => caches.match(req, { ignoreSearch: true }))); return; }
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(r => r || fetch(req))
   );

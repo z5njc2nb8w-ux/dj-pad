@@ -69,9 +69,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 
 /* ---------- пэды ---------- */
 .padhead{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--mut);letter-spacing:1.5px;padding:0 2px}
-.stopbtn{font-size:17px;letter-spacing:0;font-weight:700;height:50px;padding:0 16px;border-radius:13px;background:var(--panel2);color:var(--txt)}
+.stopbtn{font-size:16px;letter-spacing:0;font-weight:700;height:50px;padding:0 12px;white-space:nowrap;border-radius:13px;background:var(--panel2);color:var(--txt)}
 .stopbtn:active{background:var(--bad)}
-.stopbtn.speed{background:color-mix(in srgb,#ffd60a 15%,#15151f);border:1px solid color-mix(in srgb,#ffd60a 50%,transparent);color:#ffe866;min-width:96px}
+.stopbtn.speed{background:color-mix(in srgb,#ffd60a 15%,#15151f);border:1px solid color-mix(in srgb,#ffd60a 50%,transparent);color:#ffe866;min-width:84px}
 .stopbtn.speed.on{background:#ffd60a;color:#1a1400;box-shadow:0 0 14px #ffd60a}
 .stopbtn.speed:active{background:#ffd60a;color:#1a1400}
 #gridwrap{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
@@ -132,6 +132,52 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 .toast{position:fixed;left:50%;bottom:calc(var(--safe-b) + 18px);transform:translateX(-50%) translateY(30px);opacity:0;z-index:60;
   background:#fff;color:#000;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- режим бога ---------- */
+.godbtn{min-width:50px!important;padding:0 8px!important;font-size:20px!important}
+.godbtn.on{background:#ffd60a!important;color:#1a1400!important;box-shadow:0 0 14px #ffd60a}
+.adminbar{display:none;align-items:center;gap:8px;background:color-mix(in srgb,#ffd60a 14%,#14141f);border:1px solid color-mix(in srgb,#ffd60a 55%,transparent);
+  border-radius:14px;padding:8px 10px}
+body.admin .adminbar{display:flex}
+.adminbar .t{flex:1;min-width:0}
+.adminbar .t b{display:block;white-space:nowrap;font-size:12px;letter-spacing:1px;color:#ffd60a}
+.adminbar .t span{font-size:12px;color:var(--mut);display:block;line-height:1.3}
+.abtn{height:44px;padding:0 12px;border-radius:12px;background:var(--panel2);font-weight:700;font-size:14px;white-space:nowrap}
+.abtn.pub{background:#ffd60a;color:#1a1400}
+.abtn.pub:disabled{opacity:.45}
+body.admin .pad{outline:2px dashed color-mix(in srgb,var(--c) 70%,transparent);outline-offset:-5px}
+body.admin .pad .chk{opacity:1!important}
+body.admin .pad .chk::before{content:"✎";color:#fff}
+body.admin .pad .chk{font-size:0}
+body.admin .pad .chk::before{font-size:14px}
+.pad .dirty{position:absolute;bottom:5px;left:8px;z-index:3;width:9px;height:9px;border-radius:50%;background:#ffd60a;box-shadow:0 0 6px #ffd60a;display:none}
+.pad.isdirty .dirty{display:block}
+body.admin .bgbox{outline:2px dashed color-mix(in srgb,#bf5af2 70%,transparent);outline-offset:-5px}
+.field{width:100%;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--txt);font-size:17px;padding:0 12px;margin-top:6px;-webkit-user-select:text;user-select:text}
+.lbl{font-size:13px;color:var(--mut);margin-top:14px;display:block}
+.sw{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-top:8px}
+.sw button{aspect-ratio:1;border-radius:10px;border:2px solid transparent}
+.sw button.sel{border-color:#fff;box-shadow:0 0 10px currentColor}
+.trk{display:flex;align-items:center;gap:8px;margin-top:8px;background:var(--panel2);border-radius:12px;padding:10px}
+.trk .nm{flex:1;min-width:0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trk .nm small{display:block;color:var(--mut);font-size:12px}
+.sbtn{height:42px;padding:0 12px;border-radius:11px;background:var(--panel);border:1px solid var(--line);font-weight:700;font-size:14px;white-space:nowrap}
+.row2{display:flex;gap:8px;margin-top:14px}
+.row2 .big{margin-top:0}
+.bgrow{display:flex;gap:6px;align-items:center;margin-top:8px}
+.bgrow .field{margin-top:0;height:44px;font-size:15px;flex:1;min-width:0}
+.bgrow .sbtn{height:44px}
+.err{color:var(--bad);font-size:13px;margin-top:8px;min-height:16px}
+.chg{background:var(--panel2);border-radius:10px;padding:10px 12px;margin-top:6px;font-size:14px;display:flex;align-items:center;justify-content:space-between}
+.req{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px}
+.req .rh{display:flex;justify-content:space-between;font-size:14px}
+.req .rh span{color:var(--mut);font-size:12px}
+.godbtn.hasinbox{position:relative}
+.godbtn.hasinbox::after{content:"";position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:var(--bad);box-shadow:0 0 8px var(--bad)}
+body.dj .adminbar{background:color-mix(in srgb,#00d6ff 12%,#14141f);border-color:color-mix(in srgb,#00d6ff 55%,transparent)}
+body.dj .adminbar .t b{color:#00d6ff}
+body.dj .abtn.pub{background:#00d6ff;color:#001218}
+.okt{color:var(--ok);font-size:13px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -140,6 +186,14 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
     <h1 id="title">Пульт</h1>
     <span class="badge" id="badge"><i></i><span>Проверка…</span></span>
     <button class="iconbtn" id="menuBtn" aria-label="Меню">⋯</button>
+  </div>
+
+  <div class="adminbar">
+    <div class="t"><b id="modeTitle">👑 РЕЖИМ БОГА</b><span id="pendTxt">Нажмите пэд или фон, чтобы изменить</span></div>
+    <button class="abtn pub" id="pubBtn" disabled>⬆︎ Опубл.</button>
+    <button class="abtn" id="inboxBtn">📨 0</button>
+    <button class="abtn" id="admSetBtn" aria-label="Настройки">⚙︎</button>
+    <button class="abtn" id="admExit">Выйти</button>
   </div>
 
   <div class="timer">
@@ -153,9 +207,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
     </div>
   </div>
 
-  <div class="bgbox">
+  <div class="bgbox" id="bgBox">
     <button class="bgplay" id="bgPlay" aria-label="Фон">▶</button>
-    <div class="bginfo">
+    <div class="bginfo" id="bgInfo">
       <div class="bgline1"><b>ФОН</b><span id="bgCount" style="color:var(--mut)">0 / 10</span></div>
       <div class="bgname" id="bgName">Нажмите ▶, чтобы включить фон</div>
       <div class="bgbar"><i id="bgBar"></i></div>
@@ -165,7 +219,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
   </div>
 
   <div class="padhead"><span>ПЭДЫ</span>
-    <div style="display:flex;gap:8px;flex:1;justify-content:flex-end">
+    <div style="display:flex;gap:6px;flex:1;justify-content:flex-end">
+      <button class="stopbtn godbtn" id="godBtn" aria-label="Режим бога">👑</button>
       <button class="stopbtn speed" id="speedBtn">⚡ ×1</button>
       <button class="stopbtn" id="speedReset">1×</button>
       <button class="stopbtn" id="stopPad">■ Стоп</button>
@@ -173,17 +228,15 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
   <div id="gridwrap"><div class="grid" id="grid"></div></div>
 </div>
 
-<!-- Окно установки и загрузки -->
+<!-- Установка и загрузка -->
 <div class="sheet" id="setup">
   <div class="card">
     <h2>Подготовка к работе офлайн</h2>
     <p>Пульт сохранится на телефоне и будет работать без интернета.</p>
-
     <div class="step" id="stepInstall">
       <h3><span class="n">1</span>Установить на экран</h3>
       <div id="installBody"></div>
     </div>
-
     <div class="step" id="stepDl">
       <h3><span class="n">2</span>Скачать треки</h3>
       <p id="dlInfo">Треков: 0</p>
@@ -191,7 +244,6 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
       <div class="prog"><i id="dlBar"></i></div>
       <div class="ptxt" id="dlTxt"></div>
     </div>
-
     <button class="big sec" id="closeSetup" style="margin-top:14px">Готово</button>
     <div class="hint">Перед мероприятием проверьте пульт в режиме полёта.</div>
   </div>
@@ -202,10 +254,102 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
   <div class="card">
     <h2>Меню</h2>
     <button class="big sec" id="mSetup">📲 Установка и загрузка треков</button>
-    <button class="big sec" id="mUpdate">🔄 Обновить треки</button>
+    <button class="big sec" id="mUpdate">🔄 Проверить обновления</button>
     <button class="big danger" id="mReset">🎬 Новая программа</button>
-    <p class="hint" id="mResetHint">«Новая программа» снимает отметки с пэдов и разрешает снова играть все фоновые треки.</p>
+    <p class="hint">«Новая программа» снимает отметки с пэдов и разрешает снова играть все фоновые треки.</p>
     <button class="big sec" id="mClose" style="margin-top:14px">Закрыть</button>
+  </div>
+</div>
+
+<!-- Пароль -->
+<div class="sheet" id="pwSheet">
+  <div class="card">
+    <h2>👑 Режим бога</h2>
+    <p>Введите пароль администратора.</p>
+    <input class="field" id="pwInput" type="password" autocomplete="current-password" placeholder="Пароль">
+    <div class="err" id="pwErr"></div>
+    <div class="row2"><button class="big sec" id="pwCancel">Отмена</button><button class="big" id="pwOk">Войти</button></div>
+  </div>
+</div>
+
+<!-- Редактор пэда -->
+<div class="sheet" id="padEd">
+  <div class="card">
+    <h2 id="peTitle">Пэд</h2>
+    <label class="lbl">Подпись</label>
+    <input class="field" id="peLabel" maxlength="40">
+    <label class="lbl">Цвет</label>
+    <div class="sw" id="peColors"></div>
+    <label class="lbl">Трек</label>
+    <div class="trk">
+      <div class="nm" id="peTrack">—</div>
+      <button class="sbtn" id="pePlay">▶</button>
+      <button class="sbtn" id="peFileBtn">🎵 Заменить</button>
+    </div>
+    <input type="file" id="peFile" accept="audio/*,.mp3,.m4a,.aac,.wav" style="display:none">
+    <div class="err" id="peErr"></div>
+    <div class="row2"><button class="big sec" id="peCancel">Отмена</button><button class="big" id="peSave">Готово</button></div>
+    <p class="hint">Изменения сразу работают на этом телефоне. На сайт и другие телефоны они попадут после «Опубликовать».</p>
+  </div>
+</div>
+
+<!-- Редактор фона -->
+<div class="sheet" id="bgEd">
+  <div class="card">
+    <h2>Фоновые треки</h2>
+    <div id="bgRows"></div>
+    <input type="file" id="bgFile" accept="audio/*,.mp3,.m4a,.aac,.wav" style="display:none">
+    <div class="err" id="bgErr"></div>
+    <div class="row2"><button class="big sec" id="bgEdCancel">Отмена</button><button class="big" id="bgEdSave">Готово</button></div>
+  </div>
+</div>
+
+<!-- Настройки режима бога -->
+<div class="sheet" id="admSet">
+  <div class="card">
+    <h2>⚙︎ Подключение к GitHub</h2>
+    <p>Репозиторий: <b id="repoName">—</b></p>
+    <label class="lbl">Ключ доступа GitHub (токен)</label>
+    <input class="field" id="tokInput" type="password" placeholder="github_pat_…" autocomplete="off">
+    <div class="err" id="tokErr"></div>
+    <div class="row2"><button class="big sec" id="tokForget">Забыть ключ</button><button class="big" id="tokSave">Проверить и сохранить</button></div>
+    <div class="step" style="margin-top:16px">
+      <h3>🎧 Пароль для диджеев</h3>
+      <p id="djPwState"></p>
+      <p class="hint">Диджеи входят по нему через 👑, меняют пэды и отправляют вам на подтверждение. Ключ GitHub им не нужен.</p>
+      <input class="field" id="djPwInput" type="text" placeholder="Новый пароль для диджеев" autocomplete="off">
+      <button class="big" id="djPwSave">Сохранить пароль диджеев</button>
+      <div class="err" id="djPwErr"></div>
+    </div>
+    <div class="step" style="margin-top:16px">
+      <h3>🧹 Очистить историю</h3>
+      <p>GitHub хранит старые версии заменённых треков. Если репозиторий разросся — очистите историю: останутся только текущие файлы.</p>
+      <p id="repoSize" class="hint"></p>
+      <button class="big danger" id="histBtn">Очистить историю</button>
+      <div class="err" id="histErr"></div>
+    </div>
+    <button class="big sec" id="admSetClose" style="margin-top:14px">Закрыть</button>
+  </div>
+</div>
+
+<!-- Отправка на подтверждение (диджей) -->
+<div class="sheet" id="sendSheet">
+  <div class="card">
+    <h2>📨 Отправить на подтверждение</h2>
+    <div id="sendList"></div>
+    <label class="lbl">Ваше имя</label>
+    <input class="field" id="sendName" maxlength="30" placeholder="Например, DJ Тимур">
+    <div class="err" id="sendErr"></div>
+    <div class="row2"><button class="big sec" id="sendCancel">Отмена</button><button class="big" id="sendOk">Отправить</button></div>
+  </div>
+</div>
+
+<!-- Входящие запросы (админ) -->
+<div class="sheet" id="inboxSheet">
+  <div class="card">
+    <h2>📨 Запросы от диджеев</h2>
+    <div id="inboxList"></div>
+    <button class="big sec" id="inboxClose" style="margin-top:14px">Закрыть</button>
   </div>
 </div>
 
@@ -217,118 +361,161 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 const C = window.PULT_CONFIG;
 const $ = id => document.getElementById(id);
 const COLORS = {red:'#ff3b5c',orange:'#ff9500',yellow:'#ffd60a',green:'#30d158',cyan:'#00d6ff',blue:'#0a84ff',purple:'#bf5af2',pink:'#ff37aa',white:'#e6e6ff'};
-const PAD_URLS = C.PADS.map(p => 'tracks/pads/' + p.file);
-const BG_URLS  = C.BACKGROUND.map(b => 'tracks/bg/' + b.file);
-const ALL_URLS = [...PAD_URLS, ...BG_URLS];
 const TRACK_CACHE = 'pult-tracks';
+const LOCAL_DATA_KEY = 'local-data.json';
 const LS = {
   get(k, d){ try { const v = localStorage.getItem('pult_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
-  set(k, v){ try { localStorage.setItem('pult_' + k, JSON.stringify(v)); } catch(e){} }
+  set(k, v){ try { localStorage.setItem('pult_' + k, JSON.stringify(v)); } catch(e){} },
+  del(k){ try { localStorage.removeItem('pult_' + k); } catch(e){} }
 };
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 const inTelegram = /Telegram/i.test(navigator.userAgent) || typeof window.TelegramWebviewProxy !== 'undefined';
 const fmt = s => { s = Math.max(0, Math.floor(s)); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60;
   return (h ? h + ':' + String(m).padStart(2,'0') : String(m).padStart(2,'0')) + ':' + String(x).padStart(2,'0'); };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2600); }
 
-$('title').textContent = C.TITLE;
-document.title = C.TITLE;
+$('title').textContent = C.TITLE; document.title = C.TITLE;
 
-function toast(msg){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2400); }
+/* ===== репозиторий ===== */
+const REPO = (() => {
+  let owner = C.GITHUB_OWNER, repo = C.GITHUB_REPO;
+  const h = location.hostname;
+  if (!owner && h.endsWith('.github.io')) owner = h.replace('.github.io', '');
+  if (!repo && h.endsWith('.github.io')) { const seg = location.pathname.split('/').filter(Boolean)[0]; repo = seg && !seg.includes('.') ? seg : owner + '.github.io'; }
+  return { owner, repo, branch: C.GITHUB_BRANCH || 'main', ok: !!(owner && repo) };
+})();
+const rawURL = path => `https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/${REPO.branch}/${path}`;
+const API = `https://api.github.com/repos/${REPO.owner}/${REPO.repo}`;
 
 /* ===== service worker ===== */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
 }
 
-/* ===== проверка громкости (на iPhone volume не меняется) ===== */
-const volSupported = (() => { const a = new Audio(); a.volume = 0.5; return Math.abs(a.volume - 0.5) < 0.01; })();
-if (!volSupported) $('bgVol').style.display = 'none';
+/* ===== данные (подписи, цвета, файлы) ===== */
+let DATA = null;
+const padPath = f => 'tracks/pads/' + f;
+const bgPath  = f => 'tracks/bg/' + f;
+function allPaths(d = DATA){ return [...d.pads.map(p => padPath(p.file)), ...d.bg.map(b => bgPath(b.file))]; }
+function defaultData(){ return { rev: 0, pads: C.PADS.map(p => ({ ...p })), bg: C.BACKGROUND.map(b => ({ ...b })) }; }
+async function readLocalData(){
+  try { const c = await caches.open(TRACK_CACHE); const r = await c.match(LOCAL_DATA_KEY); if (r) return await r.json(); } catch(e){}
+  return LS.get('data', null);
+}
+async function writeLocalData(d){
+  LS.set('data', d);
+  try { const c = await caches.open(TRACK_CACHE); await c.put(LOCAL_DATA_KEY, new Response(JSON.stringify(d), { headers: { 'Content-Type': 'application/json' } })); } catch(e){}
+}
+async function fetchRemoteData(){
+  if (!navigator.onLine) return null;
+  const tries = [];
+  if (REPO.ok) tries.push(() => fetch(API + '/contents/data.json?ref=' + REPO.branch + '&t=' + Date.now(), { headers: { Accept: 'application/vnd.github.raw+json' }, cache: 'no-store' }));
+  if (REPO.ok) tries.push(() => fetch(rawURL('data.json') + '?t=' + Date.now(), { cache: 'no-store' }));
+  tries.push(() => fetch('data.json?t=' + Date.now(), { cache: 'no-store' }));
+  for (const t of tries) {
+    try { const r = await t(); if (r.ok) { const d = await r.json(); if (d && Array.isArray(d.pads)) return d; } } catch(e){}
+  }
+  return null;
+}
 
-/* ===== кэш треков → blob-ссылки (мгновенный старт, без сети) ===== */
+/* ===== незаопубликованные изменения (режим бога) ===== */
+let PENDING = LS.get('pending', { keys: [], files: [], removed: [] });
+function savePending(){ LS.set('pending', PENDING); updatePendingUI(); }
+const isDirty = () => PENDING.keys.length > 0;
+
+/* ===== кэш треков → blob-ссылки ===== */
 const blobURL = {};
-async function prepare(url){
-  if (blobURL[url]) return blobURL[url];
+async function prepare(path){
+  if (blobURL[path]) return blobURL[path];
   try {
-    if (!('caches' in window)) return null;
-    const c = await caches.open(TRACK_CACHE);
-    const r = await c.match(url);
+    const c = await caches.open(TRACK_CACHE); const r = await c.match(path);
     if (!r) return null;
-    const b = await r.blob();
-    blobURL[url] = URL.createObjectURL(b);
-    return blobURL[url];
+    blobURL[path] = URL.createObjectURL(await r.blob());
+    return blobURL[path];
   } catch(e){ return null; }
 }
-async function prepareAll(){ for (const u of ALL_URLS) await prepare(u); refreshMissing(); }
-function srcFor(url){ return blobURL[url] || url; }
+async function prepareAll(){ for (const p of allPaths()) await prepare(p); }
+const srcFor = path => blobURL[path] || path;
 
 async function countCached(){
-  if (!('caches' in window)) return 0;
-  const c = await caches.open(TRACK_CACHE); let n = 0;
-  for (const u of ALL_URLS) if (await c.match(u)) n++;
+  try { const c = await caches.open(TRACK_CACHE); let n = 0; for (const u of allPaths()) if (await c.match(u)) n++; return n; } catch(e){ return 0; }
+}
+async function refreshBadge(extra){
+  const total = allPaths().length, n = await countCached(), b = $('badge');
+  if (extra) { b.className = 'badge warn'; b.lastChild.textContent = extra; }
+  else if (n === total) { b.className = 'badge ok'; b.lastChild.textContent = 'Офлайн готов'; }
+  else { b.className = 'badge warn'; b.lastChild.textContent = n ? `Треки ${n}/${total}` : 'Треки не скачаны'; }
+  $('dlInfo').textContent = `Треков: ${total} (пэды ${DATA.pads.length}, фон ${DATA.bg.length}). Скачано: ${n}.`;
+  $('stepDl').classList.toggle('done', n === total);
   return n;
 }
-async function refreshBadge(){
-  const n = await countCached(); const b = $('badge');
-  if (n === ALL_URLS.length) { b.className = 'badge ok'; b.lastChild.textContent = 'Офлайн готов'; }
-  else { b.className = 'badge warn'; b.lastChild.textContent = n ? `Треки ${n}/${ALL_URLS.length}` : 'Треки не скачаны'; }
-  $('dlInfo').textContent = `Треков: ${ALL_URLS.length} (пэды ${PAD_URLS.length}, фон ${BG_URLS.length}). Скачано: ${n}.`;
-  $('stepDl').classList.toggle('done', n === ALL_URLS.length);
-  return n;
+async function fetchTrack(path){
+  const urls = [];
+  if (REPO.ok) urls.push(rawURL(path));
+  urls.push(path + '?t=' + Date.now());
+  for (const u of urls) {
+    try { const r = await fetch(u, { cache: 'no-store' }); if (r.ok) return await r.blob(); } catch(e){}
+  }
+  throw new Error('нет файла ' + path);
 }
-function refreshMissing(){
-  if (navigator.onLine) { pads.forEach(p => p.el.classList.remove('missing')); return; }
-  pads.forEach((p, i) => p.el.classList.toggle('missing', !blobURL[PAD_URLS[i]]));
-}
-
 let downloading = false;
-async function downloadAll(force){
+async function downloadTracks(force, quiet){
   if (downloading) return; downloading = true;
   const btn = $('dlBtn'); btn.disabled = true;
   try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch(e){}
   let ok = 0, fail = 0, bytes = 0;
+  const paths = allPaths();
   try {
     const c = await caches.open(TRACK_CACHE);
-    for (let i = 0; i < ALL_URLS.length; i++) {
-      const u = ALL_URLS[i];
-      $('dlTxt').textContent = `Загрузка ${i + 1} из ${ALL_URLS.length}…`;
+    const pend = new Set(PENDING.files.map(f => f.path));
+    for (let i = 0; i < paths.length; i++) {
+      const u = paths[i];
+      $('dlTxt').textContent = `Загрузка ${i + 1} из ${paths.length}…`;
+      if (quiet) refreshBadge(`Загрузка ${i + 1}/${paths.length}`);
       try {
-        if (!force && await c.match(u)) { ok++; }
+        if ((!force || pend.has(u)) && await c.match(u)) { ok++; }
         else {
-          const r = await fetch(u + '?v=' + C.VERSION + '&t=' + Date.now(), { cache: 'no-store' });
-          if (!r.ok) throw new Error(r.status);
-          const blob = await r.blob(); bytes += blob.size;
-          await c.put(u, new Response(blob, { headers: { 'Content-Type': 'audio/mpeg', 'Content-Length': String(blob.size) } }));
+          const blob = await fetchTrack(u); bytes += blob.size;
+          await c.put(u, new Response(blob, { headers: { 'Content-Type': blob.type || 'audio/mpeg', 'Content-Length': String(blob.size) } }));
           if (blobURL[u]) { URL.revokeObjectURL(blobURL[u]); delete blobURL[u]; }
           ok++;
         }
       } catch(e){ fail++; }
-      $('dlBar').style.width = ((i + 1) / ALL_URLS.length * 100) + '%';
+      $('dlBar').style.width = ((i + 1) / paths.length * 100) + '%';
     }
-    LS.set('tracksVersion', C.VERSION);
     $('dlTxt').textContent = fail ? `Готово: ${ok}. Не удалось: ${fail}. Проверьте интернет и нажмите ещё раз.` :
       `✓ Все треки сохранены${bytes ? ' (' + (bytes / 1048576).toFixed(1) + ' МБ)' : ''}. Пульт работает без интернета.`;
     btn.textContent = fail ? '📥 Повторить загрузку' : '✓ Треки скачаны';
-  } catch(e){
-    $('dlTxt').textContent = 'Не получилось сохранить треки. Откройте пульт в Chrome или Safari.';
-  }
+    await cleanupCache();
+  } catch(e){ $('dlTxt').textContent = 'Не получилось сохранить треки. Откройте пульт в Chrome или Safari.'; }
   btn.disabled = false; downloading = false;
   await refreshBadge(); prepareAll();
+  return fail;
+}
+async function cleanupCache(){
+  try {
+    const keep = new Set(allPaths()); PENDING.files.forEach(f => keep.add(f.path));
+    const c = await caches.open(TRACK_CACHE);
+    for (const req of await c.keys()) {
+      const p = new URL(req.url).pathname; const idx = p.indexOf('/tracks/');
+      if (idx < 0) continue;
+      const rel = p.slice(idx + 1);
+      if (!keep.has(decodeURIComponent(rel))) { await c.delete(req); if (blobURL[rel]) { URL.revokeObjectURL(blobURL[rel]); delete blobURL[rel]; } }
+    }
+  } catch(e){}
 }
 
 /* ===== установка ===== */
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; renderInstall(); });
 window.addEventListener('appinstalled', () => { deferredPrompt = null; renderInstall(); toast('Пульт добавлен на экран'); });
-
 function renderInstall(){
   const box = $('installBody'), step = $('stepInstall');
   step.classList.toggle('done', isStandalone());
   if (isStandalone()) { box.innerHTML = '<p>✓ Пульт открыт с главного экрана.</p>'; return; }
-  if (inTelegram) {
-    box.innerHTML = '<p>Вы открыли ссылку внутри Telegram. Нажмите ⋯ вверху и выберите <b>«Открыть в браузере»</b> (Chrome или Safari), затем установите пульт оттуда.</p>';
-    return;
-  }
+  if (inTelegram) { box.innerHTML = '<p>Вы открыли ссылку внутри Telegram. Нажмите ⋯ вверху и выберите <b>«Открыть в браузере»</b> (Chrome или Safari), затем установите пульт оттуда.</p>'; return; }
   if (isIOS) {
     box.innerHTML = '<div class="ios">1. Нажмите <span class="k">Поделиться ⬆︎</span> внизу Safari<br>2. Выберите <span class="k">На экран «Домой»</span><br>3. Откройте пульт <b>с новой иконки</b> и скачайте треки там</div>' +
       '<p class="hint">На iPhone треки, скачанные во вкладке Safari, не попадают в установленный пульт — качайте после установки.</p>';
@@ -336,44 +523,41 @@ function renderInstall(){
   }
   if (deferredPrompt) {
     box.innerHTML = '<button class="big" id="instBtn">📲 Скачать и установить</button><p class="hint">Установит пульт на экран и сразу скачает все треки.</p>';
-    $('instBtn').onclick = async () => {
-      downloadAll(false);
-      try { deferredPrompt.prompt(); await deferredPrompt.userChoice; } catch(e){}
-      deferredPrompt = null; renderInstall();
-    };
+    $('instBtn').onclick = async () => { downloadTracks(false); try { deferredPrompt.prompt(); await deferredPrompt.userChoice; } catch(e){} deferredPrompt = null; renderInstall(); };
     return;
   }
   box.innerHTML = '<p>Откройте меню браузера <span class="k">⋮</span> и выберите <b>«Установить приложение»</b> или <b>«Добавить на главный экран»</b>.</p>';
 }
 function openSetup(){ renderInstall(); refreshBadge(); $('setup').classList.add('show'); }
-$('dlBtn').onclick = () => downloadAll(false);
+$('dlBtn').onclick = () => downloadTracks(false);
 $('closeSetup').onclick = () => $('setup').classList.remove('show');
 
 /* ===== меню ===== */
+let resetArmed = false;
 $('menuBtn').onclick = () => { resetArmed = false; $('mReset').textContent = '🎬 Новая программа'; $('menu').classList.add('show'); };
 $('mClose').onclick = () => $('menu').classList.remove('show');
 $('mSetup').onclick = () => { $('menu').classList.remove('show'); openSetup(); };
-$('mUpdate').onclick = () => {
-  if (!navigator.onLine) { toast('Нужен интернет для обновления'); return; }
-  $('menu').classList.remove('show'); openSetup(); downloadAll(true);
+$('mUpdate').onclick = async () => {
+  if (!navigator.onLine) { toast('Нужен интернет'); return; }
+  $('menu').classList.remove('show'); toast('Проверяю обновления…');
+  const changed = await syncRemote(true);
+  if (!changed) toast('У вас последняя версия');
 };
-let resetArmed = false;
 $('mReset').onclick = () => {
   if (!resetArmed) { resetArmed = true; $('mReset').textContent = 'Точно? Нажмите ещё раз'; return; }
   stopPad(); bgStop();
-  LS.set('padsDone', []); LS.set('bgPlayed', []); bgIndex = -1;
+  LS.set('padsDone', []); LS.set('bgPlayed', []); bgIndex = -1; doneSet.clear();
   pads.forEach(p => p.el.classList.remove('done'));
   updateBgCount(); $('bgName').textContent = 'Нажмите ▶, чтобы включить фон';
   $('menu').classList.remove('show'); toast('Новая программа: всё сброшено');
 };
-document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e => { if (e.target === s) s.classList.remove('show'); }));
+document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e => { if (e.target === s && s.id !== 'padEd' && s.id !== 'bgEd') s.classList.remove('show'); }));
 
 /* ===== не гасить экран ===== */
 let wakeLock = null;
 async function keepAwake(){
   try { if ('wakeLock' in navigator && !wakeLock && document.visibilityState === 'visible') {
-    wakeLock = await navigator.wakeLock.request('screen');
-    wakeLock.addEventListener('release', () => { wakeLock = null; });
+    wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; });
   } } catch(e){}
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
@@ -381,50 +565,90 @@ document.addEventListener('click', keepAwake, { capture: true });
 
 /* ===== аудио ===== */
 const padAudio = new Audio(); padAudio.preload = 'auto';
-const bgAudio = new Audio(); bgAudio.preload = 'auto';
+let bgAudio = new Audio(); bgAudio.preload = 'auto';
 let bgVolume = LS.get('bgVol', 70) / 100;
 $('bgVol').value = Math.round(bgVolume * 100);
 bgAudio.volume = bgVolume;
 
-/* --- приглушение фона --- */
-let ducked = false, bgPausedByDuck = false, fadeT = null;
-function fadeBg(to, ms){
-  if (!volSupported) return;
-  clearInterval(fadeT); const from = bgAudio.volume, steps = 12; let i = 0;
-  fadeT = setInterval(() => { i++; bgAudio.volume = Math.max(0, Math.min(1, from + (to - from) * i / steps)); if (i >= steps) clearInterval(fadeT); }, ms / steps);
+/* громкость фона на iPhone — через Web Audio */
+let actx = null, gainNode = null, analyser = null, gainFailed = false, gainChecked = false;
+const useGain = isIOS && !!(window.AudioContext || window.webkitAudioContext);
+function setupGain(){
+  if (!useGain || gainNode || gainFailed) return;
+  try {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = actx.createMediaElementSource(bgAudio);
+    gainNode = actx.createGain(); analyser = actx.createAnalyser(); analyser.fftSize = 512;
+    src.connect(gainNode); gainNode.connect(analyser); analyser.connect(actx.destination);
+    gainNode.gain.value = bgVolume;
+  } catch(e){ gainFailed = true; gainNode = null; }
 }
+function resumeCtx(){ if (actx && actx.state !== 'running') actx.resume().catch(() => {}); }
+document.addEventListener('click', resumeCtx, { capture: true });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') resumeCtx(); });
+function applyBgVol(){ if (gainNode) gainNode.gain.value = bgVolume; else bgAudio.volume = bgVolume; }
+let silentMs = 0;
+setInterval(() => {
+  if (!gainNode || gainChecked || bgAudio.paused || bgVolume < 0.05) { silentMs = 0; return; }
+  const buf = new Uint8Array(analyser.fftSize); analyser.getByteTimeDomainData(buf);
+  let peak = 0; for (const v of buf) peak = Math.max(peak, Math.abs(v - 128));
+  if (peak > 1) { gainChecked = true; return; }
+  silentMs += 250; if (silentMs >= 3000) fallbackPlainBg();
+}, 250);
+function fallbackPlainBg(){
+  gainFailed = true; gainChecked = true;
+  const old = bgAudio, t = old.currentTime, src = old.src, wasPlaying = !old.paused;
+  old.pause();
+  bgAudio = new Audio(); bgAudio.preload = 'auto'; bindBg(bgAudio);
+  gainNode = null; analyser = null;
+  if (src) { bgAudio.src = src; bgAudio.addEventListener('loadedmetadata', () => { try { bgAudio.currentTime = t; } catch(e){} }, { once: true }); }
+  if (wasPlaying) bgAudio.play().catch(() => {});
+  $('bgVol').style.display = 'none';
+  toast('На этом iPhone громкость фона — кнопками телефона');
+}
+
+/* пауза фона на время пэда */
+let ducked = false, bgPausedByDuck = false;
 function duck(){
   if (ducked) return; ducked = true;
   if (bgAudio.paused) return;
-  bgPausedByDuck = true;
-  bgAudio.pause();
-  bgUI();
+  bgPausedByDuck = true; bgAudio.pause(); bgUI();
 }
 function unduck(){
   if (!ducked) return; ducked = false;
-  if (!bgPausedByDuck || !C.RESUME_BACKGROUND) { if (bgPausedByDuck) { bgPausedByDuck = false; bgUI(); } return; }
+  if (!bgPausedByDuck) return;
   bgPausedByDuck = false;
+  if (C.RESUME_BACKGROUND === false) { bgUI(); return; }
   bgAudio.play().catch(() => {});
 }
 
-/* --- пэды --- */
+/* ===== пэды ===== */
 const grid = $('grid');
 const doneSet = new Set(LS.get('padsDone', []));
-const pads = C.PADS.map((p, i) => {
-  const el = document.createElement('button');
-  el.className = 'pad' + (doneSet.has(i) ? ' done' : '');
-  el.style.setProperty('--c', COLORS[p.color] || p.color || COLORS.white);
-  el.innerHTML = `<span class="led"></span><span class="num">${i + 1}</span><span class="chk">✓</span><div class="fill"></div><span class="lab"></span><span class="rem"></span>`;
-  el.querySelector('.lab').textContent = p.label;
-  el.setAttribute('aria-label', p.label);
-  el.addEventListener('pointerdown', () => el.classList.add('press'));
-  ['pointerup','pointerleave','pointercancel'].forEach(ev => el.addEventListener(ev, () => el.classList.remove('press')));
-  el.addEventListener('click', () => padPress(i));
-  grid.appendChild(el);
-  return { el, fill: el.querySelector('.fill'), rem: el.querySelector('.rem') };
-});
+let pads = [];
+function buildPads(){
+  grid.innerHTML = '';
+  pads = DATA.pads.map((p, i) => {
+    const el = document.createElement('button');
+    el.className = 'pad' + (doneSet.has(i) ? ' done' : '');
+    el.innerHTML = `<span class="led"></span><span class="num">${i + 1}</span><span class="chk">✓</span><div class="fill"></div><span class="lab"></span><span class="rem"></span><span class="dirty"></span>`;
+    el.addEventListener('pointerdown', () => el.classList.add('press'));
+    ['pointerup','pointerleave','pointercancel'].forEach(ev => el.addEventListener(ev, () => el.classList.remove('press')));
+    el.addEventListener('click', () => admin ? openPadEditor(i) : padPress(i));
+    grid.appendChild(el);
+    return { el, fill: el.querySelector('.fill'), rem: el.querySelector('.rem'), lab: el.querySelector('.lab') };
+  });
+  renderPads(); layout();
+}
+function renderPads(){
+  DATA.pads.forEach((p, i) => {
+    const P = pads[i]; if (!P) return;
+    P.el.style.setProperty('--c', COLORS[p.color] || p.color || COLORS.white);
+    P.lab.textContent = p.label; P.el.setAttribute('aria-label', p.label);
+    P.el.classList.toggle('isdirty', PENDING.keys.includes('p' + i));
+  });
+}
 let curPad = -1, raf = 0;
-
 function padPress(i){
   if (navigator.vibrate) navigator.vibrate(12);
   if (curPad === i) { stopPad(); return; }
@@ -432,29 +656,25 @@ function padPress(i){
   curPad = i;
   const p = pads[i];
   p.el.classList.add('playing'); p.fill.style.height = '0%';
-  padAudio.src = srcFor(PAD_URLS[i]);
+  padAudio.src = srcFor(padPath(DATA.pads[i].file));
   padAudio.currentTime = 0;
   setRate(padAudio, 1);
   const pr = padAudio.play();
   if (pr) pr.catch(e => { if (e && e.name === 'AbortError') return; if (curPad === i) { p.el.classList.remove('playing'); p.el.classList.add('err'); setTimeout(() => p.el.classList.remove('err'), 400); curPad = -1; unduck(); toast('Трек не найден. Скачайте треки в меню'); } });
   duck();
-  setMedia(C.PADS[i].label, 'Пэд ' + (i + 1));
+  setMedia(DATA.pads[i].label, 'Пэд ' + (i + 1));
   cancelAnimationFrame(raf); raf = requestAnimationFrame(tickPad);
 }
 function tickPad(){
   if (curPad < 0) return;
   const p = pads[curPad], d = padAudio.duration;
-  if (d && isFinite(d)) {
-    p.fill.style.height = Math.min(100, padAudio.currentTime / d * 100) + '%';
-    p.rem.textContent = '−' + fmt((d - padAudio.currentTime) / (padAudio.playbackRate || 1));
-  }
+  if (d && isFinite(d)) { p.fill.style.height = Math.min(100, padAudio.currentTime / d * 100) + '%'; p.rem.textContent = '−' + fmt((d - padAudio.currentTime) / (padAudio.playbackRate || 1)); }
   raf = requestAnimationFrame(tickPad);
 }
 function stopPad(switching){
   cancelAnimationFrame(raf);
-  if (curPad >= 0) { const p = pads[curPad]; p.el.classList.remove('playing'); p.fill.style.height = '0%'; }
-  curPad = -1;
-  padAudio.pause();
+  if (curPad >= 0 && pads[curPad]) { const p = pads[curPad]; p.el.classList.remove('playing'); p.fill.style.height = '0%'; }
+  curPad = -1; padAudio.pause();
   if (!switching) unduck();
 }
 padAudio.addEventListener('ended', () => {
@@ -467,25 +687,24 @@ padAudio.addEventListener('ended', () => {
 });
 $('stopPad').onclick = () => stopPad();
 
-/* --- фон без повторов --- */
+/* ===== фон без повторов ===== */
 let bgIndex = -1;
-function bgPlayed(){ return new Set(LS.get('bgPlayed', [])); }
-function updateBgCount(){ $('bgCount').textContent = `сыграно ${bgPlayed().size} / ${BG_URLS.length}`; }
+const bgPlayed = () => new Set(LS.get('bgPlayed', []));
+function updateBgCount(){ $('bgCount').textContent = `сыграно ${bgPlayed().size} / ${DATA.bg.length}`; }
 function pickNextBg(){
   const played = bgPlayed();
-  const left = BG_URLS.map((_, i) => i).filter(i => !played.has(i));
-  if (!left.length) return -1;
-  return left[Math.floor(Math.random() * left.length)];
+  const left = DATA.bg.map((_, i) => i).filter(i => !played.has(i));
+  return left.length ? left[Math.floor(Math.random() * left.length)] : -1;
 }
 function bgStart(i){
   bgIndex = i;
   const played = bgPlayed(); played.add(i); LS.set('bgPlayed', [...played]); updateBgCount();
-  bgAudio.src = srcFor(BG_URLS[i]); bgAudio.currentTime = 0; setRate(bgAudio, 1);
-  if (volSupported) bgAudio.volume = bgVolume;
-  $('bgName').textContent = C.BACKGROUND[i].title;
+  bgAudio.src = srcFor(bgPath(DATA.bg[i].file)); bgAudio.currentTime = 0; setRate(bgAudio, 1);
+  applyBgVol();
+  $('bgName').textContent = DATA.bg[i].title;
   if (ducked) { bgPausedByDuck = true; bgUI(); return; }
   bgAudio.play().catch(e => { if (e && e.name === 'AbortError') return; toast('Фон не найден. Скачайте треки в меню'); });
-  setMedia(C.BACKGROUND[i].title, 'Фон');
+  setMedia(DATA.bg[i].title, 'Фон');
 }
 function bgNextTrack(){
   const n = pickNextBg();
@@ -494,7 +713,9 @@ function bgNextTrack(){
 }
 function bgStop(){ bgAudio.pause(); bgPausedByDuck = false; bgUI(); }
 function bgUI(){ const on = !bgAudio.paused || bgPausedByDuck; $('bgPlay').classList.toggle('on', on); $('bgPlay').textContent = on ? '❚❚' : '▶'; }
-$('bgPlay').onclick = () => {
+$('bgPlay').onclick = e => {
+  e.stopPropagation();
+  setupGain(); resumeCtx();
   if (!bgAudio.paused || bgPausedByDuck) { bgStop(); return; }
   if (bgIndex >= 0 && bgAudio.src && bgAudio.currentTime > 0 && !bgAudio.ended) {
     if (ducked) { bgPausedByDuck = true; bgUI(); return; }
@@ -502,14 +723,17 @@ $('bgPlay').onclick = () => {
   }
   bgNextTrack();
 };
-$('bgNext').onclick = () => { bgNextTrack(); };
-bgAudio.addEventListener('ended', () => { if (!bgNextTrack()) bgUI(); });
-['play','pause','playing'].forEach(ev => bgAudio.addEventListener(ev, bgUI));
-bgAudio.addEventListener('timeupdate', () => { const d = bgAudio.duration; if (d && isFinite(d)) $('bgBar').style.width = (bgAudio.currentTime / d * 100) + '%'; });
-$('bgVol').addEventListener('input', e => { bgVolume = e.target.value / 100; LS.set("bgVol", +e.target.value); bgAudio.volume = bgVolume; });
-updateBgCount();
+$('bgNext').onclick = e => { e.stopPropagation(); setupGain(); resumeCtx(); bgNextTrack(); };
+function bindBg(a){
+  a.addEventListener('ended', () => { if (a === bgAudio && !bgNextTrack()) bgUI(); });
+  ['play','pause','playing'].forEach(ev => a.addEventListener(ev, () => { if (a === bgAudio) bgUI(); }));
+  a.addEventListener('timeupdate', () => { if (a !== bgAudio) return; const d = a.duration; if (d && isFinite(d)) $('bgBar').style.width = (a.currentTime / d * 100) + '%'; });
+}
+bindBg(bgAudio);
+$('bgVol').addEventListener('input', e => { bgVolume = e.target.value / 100; LS.set('bgVol', +e.target.value); applyBgVol(); });
+$('bgVol').addEventListener('click', e => e.stopPropagation());
 
-/* --- ускорение: действует на играющий пэд, а если пэд не играет — на фон --- */
+/* ===== ускорение ===== */
 const STEPS = C.SPEED_STEPS || [1, 1.25, 1.5, 1.75, 2];
 function setRate(a, r){
   const keep = C.SPEED_KEEP_PITCH !== false;
@@ -525,14 +749,14 @@ function speedUI(){
 $('speedBtn').onclick = () => {
   const t = speedTarget();
   if (!t) { toast('Сначала включите пэд или фон'); return; }
-  const cur = t.playbackRate, next = STEPS.find(x => x > cur + 0.001);
+  const next = STEPS.find(x => x > t.playbackRate + 0.001);
   if (next === undefined) { toast('Это максимальная скорость'); return; }
   setRate(t, next);
 };
 $('speedReset').onclick = () => { const t = speedTarget(); if (t) setRate(t, 1); };
 setInterval(speedUI, 500);
 
-/* --- экран блокировки --- */
+/* ===== экран блокировки ===== */
 function setMedia(title, artist){
   if (!('mediaSession' in navigator)) return;
   try {
@@ -544,10 +768,10 @@ function setMedia(title, artist){
   } catch(e){}
 }
 
-/* ===== таймер (не связан с треками) ===== */
+/* ===== таймер ===== */
 const T = LS.get('timer', { dur: C.TIMER_DEFAULT_MIN * 60000, rem: C.TIMER_DEFAULT_MIN * 60000, end: 0, run: false });
-function tSave(){ LS.set('timer', T); }
-function tLeft(){ return T.run ? T.end - Date.now() : T.rem; }
+const tSave = () => LS.set('timer', T);
+const tLeft = () => T.run ? T.end - Date.now() : T.rem;
 const tf = s => { s = Math.max(0, Math.floor(s)); return String(Math.floor(s / 60)).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0'); };
 function tDraw(){
   const ms = tLeft(), d = $('tdisp');
@@ -558,24 +782,19 @@ function tDraw(){
 function tAdd(min){
   const add = min * 60000;
   if (T.run) T.end += add; else { T.rem = Math.max(0, T.rem + add); T.dur = T.rem; }
-  if (!T.run && T.rem === 0) T.dur = 0;
   tSave(); tDraw();
 }
 $('tMinus').onclick = () => tAdd(-1);
 $('tPlus').onclick = () => tAdd(1);
 $('tPlus5').onclick = () => tAdd(5);
-$('tStart').onclick = () => {
-  if (T.run) { T.rem = T.end - Date.now(); T.run = false; }
-  else { T.end = Date.now() + T.rem; T.run = true; }
-  tSave(); tDraw();
-};
+$('tStart').onclick = () => { if (T.run) { T.rem = T.end - Date.now(); T.run = false; } else { T.end = Date.now() + T.rem; T.run = true; } tSave(); tDraw(); };
 $('tReset').onclick = () => { T.run = false; T.rem = T.dur || C.TIMER_DEFAULT_MIN * 60000; tSave(); tDraw(); };
 setInterval(tDraw, 250); tDraw();
 
-/* ===== размер сетки: квадратные пэды на весь экран ===== */
+/* ===== сетка ===== */
 function layout(){
   const w = $('gridwrap'), W = w.clientWidth, gap = 8;
-  const cols = C.COLUMNS || 4, rows = Math.ceil(C.PADS.length / cols);
+  const cols = C.COLUMNS || 4, rows = Math.ceil(DATA.pads.length / cols);
   const s = Math.floor((W - gap * (cols - 1)) / cols);
   const h = Math.floor(s * (C.PAD_HEIGHT || 1));
   grid.style.gap = gap + 'px';
@@ -583,20 +802,554 @@ function layout(){
   grid.style.gridTemplateRows = `repeat(${rows}, ${h}px)`;
   grid.style.setProperty('--fs', Math.max(12, Math.min(18, Math.min(s, h) * 0.165)) + 'px');
 }
-window.addEventListener('resize', layout);
-window.addEventListener('orientationchange', () => setTimeout(layout, 300));
-layout();
+window.addEventListener('resize', () => DATA && layout());
+window.addEventListener('orientationchange', () => setTimeout(() => DATA && layout(), 300));
+
+/* ===================================================================
+   РЕЖИМ БОГА
+   =================================================================== */
+let role = sessionStorage.getItem('pult_role') || '';   // 'admin' | 'dj' | ''
+let admin = !!role;
+function setRole(r){
+  role = r; admin = !!r; sessionStorage.setItem('pult_role', r);
+  if (!r) sessionStorage.removeItem('pult_djtok');
+  document.body.classList.toggle('admin', admin); document.body.classList.toggle('dj', r === 'dj');
+  $('godBtn').classList.toggle('on', admin);
+  $('modeTitle').textContent = r === 'dj' ? '🎧 РЕЖИМ ДИДЖЕЯ' : '👑 РЕЖИМ БОГА';
+  $('pubBtn').textContent = r === 'dj' ? '📨 Отправить' : '⬆︎ Опубл.';
+  $('admSetBtn').style.display = r === 'admin' ? '' : 'none';
+  $('inboxBtn').style.display = r === 'admin' ? '' : 'none';
+  if (admin) stopPad();
+  updatePendingUI();
+  if (r === 'admin') checkInbox(false);
+}
+const setAdmin = on => setRole(on ? 'admin' : '');
+async function sha256(t){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+/* шифрование ключа паролем диджея (AES-GCM, ключ из пароля через PBKDF2) */
+const b64e = u8 => btoa(String.fromCharCode(...u8));
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function deriveKey(pw, salt){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 200000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function encryptToken(token, pw){
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await deriveKey(pw, salt), new TextEncoder().encode(token));
+  return { salt: b64e(salt), iv: b64e(iv), ct: b64e(new Uint8Array(ct)) };
+}
+async function decryptToken(enc, pw){
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(enc.iv) }, await deriveKey(pw, b64d(enc.salt)), b64d(enc.ct));
+  return new TextDecoder().decode(pt);
+}
+$('godBtn').onclick = () => {
+  if (admin) { exitMode(); return; }
+  $('pwInput').value = ''; $('pwErr').textContent = ''; $('pwSheet').classList.add('show');
+  setTimeout(() => $('pwInput').focus(), 100);
+};
+function exitMode(){
+  if (isDirty() && !confirmExitArmed) { confirmExitArmed = true; toast('Есть неотправленные изменения. Нажмите «Выйти» ещё раз'); setTimeout(() => confirmExitArmed = false, 4000); return; }
+  confirmExitArmed = false; const was = role; setRole('');
+  toast(was === 'dj' ? 'Режим диджея выключен' : 'Режим бога выключен');
+}
+let confirmExitArmed = false;
+$('pwCancel').onclick = () => $('pwSheet').classList.remove('show');
+async function tryLogin(){
+  const pw = $('pwInput').value;
+  try {
+    if (await sha256(pw) === C.ADMIN_PASSWORD_HASH) {
+      $('pwSheet').classList.remove('show'); setRole('admin');
+      toast(getToken() ? 'Режим бога включён' : 'Режим бога. Подключите GitHub в ⚙︎');
+      return;
+    }
+    if (DATA.dj && DATA.dj.ct) {
+      $('pwErr').textContent = 'Проверяю…';
+      try {
+        const tok = await decryptToken(DATA.dj, pw);
+        sessionStorage.setItem('pult_djtok', tok);
+        $('pwSheet').classList.remove('show'); setRole('dj');
+        toast('Режим диджея. Меняйте пэды и нажмите «📨 Отправить»');
+        return;
+      } catch(e){}
+    }
+    $('pwErr').textContent = 'Неверный пароль';
+  } catch(e){ $('pwErr').textContent = 'Вход доступен только с сайта (https)'; }
+}
+$('pwOk').onclick = tryLogin;
+$('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+$('admExit').onclick = exitMode;
+
+function updatePendingUI(){
+  const n = PENDING.keys.length;
+  $('pendTxt').textContent = n ? (role === 'dj' ? `Изменений: ${n}` : `Не опубликовано: ${n}`) : 'Нажмите пэд или фон, чтобы изменить';
+  $('pubBtn').disabled = !n;
+  if (pads.length) renderPads();
+}
+
+/* --- выбор трека с телефона --- */
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+function extOf(file){
+  const m = /\.([a-z0-9]{2,4})$/i.exec(file.name || ''); if (m) return m[1].toLowerCase();
+  if (/mp4|m4a|aac/.test(file.type)) return 'm4a'; if (/wav/.test(file.type)) return 'wav'; return 'mp3';
+}
+async function storeLocalTrack(path, file){
+  const c = await caches.open(TRACK_CACHE);
+  await c.put(path, new Response(file, { headers: { 'Content-Type': file.type || 'audio/mpeg', 'Content-Length': String(file.size) } }));
+  if (blobURL[path]) { URL.revokeObjectURL(blobURL[path]); delete blobURL[path]; }
+  await prepare(path);
+}
+function addPending(key, newPath, oldPath){
+  if (!PENDING.keys.includes(key)) PENDING.keys.push(key);
+  if (newPath) {
+    const prev = PENDING.files.find(f => f.key === key);
+    if (prev) { PENDING.files = PENDING.files.filter(f => f.key !== key); oldPath = prev.oldPath; caches.open(TRACK_CACHE).then(c => c.delete(prev.path)); }
+    PENDING.files.push({ key, path: newPath, oldPath });
+  }
+  savePending();
+}
+
+/* --- редактор пэда --- */
+let edIdx = -1, edColor = 'red', edFile = null;
+const preview = new Audio();
+function stopPreview(){ preview.pause(); $('pePlay').textContent = '▶'; }
+preview.addEventListener('ended', stopPreview);
+function openPadEditor(i){
+  edIdx = i; edFile = null; const p = DATA.pads[i];
+  $('peTitle').textContent = 'Пэд ' + (i + 1);
+  $('peLabel').value = p.label; edColor = p.color; $('peErr').textContent = '';
+  const sw = $('peColors'); sw.innerHTML = '';
+  Object.entries(COLORS).forEach(([k, v]) => {
+    const b = document.createElement('button'); b.style.background = v; b.style.color = v; b.setAttribute('aria-label', k);
+    if (k === edColor) b.classList.add('sel');
+    b.onclick = () => { edColor = k; sw.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); };
+    sw.appendChild(b);
+  });
+  $('peTrack').innerHTML = `${p.file}<small>текущий трек</small>`;
+  stopPreview(); $('padEd').classList.add('show');
+}
+$('pePlay').onclick = async () => {
+  if (!preview.paused) { stopPreview(); return; }
+  preview.src = edFile ? URL.createObjectURL(edFile) : srcFor(padPath(DATA.pads[edIdx].file));
+  preview.play().then(() => $('pePlay').textContent = '■').catch(() => $('peErr').textContent = 'Не удалось воспроизвести');
+};
+$('peFileBtn').onclick = () => $('peFile').click();
+$('peFile').onchange = e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  if (f.size > 95 * 1048576) { $('peErr').textContent = 'Файл больше 95 МБ — GitHub его не примет'; return; }
+  edFile = f; stopPreview();
+  $('peTrack').innerHTML = `${f.name}<small>новый трек · ${(f.size / 1048576).toFixed(1)} МБ</small>`;
+};
+$('peCancel').onclick = () => { stopPreview(); $('padEd').classList.remove('show'); };
+$('peSave').onclick = async () => {
+  stopPreview();
+  const p = DATA.pads[edIdx], label = $('peLabel').value.trim() || p.label;
+  const changed = label !== p.label || edColor !== p.color || edFile;
+  if (!changed) { $('padEd').classList.remove('show'); return; }
+  $('peSave').disabled = true;
+  try {
+    let newPath = null, oldPath = padPath(p.file);
+    if (edFile) {
+      const nf = String(edIdx + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(edFile);
+      newPath = padPath(nf); await storeLocalTrack(newPath, edFile); p.file = nf;
+    }
+    p.label = label; p.color = edColor;
+    await writeLocalData(DATA);
+    addPending('p' + edIdx, newPath, oldPath);
+    renderPads();
+    $('padEd').classList.remove('show'); toast(role === 'dj' ? 'Сохранено. Когда закончите — «📨 Отправить»' : 'Сохранено на телефоне. Не забудьте «Опубликовать»');
+  } catch(e){ $('peErr').textContent = 'Не удалось сохранить: ' + e.message; }
+  $('peSave').disabled = false;
+};
+
+/* --- редактор фона --- */
+let bgEdFiles = {}, bgPickIdx = -1;
+$('bgBox').addEventListener('click', () => { if (admin) openBgEditor(); });
+function openBgEditor(){
+  bgEdFiles = {}; $('bgErr').textContent = '';
+  const rows = $('bgRows'); rows.innerHTML = '';
+  DATA.bg.forEach((b, i) => {
+    const r = document.createElement('div'); r.className = 'bgrow';
+    r.innerHTML = `<input class="field" maxlength="40"><button class="sbtn">🎵</button>`;
+    r.querySelector('input').value = b.title;
+    r.querySelector('button').onclick = () => { bgPickIdx = i; $('bgFile').click(); };
+    rows.appendChild(r);
+  });
+  $('bgEd').classList.add('show');
+}
+$('bgFile').onchange = e => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f || bgPickIdx < 0) return;
+  if (f.size > 95 * 1048576) { $('bgErr').textContent = 'Файл больше 95 МБ — GitHub его не примет'; return; }
+  bgEdFiles[bgPickIdx] = f;
+  const btn = $('bgRows').children[bgPickIdx].querySelector('button'); btn.textContent = '✓ ' + (f.size / 1048576).toFixed(1) + ' МБ';
+  const inp = $('bgRows').children[bgPickIdx].querySelector('input');
+  if (/^Фон \d+$/.test(inp.value)) inp.value = f.name.replace(/\.[^.]+$/, '').slice(0, 40);
+};
+$('bgEdCancel').onclick = () => $('bgEd').classList.remove('show');
+$('bgEdSave').onclick = async () => {
+  $('bgEdSave').disabled = true;
+  try {
+    const rows = [...$('bgRows').children];
+    for (let i = 0; i < DATA.bg.length; i++) {
+      const b = DATA.bg[i], title = rows[i].querySelector('input').value.trim() || b.title, f = bgEdFiles[i];
+      if (title === b.title && !f) continue;
+      let newPath = null, oldPath = bgPath(b.file);
+      if (f) { const nf = String(i + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(f); newPath = bgPath(nf); await storeLocalTrack(newPath, f); b.file = nf; }
+      b.title = title;
+      addPending('b' + i, newPath, oldPath);
+    }
+    await writeLocalData(DATA);
+    if (bgIndex >= 0) $('bgName').textContent = DATA.bg[bgIndex].title;
+    $('bgEd').classList.remove('show'); toast(role === 'dj' ? 'Сохранено. Когда закончите — «📨 Отправить»' : 'Сохранено на телефоне. Не забудьте «Опубликовать»');
+  } catch(e){ $('bgErr').textContent = 'Не удалось сохранить: ' + e.message; }
+  $('bgEdSave').disabled = false;
+};
+
+/* --- GitHub --- */
+const getToken = () => role === 'dj' ? (sessionStorage.getItem('pult_djtok') || '') : LS.get('ghToken', '');
+async function gh(path, opts = {}){
+  const r = await fetch(API + path, { ...opts, cache: 'no-store', headers: { Authorization: 'Bearer ' + getToken(), Accept: 'application/vnd.github+json', ...(opts.body ? { 'Content-Type': 'application/json' } : {}) } });
+  if (!r.ok) { let m = ''; try { m = (await r.json()).message; } catch(e){} const er = new Error(r.status + (m ? ' ' + m : '')); er.status = r.status; throw er; }
+  return r.status === 204 ? null : r.json();
+}
+const post = (path, body) => gh(path, { method: 'POST', body: JSON.stringify(body) });
+function blobToB64(blob){
+  return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.onerror = rej; fr.readAsDataURL(blob); });
+}
+async function uploadBlob(blob){ return (await post('/git/blobs', { content: await blobToB64(blob), encoding: 'base64' })).sha; }
+async function readDataAt(sha){
+  try {
+    const f = await gh(`/contents/data.json?ref=${sha}`);
+    const bin = Uint8Array.from(atob(String(f.content).replace(/\n/g, '')), ch => ch.charCodeAt(0));
+    const d = JSON.parse(new TextDecoder().decode(bin));
+    return d && Array.isArray(d.pads) ? d : null;
+  } catch(e){ return null; }
+}
+
+/* общий коммит в основную ветку: берём актуальный data.json и накладываем изменения */
+async function commitMain({ files = [], patch, message, say = () => {} }){
+  const ref = await gh(`/git/ref/heads/${REPO.branch}`);
+  const headSha = ref.object.sha, head = await gh(`/git/commits/${headSha}`);
+  const c = await caches.open(TRACK_CACHE), tree = [];
+  for (let k = 0; k < files.length; k++) {
+    const f = files[k];
+    if (f.sha) { tree.push({ path: f.path, mode: '100644', type: 'blob', sha: f.sha }); continue; }
+    say(`трек ${k + 1} из ${files.length}…`);
+    const r = await c.match(f.cachePath || f.path); if (!r) throw new Error('нет файла на телефоне: ' + f.path);
+    tree.push({ path: f.path, mode: '100644', type: 'blob', sha: await uploadBlob(await r.blob()) });
+  }
+  say('сохраняю список…');
+  const merged = (await readDataAt(headSha)) || JSON.parse(JSON.stringify(DATA));
+  const oldPaths = [];
+  patch(merged, oldPaths);
+  merged.rev = Math.max(merged.rev || 0, DATA.rev || 0) + 1; merged.updated = new Date().toISOString();
+  tree.push({ path: 'data.json', mode: '100644', type: 'blob', content: JSON.stringify(merged, null, 1) });
+  let treeSha = (await post('/git/trees', { base_tree: head.tree.sha, tree })).sha;
+  const used = new Set(allPaths(merged));
+  const dels = [...new Set(oldPaths)].filter(p => p && !used.has(p));
+  if (dels.length) {
+    const full = await gh(`/git/trees/${treeSha}?recursive=1`);
+    const exist = new Set(full.tree.map(t => t.path));
+    const del = dels.filter(p => exist.has(p)).map(p => ({ path: p, mode: '100644', type: 'blob', sha: null }));
+    if (del.length) treeSha = (await post('/git/trees', { base_tree: treeSha, tree: del })).sha;
+  }
+  const commit = await post('/git/commits', { message, tree: treeSha, parents: [headSha] });
+  await gh(`/git/refs/heads/${REPO.branch}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+  return merged;
+}
+const slotPath = (key, item) => key[0] === 'p' ? padPath(item.file) : bgPath(item.file);
+function copySlot(merged, key, item, oldPaths){
+  const i = +key.slice(1), arr = key[0] === 'p' ? merged.pads : merged.bg;
+  if (arr[i]) oldPaths.push(slotPath(key, arr[i]));
+  arr[i] = { ...item };
+}
+
+/* --- настройки --- */
+$('admSetBtn').onclick = async () => {
+  $('repoName').textContent = REPO.ok ? `${REPO.owner}/${REPO.repo}` : 'не определён (откройте пульт с сайта)';
+  $('tokInput').value = getToken(); $('tokErr').textContent = ''; $('histErr').textContent = ''; $('repoSize').textContent = '';
+  $('djPwInput').value = ''; $('djPwErr').textContent = '';
+  $('djPwState').textContent = DATA.dj && DATA.dj.ct ? 'Пароль для диджеев задан. Можно задать новый.' : 'Пароль для диджеев ещё не задан.';
+  $('admSet').classList.add('show');
+  if (getToken() && navigator.onLine) { try { const r = await gh(''); $('repoSize').textContent = `Размер репозитория: ~${Math.round(r.size / 1024)} МБ` + (r.size > 700 * 1024 ? ' — пора очистить историю' : ''); } catch(e){} }
+};
+$('admSetClose').onclick = () => $('admSet').classList.remove('show');
+$('tokForget').onclick = () => { LS.del('ghToken'); $('tokInput').value = ''; $('tokErr').textContent = 'Ключ удалён с телефона'; };
+$('tokSave').onclick = async () => {
+  const t = $('tokInput').value.trim(); if (!t) { $('tokErr').textContent = 'Вставьте ключ'; return; }
+  LS.set('ghToken', t); $('tokErr').textContent = 'Проверяю…';
+  try {
+    const r = await gh('');
+    if (!r.permissions || !r.permissions.push) throw new Error('у ключа нет права записи (Contents: Read and write)');
+    $('tokErr').innerHTML = '<span class="okt">✓ Ключ работает. Теперь задайте пароль для диджеев ниже.</span>';
+    $('repoSize').textContent = `Размер репозитория: ~${Math.round(r.size / 1024)} МБ`;
+  } catch(e){ $('tokErr').textContent = 'Ключ не подошёл: ' + e.message; }
+};
+$('djPwSave').onclick = async () => {
+  const pw = $('djPwInput').value;
+  if (pw.length < 6) { $('djPwErr').textContent = 'Минимум 6 символов'; return; }
+  if (await sha256(pw) === C.ADMIN_PASSWORD_HASH) { $('djPwErr').textContent = 'Пароль диджея должен отличаться от вашего'; return; }
+  if (!LS.get('ghToken', '')) { $('djPwErr').textContent = 'Сначала сохраните ключ выше'; return; }
+  if (!navigator.onLine) { $('djPwErr').textContent = 'Нужен интернет'; return; }
+  $('djPwSave').disabled = true; $('djPwErr').textContent = 'Сохраняю…';
+  try {
+    const enc = await encryptToken(LS.get('ghToken', ''), pw);
+    const merged = await commitMain({ message: 'Пульт: пароль для диджеев', patch: m => { m.dj = enc; } });
+    if (!isDirty()) { await writeLocalData(merged); applyData(merged); } else { DATA.dj = enc; await writeLocalData(DATA); }
+    $('djPwErr').innerHTML = '<span class="okt">✓ Готово. Сообщите этот пароль диджеям.</span>';
+    $('djPwState').textContent = 'Пароль для диджеев задан.';
+  } catch(e){ $('djPwErr').textContent = 'Не получилось: ' + e.message; }
+  $('djPwSave').disabled = false;
+};
+
+/* --- публикация (админ) --- */
+let publishing = false;
+$('pubBtn').onclick = () => {
+  if (!isDirty() || publishing) return;
+  if (role === 'dj') openSend(); else publishMain();
+};
+async function publishMain(){
+  if (!navigator.onLine) { toast('Нужен интернет для публикации'); return; }
+  if (!getToken()) { toast('Сначала подключите GitHub в ⚙︎'); $('admSetBtn').click(); return; }
+  publishing = true; $('pubBtn').disabled = true;
+  const say = t => $('pendTxt').textContent = 'Публикация: ' + t;
+  try {
+    const files = PENDING.files.map(f => ({ path: f.path }));
+    const keys = [...PENDING.keys];
+    const merged = await commitMain({ files, say, message: 'Пульт: изменения из режима бога (' + keys.length + ')',
+      patch: (m, oldPaths) => {
+        PENDING.files.forEach(f => oldPaths.push(f.oldPath));
+        keys.forEach(k => copySlot(m, k, k[0] === 'p' ? DATA.pads[+k.slice(1)] : DATA.bg[+k.slice(1)], oldPaths));
+      } });
+    PENDING = { keys: [], files: [], removed: [] };
+    await writeLocalData(merged); applyData(merged); savePending();
+    toast('✓ Опубликовано. На других телефонах — через 1–5 минут');
+    downloadTracks(false, true);
+  } catch(e){ toast('Ошибка публикации: ' + e.message); }
+  publishing = false; updatePendingUI();
+}
+
+/* --- отправка на подтверждение (диджей) --- */
+function describeChange(key, item, hasTrack){
+  const i = +key.slice(1);
+  return (key[0] === 'p' ? `Пэд ${i + 1}` : `Фон ${i + 1}`) + ` → «${key[0] === 'p' ? item.label : item.title}»` + (hasTrack ? ' · 🎵 новый трек' : '');
+}
+function openSend(){
+  $('sendName').value = LS.get('djName', '');
+  $('sendList').innerHTML = PENDING.keys.map(k => {
+    const i = +k.slice(1), item = k[0] === 'p' ? DATA.pads[i] : DATA.bg[i];
+    return '<div class="chg">' + describeChange(k, item, PENDING.files.some(f => f.key === k)).replace(/</g, '&lt;') + '</div>';
+  }).join('');
+  $('sendErr').textContent = ''; $('sendSheet').classList.add('show');
+}
+$('sendCancel').onclick = () => $('sendSheet').classList.remove('show');
+$('sendOk').onclick = async () => {
+  const name = $('sendName').value.trim();
+  if (!name) { $('sendErr').textContent = 'Напишите своё имя — администратор увидит, от кого запрос'; return; }
+  if (!navigator.onLine) { $('sendErr').textContent = 'Нужен интернет. Изменения сохранены — отправьте позже'; return; }
+  LS.set('djName', name);
+  publishing = true; $('sendOk').disabled = true;
+  const say = t => $('sendErr').textContent = t;
+  try {
+    say('Подготовка…');
+    let inboxSha;
+    try { inboxSha = (await gh('/git/ref/heads/inbox')).object.sha; }
+    catch(e){
+      if (e.status !== 404) throw e;
+      const main = (await gh(`/git/ref/heads/${REPO.branch}`)).object.sha;
+      await post('/git/refs', { ref: 'refs/heads/inbox', sha: main }); inboxSha = main;
+    }
+    const base = await gh(`/git/commits/${inboxSha}`);
+    const id = new Date().toISOString().slice(0, 10) + '-' + uid();
+    const c = await caches.open(TRACK_CACHE), tree = [], changes = [];
+    for (let n = 0; n < PENDING.keys.length; n++) {
+      const key = PENDING.keys[n], i = +key.slice(1), item = key[0] === 'p' ? DATA.pads[i] : DATA.bg[i];
+      const pf = PENDING.files.find(f => f.key === key); let src = null;
+      if (pf) {
+        say(`Отправка трека ${n + 1}…`);
+        const r = await c.match(pf.path); if (!r) throw new Error('нет файла на телефоне');
+        src = `inbox/${id}/${pf.path.split('/').pop()}`;
+        tree.push({ path: src, mode: '100644', type: 'blob', sha: await uploadBlob(await r.blob()) });
+      }
+      changes.push({ key, item: { ...item }, src });
+    }
+    tree.push({ path: `inbox/${id}/request.json`, mode: '100644', type: 'blob', content: JSON.stringify({ id, from: name, date: new Date().toISOString(), changes }, null, 1) });
+    const t = await post('/git/trees', { base_tree: base.tree.sha, tree });
+    const commit = await post('/git/commits', { message: `Запрос от ${name}`, tree: t.sha, parents: [inboxSha] });
+    await gh('/git/refs/heads/inbox', { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+    // вернуть телефон диджея к официальной версии — изменения появятся после подтверждения
+    PENDING = { keys: [], files: [], removed: [] }; savePending();
+    const remote = await fetchRemoteData();
+    if (remote) { await writeLocalData(remote); applyData(remote); await cleanupCache(); }
+    $('sendSheet').classList.remove('show');
+    toast('📨 Отправлено. Изменения появятся у всех после подтверждения');
+  } catch(e){ say('Не получилось отправить: ' + e.message); }
+  publishing = false; $('sendOk').disabled = false; updatePendingUI();
+};
+
+/* --- входящие запросы (админ) --- */
+let INBOX = [], inboxTree = {};
+async function checkInbox(manual){
+  if (!LS.get('ghToken', '') || !navigator.onLine || !REPO.ok) return;
+  const savedRole = role; if (role === 'dj') return;
+  try {
+    let ref;
+    try { ref = await gh('/git/ref/heads/inbox'); } catch(e){ if (e.status === 404) { INBOX = []; renderInboxBadge(); if (manual) toast('Новых запросов нет'); return; } throw e; }
+    const tree = await gh(`/git/trees/${(await gh(`/git/commits/${ref.object.sha}`)).tree.sha}?recursive=1`);
+    inboxTree = {}; tree.tree.forEach(t => inboxTree[t.path] = t.sha);
+    const reqPaths = tree.tree.map(t => t.path).filter(p => /^inbox\/[^/]+\/request\.json$/.test(p));
+    const list = [];
+    for (const p of reqPaths) {
+      try {
+        const f = await gh(`/git/blobs/${inboxTree[p]}`);
+        const bin = Uint8Array.from(atob(String(f.content).replace(/\n/g, '')), ch => ch.charCodeAt(0));
+        list.push(JSON.parse(new TextDecoder().decode(bin)));
+      } catch(e){}
+    }
+    INBOX = list.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    renderInboxBadge();
+    if (INBOX.length && !manual && savedRole !== 'admin') toast(`📨 Новых запросов: ${INBOX.length}. Войдите в 👑`);
+    if (manual && !INBOX.length) toast('Новых запросов нет');
+  } catch(e){ if (manual) toast('Не удалось проверить запросы: ' + e.message); }
+}
+function renderInboxBadge(){
+  $('inboxBtn').textContent = '📨 ' + INBOX.length;
+  $('inboxBtn').classList.toggle('pub', INBOX.length > 0);
+  $('godBtn').classList.toggle('hasinbox', INBOX.length > 0);
+}
+$('inboxBtn').onclick = async () => { await checkInbox(true); renderInbox(); $('inboxSheet').classList.add('show'); };
+$('inboxClose').onclick = () => { reqPreview.pause(); $('inboxSheet').classList.remove('show'); };
+const reqPreview = new Audio();
+function renderInbox(){
+  const box = $('inboxList'); box.innerHTML = '';
+  if (!INBOX.length) { box.innerHTML = '<p>Запросов нет.</p>'; return; }
+  INBOX.forEach(req => {
+    const d = document.createElement('div'); d.className = 'req';
+    const when = new Date(req.date).toLocaleString('ru-RU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    d.innerHTML = `<div class="rh"><b></b><span>${when}</span></div><div class="rc"></div>
+      <div class="row2"><button class="big danger rej">✕ Отклонить</button><button class="big acc">✓ Принять</button></div><div class="err"></div>`;
+    d.querySelector('b').textContent = 'От: ' + req.from;
+    const rc = d.querySelector('.rc');
+    req.changes.forEach(ch => {
+      const line = document.createElement('div'); line.className = 'chg';
+      line.textContent = describeChange(ch.key, ch.item, !!ch.src);
+      if (ch.src) {
+        const pb = document.createElement('button'); pb.className = 'sbtn'; pb.textContent = '▶'; pb.style.marginLeft = '8px';
+        pb.onclick = () => {
+          if (!reqPreview.paused && reqPreview.dataset.src === ch.src) { reqPreview.pause(); pb.textContent = '▶'; return; }
+          rc.querySelectorAll('.sbtn').forEach(x => x.textContent = '▶');
+          reqPreview.src = `https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/inbox/${ch.src}`; reqPreview.dataset.src = ch.src;
+          reqPreview.play().then(() => pb.textContent = '■').catch(() => toast('Не удалось воспроизвести'));
+        };
+        line.appendChild(pb);
+      }
+      rc.appendChild(line);
+    });
+    const err = d.querySelector('.err');
+    d.querySelector('.acc').onclick = async e => { e.target.disabled = true; await acceptRequest(req, err); e.target.disabled = false; };
+    d.querySelector('.rej').onclick = async e => {
+      if (!e.target.dataset.armed) { e.target.dataset.armed = '1'; e.target.textContent = 'Точно отклонить?'; return; }
+      e.target.disabled = true; err.textContent = 'Удаляю…';
+      try { await removeRequest(req); INBOX = INBOX.filter(r => r !== req); renderInboxBadge(); renderInbox(); toast('Запрос отклонён'); }
+      catch(x){ err.textContent = 'Не получилось: ' + x.message; e.target.disabled = false; }
+    };
+    box.appendChild(d);
+  });
+}
+async function acceptRequest(req, err){
+  if (isDirty()) { err.textContent = 'Сначала опубликуйте свои изменения (⬆︎ Опубл.)'; return; }
+  if (!navigator.onLine) { err.textContent = 'Нужен интернет'; return; }
+  reqPreview.pause();
+  try {
+    const c = await caches.open(TRACK_CACHE), files = [];
+    for (const ch of req.changes) {
+      if (!ch.src) continue;
+      const finalPath = slotPath(ch.key, ch.item), sha = inboxTree[ch.src];
+      if (!sha) throw new Error('трек из запроса не найден');
+      files.push({ path: finalPath, sha });
+      err.textContent = 'Скачиваю трек на телефон…';
+      try {
+        const r = await fetch(`https://raw.githubusercontent.com/${REPO.owner}/${REPO.repo}/inbox/${ch.src}`, { cache: 'no-store' });
+        if (r.ok) { const b = await r.blob(); await c.put(finalPath, new Response(b, { headers: { 'Content-Type': b.type || 'audio/mpeg' } })); }
+      } catch(e){}
+    }
+    err.textContent = 'Публикую…';
+    const merged = await commitMain({ files, message: `Пульт: принят запрос от ${req.from}`,
+      patch: (m, oldPaths) => req.changes.forEach(ch => copySlot(m, ch.key, ch.item, oldPaths)) });
+    await writeLocalData(merged); applyData(merged);
+    err.textContent = 'Убираю из входящих…';
+    await removeRequest(req);
+    INBOX = INBOX.filter(r => r !== req); renderInboxBadge(); renderInbox();
+    toast(`✓ Принято и опубликовано (${req.from})`);
+    downloadTracks(false, true);
+  } catch(e){ err.textContent = 'Не получилось: ' + e.message; }
+}
+async function removeRequest(req){
+  const ref = await gh('/git/ref/heads/inbox');
+  const rest = INBOX.filter(r => r !== req);
+  if (!rest.length) { await gh('/git/refs/heads/inbox', { method: 'DELETE' }); return; }
+  const head = await gh(`/git/commits/${ref.object.sha}`);
+  const del = Object.keys(inboxTree).filter(p => p.startsWith(`inbox/${req.id}/`)).map(p => ({ path: p, mode: '100644', type: 'blob', sha: null }));
+  const t = await post('/git/trees', { base_tree: head.tree.sha, tree: del });
+  const commit = await post('/git/commits', { message: `Запрос ${req.id} обработан`, tree: t.sha, parents: [ref.object.sha] });
+  await gh('/git/refs/heads/inbox', { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+}
+
+let histArmed = false;
+$('histBtn').onclick = async () => {
+  if (!getToken()) { $('histErr').textContent = 'Сначала сохраните ключ'; return; }
+  if (isDirty()) { $('histErr').textContent = 'Сначала опубликуйте изменения'; return; }
+  if (!histArmed) { histArmed = true; $('histBtn').textContent = 'Точно? Нажмите ещё раз'; return; }
+  histArmed = false; $('histBtn').disabled = true; $('histErr').textContent = 'Очищаю…';
+  try {
+    const ref = await gh(`/git/ref/heads/${REPO.branch}`);
+    const head = await gh(`/git/commits/${ref.object.sha}`);
+    const commit = await post('/git/commits', { message: 'Пульт: очистка истории', tree: head.tree.sha, parents: [] });
+    await gh(`/git/refs/heads/${REPO.branch}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: true }) });
+    $('histErr').innerHTML = '<span class="okt">✓ История очищена. Размер уменьшится в течение суток.</span>';
+  } catch(e){ $('histErr').textContent = 'Не получилось: ' + e.message; }
+  $('histBtn').disabled = false; $('histBtn').textContent = 'Очистить историю';
+};
+
+/* ===== синхронизация с сайтом ===== */
+function applyData(d){
+  const oldBgLen = DATA ? DATA.bg.length : 0;
+  DATA = d;
+  if (pads.length !== DATA.pads.length) buildPads(); else renderPads();
+  if (oldBgLen && oldBgLen !== DATA.bg.length) LS.set('bgPlayed', []);
+  updateBgCount();
+  if (bgIndex >= 0 && DATA.bg[bgIndex]) $('bgName').textContent = DATA.bg[bgIndex].title;
+}
+async function syncRemote(manual){
+  if (isDirty()) { if (manual) toast('Есть неопубликованные изменения — сначала «Опубликовать»'); return false; }
+  const remote = await fetchRemoteData();
+  if (!remote) { if (manual) toast('Не удалось проверить обновления'); return false; }
+  const same = JSON.stringify({ p: remote.pads, b: remote.bg }) === JSON.stringify({ p: DATA.pads, b: DATA.bg });
+  if (!same && (remote.rev || 0) < (DATA.rev || 0)) { if (manual) toast('Сайт ещё обновляется, попробуйте через пару минут'); return false; }
+  if (same) { await refreshBadge(); const n = await countCached(); if (n < allPaths().length) await downloadTracks(false, true); return false; }
+  await writeLocalData(remote);
+  applyData(remote);
+  toast('Найдено обновление — докачиваю треки');
+  await downloadTracks(false, true);
+  toast('✓ Пульт обновлён');
+  return true;
+}
 
 /* ===== старт ===== */
-window.addEventListener('online', refreshMissing);
-window.addEventListener('offline', refreshMissing);
 (async () => {
+  DATA = (await readLocalData()) || null;
+  if (!DATA) {
+    DATA = (await fetchRemoteData()) || defaultData();
+    await writeLocalData(DATA);
+  }
+  buildPads(); updateBgCount(); setRole(role);
   const n = await refreshBadge();
-  const outdated = LS.get('tracksVersion', 0) !== C.VERSION && n > 0 && navigator.onLine;
-  if (n < ALL_URLS.length || (isIOS && !isStandalone() && !LS.get('setupSeen', false))) { LS.set('setupSeen', true); openSetup(); }
-  if (outdated) toast('Есть обновление треков: Меню → Обновить треки');
+  if (n < allPaths().length || (isIOS && !isStandalone() && !LS.get('setupSeen', false))) { LS.set('setupSeen', true); openSetup(); }
   prepareAll();
+  if (navigator.onLine) { syncRemote(false); if (role !== 'admin') checkInbox(false); }
 })();
+window.addEventListener('online', () => syncRemote(false));
 })();
 </script>
 </body>
