@@ -1,6 +1,6 @@
 {
- "rev": 4,
- "updated": "2026-11-12T08:22:57.831Z",
+ "rev": 5,
+ "updated": "2026-11-12T08:34:11.515Z",
  "pads": [
   {
    "label": "Выход героя",
@@ -33,34 +33,34 @@
    "file": "06-mwda5ahw3gbk.mp3"
   },
   {
-   "label": "Ёлочка, гори!",
+   "label": "Конкурс песня",
    "color": "yellow",
    "file": "07.mp3"
   },
   {
-   "label": "Зажигаем ёлку",
+   "label": "Конкурс песня",
    "color": "yellow",
    "file": "08.mp3"
   },
   {
-   "label": "Игра «Снежки»",
+   "label": "Танец Героя",
    "color": "purple",
-   "file": "09.mp3"
+   "file": "09-mwdaaixoxbje.mp3"
   },
   {
-   "label": "Конкурс 1",
+   "label": "Танец Снегурочки Могну",
    "color": "purple",
-   "file": "10.mp3"
+   "file": "10-mwdae2n2fg58.mp3"
   },
   {
-   "label": "Конкурс 2",
+   "label": "Скрип деда",
    "color": "purple",
-   "file": "11.mp3"
+   "file": "11-mwdaerr8nb6n.mp3"
   },
   {
-   "label": "Конкурс 3",
+   "label": "Танец деда",
    "color": "purple",
-   "file": "12.mp3"
+   "file": "12-mwdajxvvh6qq.mp3"
   },
   {
    "label": "Танец снежинок",
