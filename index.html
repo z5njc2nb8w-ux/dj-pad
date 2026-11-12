@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Пульт">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<title>Пульт</title>
+<script src="config.js"></script>
+<style>
+:root{
+  --bg:#0b0b12; --panel:#14141f; --panel2:#1b1b29; --line:#2a2a3d;
+  --txt:#f2f2fa; --mut:#8a8aa3; --dim:#5b5b73;
+  --ok:#30d158; --warn:#ffd60a; --bad:#ff3b5c;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
+  overflow:hidden;overscroll-behavior:none;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+#app{height:100dvh;display:flex;flex-direction:column;gap:8px;
+  padding:calc(var(--safe-t) + 8px) 10px calc(var(--safe-b) + 8px)}
+
+/* ---------- шапка ---------- */
+.top{display:flex;align-items:center;gap:8px;min-height:28px}
+.top h1{font-size:15px;font-weight:700;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px}
+.badge{font-size:11px;padding:4px 8px;border-radius:99px;background:var(--panel2);color:var(--mut);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--dim);display:inline-block}
+.badge.ok{color:var(--ok)} .badge.ok i{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.badge.warn{color:var(--warn)} .badge.warn i{background:var(--warn)}
+.iconbtn{width:34px;height:34px;border-radius:10px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:18px}
+
+/* ---------- таймер ---------- */
+.timer{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.tdisp{font-variant-numeric:tabular-nums;font-size:32px;font-weight:700;letter-spacing:1px;min-width:0;flex:1;line-height:1;
+  font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.tdisp.run{color:#fff;text-shadow:0 0 12px rgba(0,214,255,.45)}
+.tdisp.over{color:var(--bad);text-shadow:0 0 14px rgba(255,59,92,.6);animation:blink 1s steps(2) infinite}
+.tdisp.paused{color:var(--mut)}
+@keyframes blink{50%{opacity:.45}}
+.tbtns{display:flex;gap:5px}
+.tb{height:38px;min-width:38px;padding:0 8px;border-radius:10px;background:var(--panel2);font-size:13px;font-weight:600;color:var(--mut)}
+.tb.main{background:#00d6ff;color:#001218;min-width:46px;font-size:16px}
+.tb.main.on{background:var(--warn);color:#1a1400}
+.tb:active{transform:scale(.94)}
+
+/* ---------- фон ---------- */
+.bgbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 10px;display:flex;align-items:center;gap:10px}
+.bgplay{width:44px;height:44px;border-radius:12px;flex-shrink:0;font-size:18px;
+  background:color-mix(in srgb,#bf5af2 18%,#15151f);border:1px solid color-mix(in srgb,#bf5af2 55%,transparent);color:#e3c2ff}
+.bgplay.on{background:#bf5af2;color:#1a0526;box-shadow:0 0 16px #bf5af2}
+.bginfo{flex:1;min-width:0}
+.bgline1{display:flex;justify-content:space-between;gap:6px;font-size:12px}
+.bgline1 b{font-size:10px;letter-spacing:1.5px;color:#bf5af2}
+.bgname{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 5px}
+.bgbar{height:4px;background:var(--panel2);border-radius:2px;overflow:hidden}
+.bgbar i{display:block;height:100%;width:0;background:#bf5af2;box-shadow:0 0 6px #bf5af2}
+.bgnext{width:40px;height:44px;border-radius:12px;background:var(--panel2);font-size:16px;color:var(--mut);flex-shrink:0}
+.vol{width:100%;margin-top:6px;accent-color:#bf5af2;height:18px}
+
+/* ---------- пэды ---------- */
+.padhead{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--mut);letter-spacing:1.5px;padding:0 2px}
+.stopbtn{font-size:12px;letter-spacing:0;font-weight:700;padding:6px 12px;border-radius:9px;background:var(--panel2);color:var(--txt)}
+.stopbtn:active{background:var(--bad)}
+.stopbtn.speed{background:color-mix(in srgb,#ffd60a 15%,#15151f);border:1px solid color-mix(in srgb,#ffd60a 50%,transparent);color:#ffe866;min-width:72px}
+.stopbtn.speed.on{background:#ffd60a;color:#1a1400;box-shadow:0 0 14px #ffd60a}
+.stopbtn.speed:active{background:#ffd60a;color:#1a1400}
+#gridwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.grid{display:grid;gap:6px}
+.pad{--c:#888;position:relative;overflow:hidden;border-radius:12px;
+  background:color-mix(in srgb,var(--c) 13%,#12121b);
+  border:1px solid color-mix(in srgb,var(--c) 42%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),inset 0 -6px 14px rgba(0,0,0,.35),0 0 8px color-mix(in srgb,var(--c) 12%,transparent);
+  display:flex;align-items:center;justify-content:center;padding:4px;transition:transform .06s,box-shadow .15s}
+.pad .led{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:34%;height:3px;border-radius:2px;background:color-mix(in srgb,var(--c) 55%,#000)}
+.pad .num{position:absolute;top:3px;left:6px;font-size:9px;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#fff);opacity:.75}
+.pad .lab{position:relative;z-index:2;font-size:var(--fs,12px);line-height:1.15;font-weight:700;text-align:center;
+  color:color-mix(in srgb,var(--c) 35%,#fff);word-break:break-word;hyphens:auto;margin-top:4px}
+.pad .fill{position:absolute;left:0;right:0;bottom:0;height:0;z-index:1;
+  background:color-mix(in srgb,var(--c) 78%,#000);box-shadow:0 -2px 10px var(--c)}
+.pad .rem{position:absolute;bottom:3px;right:6px;z-index:3;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums;color:#fff;opacity:0}
+.pad .chk{position:absolute;top:2px;right:5px;font-size:10px;color:var(--c);opacity:0;z-index:3}
+.pad.press{transform:scale(.94)}
+.pad.playing{border-color:var(--c);
+  box-shadow:0 0 0 1px var(--c),0 0 18px var(--c),0 0 36px color-mix(in srgb,var(--c) 45%,transparent);
+  animation:pulse 1.2s ease-in-out infinite}
+.pad.playing .led{background:#fff;box-shadow:0 0 8px #fff}
+.pad.playing .lab{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.pad.playing .rem{opacity:.9}
+.pad.done:not(.playing) .chk{opacity:1}
+.pad.done .led{background:var(--c);box-shadow:0 0 6px var(--c)}
+.pad.done:not(.playing){background:color-mix(in srgb,var(--c) 7%,#0f0f16)}
+.pad.missing{opacity:.35}
+.pad.err{animation:shake .3s}
+@keyframes pulse{50%{box-shadow:0 0 0 1px var(--c),0 0 10px var(--c),0 0 22px color-mix(in srgb,var(--c) 30%,transparent)}}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+/* ---------- окна ---------- */
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(5,5,10,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:flex-end;justify-content:center;padding:12px 12px calc(var(--safe-b) + 12px)}
+.sheet.show{display:flex}
+.card{width:100%;max-width:440px;max-height:92dvh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
+.card h2{margin:0 0 4px;font-size:20px}
+.card p{margin:6px 0;color:var(--mut);font-size:14px;line-height:1.45}
+.step{background:var(--panel2);border-radius:14px;padding:12px;margin-top:12px}
+.step h3{margin:0 0 6px;font-size:14px;display:flex;align-items:center;gap:8px}
+.step h3 .n{width:22px;height:22px;border-radius:50%;background:#00d6ff;color:#001218;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.step.done h3 .n{background:var(--ok)}
+.big{width:100%;height:50px;border-radius:13px;font-weight:700;font-size:16px;margin-top:8px;
+  background:linear-gradient(180deg,#22e0ff,#00b3d6);color:#001218;box-shadow:0 0 18px rgba(0,214,255,.35)}
+.big.sec{background:var(--panel);color:var(--txt);box-shadow:none;border:1px solid var(--line)}
+.big.danger{background:var(--panel);color:var(--bad);box-shadow:none;border:1px solid color-mix(in srgb,var(--bad) 50%,transparent)}
+.big:disabled{opacity:.5}
+.prog{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;width:0;background:var(--ok);box-shadow:0 0 8px var(--ok);transition:width .2s}
+.ptxt{font-size:13px;color:var(--mut);margin-top:6px}
+.ios{font-size:14px;line-height:1.6;color:var(--txt)}
+.ios .k{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:0 6px}
+.hint{font-size:12px;color:var(--dim);margin-top:10px}
+.toast{position:fixed;left:50%;bottom:calc(var(--safe-b) + 18px);transform:translateX(-50%) translateY(30px);opacity:0;z-index:60;
+  background:#fff;color:#000;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top">
+    <h1 id="title">Пульт</h1>
+    <span class="badge" id="badge"><i></i><span>Проверка…</span></span>
+    <button class="iconbtn" id="menuBtn" aria-label="Меню">⋯</button>
+  </div>
+
+  <div class="timer">
+    <div class="tdisp paused" id="tdisp">60:00</div>
+    <div class="tbtns">
+      <button class="tb" id="tMinus" aria-label="Минус минута">−1</button>
+      <button class="tb" id="tPlus" aria-label="Плюс минута">+1</button>
+      <button class="tb" id="tPlus5" aria-label="Плюс 5 минут">+5</button>
+      <button class="tb main" id="tStart" aria-label="Старт таймера">▶</button>
+      <button class="tb" id="tReset" aria-label="Сбросить таймер">⟲</button>
+    </div>
+  </div>
+
+  <div class="bgbox">
+    <button class="bgplay" id="bgPlay" aria-label="Фон">▶</button>
+    <div class="bginfo">
+      <div class="bgline1"><b>ФОН</b><span id="bgCount" style="color:var(--mut)">0 / 10</span></div>
+      <div class="bgname" id="bgName">Нажмите ▶, чтобы включить фон</div>
+      <div class="bgbar"><i id="bgBar"></i></div>
+      <input type="range" class="vol" id="bgVol" min="0" max="100" value="70" aria-label="Громкость фона">
+    </div>
+    <button class="bgnext" id="bgNext" aria-label="Следующий фон">⏭</button>
+  </div>
+
+  <div class="padhead"><span>ПЭДЫ</span>
+    <div style="display:flex;gap:6px">
+      <button class="stopbtn speed" id="speedBtn">⚡ ×1</button>
+      <button class="stopbtn" id="speedReset">1×</button>
+      <button class="stopbtn" id="stopPad">■ Стоп</button>
+    </div></div>
+  <div id="gridwrap"><div class="grid" id="grid"></div></div>
+</div>
+
+<!-- Окно установки и загрузки -->
+<div class="sheet" id="setup">
+  <div class="card">
+    <h2>Подготовка к работе офлайн</h2>
+    <p>Пульт сохранится на телефоне и будет работать без интернета.</p>
+
+    <div class="step" id="stepInstall">
+      <h3><span class="n">1</span>Установить на экран</h3>
+      <div id="installBody"></div>
+    </div>
+
+    <div class="step" id="stepDl">
+      <h3><span class="n">2</span>Скачать треки</h3>
+      <p id="dlInfo">Треков: 0</p>
+      <button class="big" id="dlBtn">📥 Скачать треки</button>
+      <div class="prog"><i id="dlBar"></i></div>
+      <div class="ptxt" id="dlTxt"></div>
+    </div>
+
+    <button class="big sec" id="closeSetup" style="margin-top:14px">Готово</button>
+    <div class="hint">Перед мероприятием проверьте пульт в режиме полёта.</div>
+  </div>
+</div>
+
+<!-- Меню -->
+<div class="sheet" id="menu">
+  <div class="card">
+    <h2>Меню</h2>
+    <button class="big sec" id="mSetup">📲 Установка и загрузка треков</button>
+    <button class="big sec" id="mUpdate">🔄 Обновить треки</button>
+    <button class="big danger" id="mReset">🎬 Новая программа</button>
+    <p class="hint" id="mResetHint">«Новая программа» снимает отметки с пэдов и разрешает снова играть все фоновые треки.</p>
+    <button class="big sec" id="mClose" style="margin-top:14px">Закрыть</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+'use strict';
+const C = window.PULT_CONFIG;
+const $ = id => document.getElementById(id);
+const COLORS = {red:'#ff3b5c',orange:'#ff9500',yellow:'#ffd60a',green:'#30d158',cyan:'#00d6ff',blue:'#0a84ff',purple:'#bf5af2',pink:'#ff37aa',white:'#e6e6ff'};
+const PAD_URLS = C.PADS.map(p => 'tracks/pads/' + p.file);
+const BG_URLS  = C.BACKGROUND.map(b => 'tracks/bg/' + b.file);
+const ALL_URLS = [...PAD_URLS, ...BG_URLS];
+const TRACK_CACHE = 'pult-tracks';
+const LS = {
+  get(k, d){ try { const v = localStorage.getItem('pult_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem('pult_' + k, JSON.stringify(v)); } catch(e){} }
+};
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const inTelegram = /Telegram/i.test(navigator.userAgent) || typeof window.TelegramWebviewProxy !== 'undefined';
+const fmt = s => { s = Math.max(0, Math.floor(s)); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60;
+  return (h ? h + ':' + String(m).padStart(2,'0') : String(m).padStart(2,'0')) + ':' + String(x).padStart(2,'0'); };
+
+$('title').textContent = C.TITLE;
+document.title = C.TITLE;
+
+function toast(msg){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2400); }
+
+/* ===== service worker ===== */
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(() => {});
+}
+
+/* ===== проверка громкости (на iPhone volume не меняется) ===== */
+const volSupported = (() => { const a = new Audio(); a.volume = 0.5; return Math.abs(a.volume - 0.5) < 0.01; })();
+if (!volSupported) $('bgVol').style.display = 'none';
+
+/* ===== кэш треков → blob-ссылки (мгновенный старт, без сети) ===== */
+const blobURL = {};
+async function prepare(url){
+  if (blobURL[url]) return blobURL[url];
+  try {
+    if (!('caches' in window)) return null;
+    const c = await caches.open(TRACK_CACHE);
+    const r = await c.match(url);
+    if (!r) return null;
+    const b = await r.blob();
+    blobURL[url] = URL.createObjectURL(b);
+    return blobURL[url];
+  } catch(e){ return null; }
+}
+async function prepareAll(){ for (const u of ALL_URLS) await prepare(u); refreshMissing(); }
+function srcFor(url){ return blobURL[url] || url; }
+
+async function countCached(){
+  if (!('caches' in window)) return 0;
+  const c = await caches.open(TRACK_CACHE); let n = 0;
+  for (const u of ALL_URLS) if (await c.match(u)) n++;
+  return n;
+}
+async function refreshBadge(){
+  const n = await countCached(); const b = $('badge');
+  if (n === ALL_URLS.length) { b.className = 'badge ok'; b.lastChild.textContent = 'Офлайн готов'; }
+  else { b.className = 'badge warn'; b.lastChild.textContent = n ? `Треки ${n}/${ALL_URLS.length}` : 'Треки не скачаны'; }
+  $('dlInfo').textContent = `Треков: ${ALL_URLS.length} (пэды ${PAD_URLS.length}, фон ${BG_URLS.length}). Скачано: ${n}.`;
+  $('stepDl').classList.toggle('done', n === ALL_URLS.length);
+  return n;
+}
+function refreshMissing(){
+  if (navigator.onLine) { pads.forEach(p => p.el.classList.remove('missing')); return; }
+  pads.forEach((p, i) => p.el.classList.toggle('missing', !blobURL[PAD_URLS[i]]));
+}
+
+let downloading = false;
+async function downloadAll(force){
+  if (downloading) return; downloading = true;
+  const btn = $('dlBtn'); btn.disabled = true;
+  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch(e){}
+  let ok = 0, fail = 0, bytes = 0;
+  try {
+    const c = await caches.open(TRACK_CACHE);
+    for (let i = 0; i < ALL_URLS.length; i++) {
+      const u = ALL_URLS[i];
+      $('dlTxt').textContent = `Загрузка ${i + 1} из ${ALL_URLS.length}…`;
+      try {
+        if (!force && await c.match(u)) { ok++; }
+        else {
+          const r = await fetch(u + '?v=' + C.VERSION + '&t=' + Date.now(), { cache: 'no-store' });
+          if (!r.ok) throw new Error(r.status);
+          const blob = await r.blob(); bytes += blob.size;
+          await c.put(u, new Response(blob, { headers: { 'Content-Type': 'audio/mpeg', 'Content-Length': String(blob.size) } }));
+          if (blobURL[u]) { URL.revokeObjectURL(blobURL[u]); delete blobURL[u]; }
+          ok++;
+        }
+      } catch(e){ fail++; }
+      $('dlBar').style.width = ((i + 1) / ALL_URLS.length * 100) + '%';
+    }
+    LS.set('tracksVersion', C.VERSION);
+    $('dlTxt').textContent = fail ? `Готово: ${ok}. Не удалось: ${fail}. Проверьте интернет и нажмите ещё раз.` :
+      `✓ Все треки сохранены${bytes ? ' (' + (bytes / 1048576).toFixed(1) + ' МБ)' : ''}. Пульт работает без интернета.`;
+    btn.textContent = fail ? '📥 Повторить загрузку' : '✓ Треки скачаны';
+  } catch(e){
+    $('dlTxt').textContent = 'Не получилось сохранить треки. Откройте пульт в Chrome или Safari.';
+  }
+  btn.disabled = false; downloading = false;
+  await refreshBadge(); prepareAll();
+}
+
+/* ===== установка ===== */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; renderInstall(); });
+window.addEventListener('appinstalled', () => { deferredPrompt = null; renderInstall(); toast('Пульт добавлен на экран'); });
+
+function renderInstall(){
+  const box = $('installBody'), step = $('stepInstall');
+  step.classList.toggle('done', isStandalone());
+  if (isStandalone()) { box.innerHTML = '<p>✓ Пульт открыт с главного экрана.</p>'; return; }
+  if (inTelegram) {
+    box.innerHTML = '<p>Вы открыли ссылку внутри Telegram. Нажмите ⋯ вверху и выберите <b>«Открыть в браузере»</b> (Chrome или Safari), затем установите пульт оттуда.</p>';
+    return;
+  }
+  if (isIOS) {
+    box.innerHTML = '<div class="ios">1. Нажмите <span class="k">Поделиться ⬆︎</span> внизу Safari<br>2. Выберите <span class="k">На экран «Домой»</span><br>3. Откройте пульт <b>с новой иконки</b> и скачайте треки там</div>' +
+      '<p class="hint">На iPhone треки, скачанные во вкладке Safari, не попадают в установленный пульт — качайте после установки.</p>';
+    return;
+  }
+  if (deferredPrompt) {
+    box.innerHTML = '<button class="big" id="instBtn">📲 Скачать и установить</button><p class="hint">Установит пульт на экран и сразу скачает все треки.</p>';
+    $('instBtn').onclick = async () => {
+      downloadAll(false);
+      try { deferredPrompt.prompt(); await deferredPrompt.userChoice; } catch(e){}
+      deferredPrompt = null; renderInstall();
+    };
+    return;
+  }
+  box.innerHTML = '<p>Откройте меню браузера <span class="k">⋮</span> и выберите <b>«Установить приложение»</b> или <b>«Добавить на главный экран»</b>.</p>';
+}
+function openSetup(){ renderInstall(); refreshBadge(); $('setup').classList.add('show'); }
+$('dlBtn').onclick = () => downloadAll(false);
+$('closeSetup').onclick = () => $('setup').classList.remove('show');
+
+/* ===== меню ===== */
+$('menuBtn').onclick = () => { resetArmed = false; $('mReset').textContent = '🎬 Новая программа'; $('menu').classList.add('show'); };
+$('mClose').onclick = () => $('menu').classList.remove('show');
+$('mSetup').onclick = () => { $('menu').classList.remove('show'); openSetup(); };
+$('mUpdate').onclick = () => {
+  if (!navigator.onLine) { toast('Нужен интернет для обновления'); return; }
+  $('menu').classList.remove('show'); openSetup(); downloadAll(true);
+};
+let resetArmed = false;
+$('mReset').onclick = () => {
+  if (!resetArmed) { resetArmed = true; $('mReset').textContent = 'Точно? Нажмите ещё раз'; return; }
+  stopPad(); bgStop();
+  LS.set('padsDone', []); LS.set('bgPlayed', []); bgIndex = -1;
+  pads.forEach(p => p.el.classList.remove('done'));
+  updateBgCount(); $('bgName').textContent = 'Нажмите ▶, чтобы включить фон';
+  $('menu').classList.remove('show'); toast('Новая программа: всё сброшено');
+};
+document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e => { if (e.target === s) s.classList.remove('show'); }));
+
+/* ===== не гасить экран ===== */
+let wakeLock = null;
+async function keepAwake(){
+  try { if ('wakeLock' in navigator && !wakeLock && document.visibilityState === 'visible') {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => { wakeLock = null; });
+  } } catch(e){}
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
+document.addEventListener('click', keepAwake, { capture: true });
+
+/* ===== аудио ===== */
+const padAudio = new Audio(); padAudio.preload = 'auto';
+const bgAudio = new Audio(); bgAudio.preload = 'auto';
+let bgVolume = LS.get('bgVol', 70) / 100;
+$('bgVol').value = Math.round(bgVolume * 100);
+bgAudio.volume = bgVolume;
+
+/* --- приглушение фона --- */
+let ducked = false, bgPausedByDuck = false, fadeT = null;
+function fadeBg(to, ms){
+  if (!volSupported) return;
+  clearInterval(fadeT); const from = bgAudio.volume, steps = 12; let i = 0;
+  fadeT = setInterval(() => { i++; bgAudio.volume = Math.max(0, Math.min(1, from + (to - from) * i / steps)); if (i >= steps) clearInterval(fadeT); }, ms / steps);
+}
+function duck(){
+  if (ducked) return; ducked = true;
+  if (bgAudio.paused) return;
+  bgPausedByDuck = true;
+  bgAudio.pause();
+  bgUI();
+}
+function unduck(){
+  if (!ducked) return; ducked = false;
+  if (!bgPausedByDuck || !C.RESUME_BACKGROUND) { if (bgPausedByDuck) { bgPausedByDuck = false; bgUI(); } return; }
+  bgPausedByDuck = false;
+  bgAudio.play().catch(() => {});
+}
+
+/* --- пэды --- */
+const grid = $('grid');
+const doneSet = new Set(LS.get('padsDone', []));
+const pads = C.PADS.map((p, i) => {
+  const el = document.createElement('button');
+  el.className = 'pad' + (doneSet.has(i) ? ' done' : '');
+  el.style.setProperty('--c', COLORS[p.color] || p.color || COLORS.white);
+  el.innerHTML = `<span class="led"></span><span class="num">${i + 1}</span><span class="chk">✓</span><div class="fill"></div><span class="lab"></span><span class="rem"></span>`;
+  el.querySelector('.lab').textContent = p.label;
+  el.setAttribute('aria-label', p.label);
+  el.addEventListener('pointerdown', () => el.classList.add('press'));
+  ['pointerup','pointerleave','pointercancel'].forEach(ev => el.addEventListener(ev, () => el.classList.remove('press')));
+  el.addEventListener('click', () => padPress(i));
+  grid.appendChild(el);
+  return { el, fill: el.querySelector('.fill'), rem: el.querySelector('.rem') };
+});
+let curPad = -1, raf = 0;
+
+function padPress(i){
+  if (navigator.vibrate) navigator.vibrate(12);
+  if (curPad === i) { stopPad(); return; }
+  stopPad(true);
+  curPad = i;
+  const p = pads[i];
+  p.el.classList.add('playing'); p.fill.style.height = '0%';
+  padAudio.src = srcFor(PAD_URLS[i]);
+  padAudio.currentTime = 0;
+  setRate(padAudio, 1);
+  const pr = padAudio.play();
+  if (pr) pr.catch(() => { if (curPad === i) { p.el.classList.remove('playing'); p.el.classList.add('err'); setTimeout(() => p.el.classList.remove('err'), 400); curPad = -1; unduck(); toast('Трек не найден. Скачайте треки в меню'); } });
+  duck();
+  setMedia(C.PADS[i].label, 'Пэд ' + (i + 1));
+  cancelAnimationFrame(raf); raf = requestAnimationFrame(tickPad);
+}
+function tickPad(){
+  if (curPad < 0) return;
+  const p = pads[curPad], d = padAudio.duration;
+  if (d && isFinite(d)) {
+    p.fill.style.height = Math.min(100, padAudio.currentTime / d * 100) + '%';
+    p.rem.textContent = '−' + fmt((d - padAudio.currentTime) / (padAudio.playbackRate || 1));
+  }
+  raf = requestAnimationFrame(tickPad);
+}
+function stopPad(switching){
+  cancelAnimationFrame(raf);
+  if (curPad >= 0) { const p = pads[curPad]; p.el.classList.remove('playing'); p.fill.style.height = '0%'; }
+  curPad = -1;
+  padAudio.pause();
+  if (!switching) unduck();
+}
+padAudio.addEventListener('ended', () => {
+  if (curPad < 0) return;
+  const i = curPad, p = pads[i];
+  cancelAnimationFrame(raf);
+  p.el.classList.remove('playing'); p.fill.style.height = '0%';
+  p.el.classList.add('done'); doneSet.add(i); LS.set('padsDone', [...doneSet]);
+  curPad = -1; unduck();
+});
+$('stopPad').onclick = () => stopPad();
+
+/* --- фон без повторов --- */
+let bgIndex = -1;
+function bgPlayed(){ return new Set(LS.get('bgPlayed', [])); }
+function updateBgCount(){ $('bgCount').textContent = `сыграно ${bgPlayed().size} / ${BG_URLS.length}`; }
+function pickNextBg(){
+  const played = bgPlayed();
+  const left = BG_URLS.map((_, i) => i).filter(i => !played.has(i));
+  if (!left.length) return -1;
+  return left[Math.floor(Math.random() * left.length)];
+}
+function bgStart(i){
+  bgIndex = i;
+  const played = bgPlayed(); played.add(i); LS.set('bgPlayed', [...played]); updateBgCount();
+  bgAudio.src = srcFor(BG_URLS[i]); bgAudio.currentTime = 0; setRate(bgAudio, 1);
+  if (volSupported) bgAudio.volume = bgVolume;
+  $('bgName').textContent = C.BACKGROUND[i].title;
+  if (ducked) { bgPausedByDuck = true; bgUI(); return; }
+  bgAudio.play().catch(() => toast('Фон не найден. Скачайте треки в меню'));
+  setMedia(C.BACKGROUND[i].title, 'Фон');
+}
+function bgNextTrack(){
+  const n = pickNextBg();
+  if (n < 0) { bgStop(); $('bgName').textContent = 'Все фоновые треки сыграны'; toast('Фон закончился. «Новая программа» в меню начнёт заново'); return false; }
+  bgStart(n); return true;
+}
+function bgStop(){ bgAudio.pause(); bgPausedByDuck = false; bgUI(); }
+function bgUI(){ const on = !bgAudio.paused || bgPausedByDuck; $('bgPlay').classList.toggle('on', on); $('bgPlay').textContent = on ? '❚❚' : '▶'; }
+$('bgPlay').onclick = () => {
+  if (!bgAudio.paused || bgPausedByDuck) { bgStop(); return; }
+  if (bgIndex >= 0 && bgAudio.src && bgAudio.currentTime > 0 && !bgAudio.ended) {
+    if (ducked) { bgPausedByDuck = true; bgUI(); return; }
+    bgAudio.play().catch(() => {}); return;
+  }
+  bgNextTrack();
+};
+$('bgNext').onclick = () => { bgNextTrack(); };
+bgAudio.addEventListener('ended', () => { if (!bgNextTrack()) bgUI(); });
+['play','pause','playing'].forEach(ev => bgAudio.addEventListener(ev, bgUI));
+bgAudio.addEventListener('timeupdate', () => { const d = bgAudio.duration; if (d && isFinite(d)) $('bgBar').style.width = (bgAudio.currentTime / d * 100) + '%'; });
+$('bgVol').addEventListener('input', e => { bgVolume = e.target.value / 100; LS.set("bgVol", +e.target.value); bgAudio.volume = bgVolume; });
+updateBgCount();
+
+/* --- ускорение: действует на играющий пэд, а если пэд не играет — на фон --- */
+const STEPS = C.SPEED_STEPS || [1, 1.25, 1.5, 1.75, 2];
+function setRate(a, r){
+  const keep = C.SPEED_KEEP_PITCH !== false;
+  a.preservesPitch = keep; a.webkitPreservesPitch = keep; a.mozPreservesPitch = keep;
+  a.defaultPlaybackRate = r; a.playbackRate = r; speedUI();
+}
+function speedTarget(){ if (curPad >= 0) return padAudio; if (!bgAudio.paused) return bgAudio; return null; }
+function speedUI(){
+  const t = speedTarget(), r = t ? t.playbackRate : 1, b = $('speedBtn');
+  b.textContent = '⚡ ×' + String(+r.toFixed(2)).replace('.', ',');
+  b.classList.toggle('on', r > 1);
+}
+$('speedBtn').onclick = () => {
+  const t = speedTarget();
+  if (!t) { toast('Сначала включите пэд или фон'); return; }
+  const cur = t.playbackRate, next = STEPS.find(x => x > cur + 0.001);
+  if (next === undefined) { toast('Это максимальная скорость'); return; }
+  setRate(t, next);
+};
+$('speedReset').onclick = () => { const t = speedTarget(); if (t) setRate(t, 1); };
+setInterval(speedUI, 500);
+
+/* --- экран блокировки --- */
+function setMedia(title, artist){
+  if (!('mediaSession' in navigator)) return;
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({ title, artist, album: C.TITLE, artwork: [{ src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }] });
+    navigator.mediaSession.setActionHandler('pause', () => { stopPad(); bgStop(); });
+    navigator.mediaSession.setActionHandler('stop', () => { stopPad(); bgStop(); });
+    navigator.mediaSession.setActionHandler('play', () => { if (bgIndex >= 0) bgAudio.play().catch(() => {}); });
+    navigator.mediaSession.setActionHandler('nexttrack', () => bgNextTrack());
+  } catch(e){}
+}
+
+/* ===== таймер (не связан с треками) ===== */
+const T = LS.get('timer', { dur: C.TIMER_DEFAULT_MIN * 60000, rem: C.TIMER_DEFAULT_MIN * 60000, end: 0, run: false });
+function tSave(){ LS.set('timer', T); }
+function tLeft(){ return T.run ? T.end - Date.now() : T.rem; }
+const tf = s => { s = Math.max(0, Math.floor(s)); return String(Math.floor(s / 60)).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0'); };
+function tDraw(){
+  const ms = tLeft(), d = $('tdisp');
+  if (ms < 0) { d.textContent = '−' + tf(Math.ceil(-ms / 1000)); d.className = 'tdisp over'; }
+  else { d.textContent = tf(Math.ceil(ms / 1000)); d.className = 'tdisp ' + (T.run ? 'run' : 'paused'); }
+  $('tStart').textContent = T.run ? '❚❚' : '▶'; $('tStart').classList.toggle('on', T.run);
+}
+function tAdd(min){
+  const add = min * 60000;
+  if (T.run) T.end += add; else { T.rem = Math.max(0, T.rem + add); T.dur = T.rem; }
+  if (!T.run && T.rem === 0) T.dur = 0;
+  tSave(); tDraw();
+}
+$('tMinus').onclick = () => tAdd(-1);
+$('tPlus').onclick = () => tAdd(1);
+$('tPlus5').onclick = () => tAdd(5);
+$('tStart').onclick = () => {
+  if (T.run) { T.rem = T.end - Date.now(); T.run = false; }
+  else { T.end = Date.now() + T.rem; T.run = true; }
+  tSave(); tDraw();
+};
+$('tReset').onclick = () => { T.run = false; T.rem = T.dur || C.TIMER_DEFAULT_MIN * 60000; tSave(); tDraw(); };
+setInterval(tDraw, 250); tDraw();
+
+/* ===== размер сетки: квадратные пэды на весь экран ===== */
+function layout(){
+  const w = $('gridwrap'), W = w.clientWidth, H = w.clientHeight, gap = 6;
+  const cols = C.COLUMNS || 4, rows = Math.ceil(C.PADS.length / cols);
+  const s = Math.floor((W - gap * (cols - 1)) / cols);
+  const h = Math.floor(Math.min(s * 1.1, (H - gap * (rows - 1)) / rows));
+  grid.style.gridTemplateColumns = `repeat(${cols}, ${s}px)`;
+  grid.style.gridTemplateRows = `repeat(${rows}, ${h}px)`;
+  grid.style.setProperty('--fs', Math.max(10, Math.min(14, Math.min(s, h * 1.3) * 0.135)) + 'px');
+}
+window.addEventListener('resize', layout);
+window.addEventListener('orientationchange', () => setTimeout(layout, 300));
+layout();
+
+/* ===== старт ===== */
+window.addEventListener('online', refreshMissing);
+window.addEventListener('offline', refreshMissing);
+(async () => {
+  const n = await refreshBadge();
+  const outdated = LS.get('tracksVersion', 0) !== C.VERSION && n > 0 && navigator.onLine;
+  if (n < ALL_URLS.length || (isIOS && !isStandalone() && !LS.get('setupSeen', false))) { LS.set('setupSeen', true); openSetup(); }
+  if (outdated) toast('Есть обновление треков: Меню → Обновить треки');
+  prepareAll();
+})();
+})();
+</script>
+</body>
+</html>
