@@ -1,6 +1,6 @@
 {
- "rev": 5,
- "updated": "2026-11-12T08:34:11.515Z",
+ "rev": 6,
+ "updated": "2026-11-12T08:41:07.258Z",
  "pads": [
   {
    "label": "Выход героя",
@@ -78,14 +78,14 @@
    "file": "15.mp3"
   },
   {
-   "label": "Волшебство",
+   "label": "Хоровод",
    "color": "pink",
-   "file": "16.mp3"
+   "file": "16-mwdapm3q9kdl.mp3"
   },
   {
-   "label": "Фанфары",
+   "label": "Фотосессия",
    "color": "white",
-   "file": "17.mp3"
+   "file": "17-mwdarep1lqax.mp3"
   },
   {
    "label": "Аплодисменты",
