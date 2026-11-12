@@ -1,36 +1,36 @@
 {
- "rev": 3,
- "updated": "2026-11-12T08:02:57.061Z",
+ "rev": 4,
+ "updated": "2026-11-12T08:22:57.831Z",
  "pads": [
   {
    "label": "Выход героя",
    "color": "red",
-   "file": "01-mwd9fy21rthr.mp3"
-  },
-  {
-   "label": "Выход персонажа",
-   "color": "orange",
-   "file": "02.mp3"
+   "file": "01-mwd9xmr74ub7.mp3"
   },
   {
    "label": "Выход Снегурочки",
+   "color": "orange",
+   "file": "02-mwd9xc9epugv.mp3"
+  },
+  {
+   "label": "Выход Деда",
    "color": "cyan",
    "file": "03.mp3"
   },
   {
-   "label": "Выход Деда Мороза",
+   "label": "Конкурс 1",
    "color": "blue",
-   "file": "04.mp3"
+   "file": "04-mwd9yvir26t0.mp3"
   },
   {
-   "label": "Зовём Деда Мороза",
+   "label": "Снег",
    "color": "blue",
-   "file": "05.mp3"
+   "file": "05-mwd9zotzfd9w.mp3"
   },
   {
-   "label": "Хоровод",
+   "label": "Конкурс 2 betsy",
    "color": "green",
-   "file": "06.mp3"
+   "file": "06-mwda5ahw3gbk.mp3"
   },
   {
    "label": "Ёлочка, гори!",
