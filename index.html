@@ -31,6 +31,15 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 
 /* ---------- шапка ---------- */
 .top{display:flex;align-items:center;gap:8px;min-height:28px}
+.progbtn{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:16px;font-weight:700;text-align:left}
+.progbtn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.progbtn i{font-style:normal;color:var(--mut);font-size:14px}
+.progitem{display:flex;align-items:center;gap:12px;width:100%;height:68px;margin-top:10px;padding:0 16px;border-radius:16px;background:var(--panel2);border:2px solid transparent;font-size:19px;font-weight:700;text-align:left}
+.progitem .em{font-size:28px}
+.progitem .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progitem.cur{border-color:#00d6ff;box-shadow:0 0 14px rgba(0,214,255,.35)}
+.progitem .ed{width:44px;height:44px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:18px;display:none}
+body.admin .progitem .ed{display:block}
 .top h1{font-size:15px;font-weight:700;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px}
 .badge{font-size:11px;padding:4px 8px;border-radius:99px;background:var(--panel2);color:var(--mut);display:flex;align-items:center;gap:5px;white-space:nowrap}
 .badge i{width:7px;height:7px;border-radius:50%;background:var(--dim);display:inline-block}
@@ -103,6 +112,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 .pad.done .led{background:var(--c);box-shadow:0 0 6px var(--c)}
 .pad.done:not(.playing){background:color-mix(in srgb,var(--c) 7%,#0f0f16)}
 .pad.missing{opacity:.35}
+.pad.empty{opacity:.5;border-style:dashed}
+.pad.empty .lab::after{content:'нет трека';display:block;font-size:10px;font-weight:600;opacity:.8;margin-top:2px}
 .pad.err{animation:shake .3s}
 @keyframes pulse{50%{box-shadow:0 0 0 1px var(--c),0 0 10px var(--c),0 0 22px color-mix(in srgb,var(--c) 30%,transparent)}}
 @keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
@@ -192,7 +203,7 @@ body.dj .abtn.pub{background:#00d6ff;color:#001218}
 <body>
 <div id="app">
   <div class="top">
-    <h1 id="title">Пульт</h1>
+    <button class="progbtn" id="progBtn" aria-label="Выбрать программу"><span id="title">Пульт</span><i>▾</i></button>
     <span class="badge" id="badge"><i></i><span>Проверка…</span></span>
     <button class="iconbtn" id="menuBtn" aria-label="Меню">⋯</button>
   </div>
@@ -363,6 +374,20 @@ body.dj .abtn.pub{background:#00d6ff;color:#001218}
   </div>
 </div>
 
+<!-- Выбор программы -->
+<div class="sheet" id="progSheet">
+  <div class="card">
+    <h2>Выберите программу</h2>
+    <div id="progList"></div>
+    <div id="progRename" style="display:none">
+      <label class="lbl">Название программы</label>
+      <div class="bgrow"><input class="field" id="prEmoji" maxlength="4" style="flex:0 0 64px;text-align:center"><input class="field" id="prName" maxlength="30"></div>
+      <div class="row2"><button class="big sec" id="prCancel">Отмена</button><button class="big" id="prSave">Сохранить</button></div>
+    </div>
+    <button class="big sec" id="progClose" style="margin-top:14px">Закрыть</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -380,13 +405,35 @@ const LS = {
 };
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-const inTelegram = /Telegram/i.test(navigator.userAgent) || typeof window.TelegramWebviewProxy !== 'undefined';
+const isMiniApp = /tgWebApp/i.test(location.hash) || /tgWebApp/i.test(location.search);
+const inTelegram = isMiniApp || /Telegram/i.test(navigator.userAgent) || typeof window.TelegramWebviewProxy !== 'undefined';
+let TG = null;
+const siteURL = () => location.origin + location.pathname.replace(/index\.html$/, '');
+if (isMiniApp) {
+  const sc = document.createElement('script'); sc.src = 'https://telegram.org/js/telegram-web-app.js';
+  sc.onload = () => {
+    try {
+      TG = window.Telegram && window.Telegram.WebApp; if (!TG) return;
+      TG.ready(); TG.expand();
+      if (TG.disableVerticalSwipes) TG.disableVerticalSwipes();
+      if (TG.setHeaderColor) TG.setHeaderColor('#0b0b12');
+      if (TG.setBackgroundColor) TG.setBackgroundColor('#0b0b12');
+      if (TG.enableClosingConfirmation) TG.enableClosingConfirmation();
+      renderInstall();
+    } catch(e){}
+  };
+  document.head.appendChild(sc);
+}
+function openInBrowser(){
+  const u = siteURL();
+  if (TG && TG.openLink) TG.openLink(u, { try_instant_view: false }); else window.open(u, '_blank');
+}
 const fmt = s => { s = Math.max(0, Math.floor(s)); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60;
   return (h ? h + ':' + String(m).padStart(2,'0') : String(m).padStart(2,'0')) + ':' + String(x).padStart(2,'0'); };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 function toast(msg){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2600); }
 
-$('title').textContent = C.TITLE; document.title = C.TITLE;
+$('title').textContent = C.TITLE;
 
 /* ===== репозиторий ===== */
 const REPO = (() => {
@@ -413,17 +460,49 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
 let DATA = null;
 const padPath = f => 'tracks/pads/' + f;
 const bgPath  = f => 'tracks/bg/' + f;
-function allPaths(d = DATA){ return [...d.pads.map(p => padPath(p.file)), ...d.bg.map(b => bgPath(b.file))]; }
-function ensureIds(d){ if (d && Array.isArray(d.pads)) d.pads.forEach((p, i) => { if (!p.id) p.id = 'p' + (i + 1); }); return d; }
+/* программы: у каждой свои пэды и свой фон */
+const PROG_DEFAULTS = [
+  { id: 'ny',   name: 'Новогодняя',  emoji: '🎄' },
+  { id: 'std',  name: 'Стандартная', emoji: '🎈' },
+  { id: 'vech', name: 'Вечерки',     emoji: '🥂' },
+];
+let PROG = null;   // текущая программа (ссылка внутрь DATA.programs)
+const progOf = (d, pid) => d.programs.find(x => x.id === pid);
+function allPaths(d = DATA){
+  const out = new Set();
+  d.programs.forEach(pr => { pr.pads.forEach(p => p.file && out.add(padPath(p.file))); pr.bg.forEach(b => b.file && out.add(bgPath(b.file))); });
+  return [...out];
+}
+function ensureIds(d){
+  if (!d) return d;
+  if (!Array.isArray(d.programs)) {
+    if (!Array.isArray(d.pads)) return null;
+    d.programs = [{ ...PROG_DEFAULTS[0], pads: d.pads, bg: d.bg || [] }];
+    delete d.pads; delete d.bg;
+  }
+  const base = d.programs[0];
+  PROG_DEFAULTS.forEach(def => {
+    if (!progOf(d, def.id)) d.programs.push({ ...def,
+      pads: base.pads.map((p, i) => ({ label: 'Пэд ' + (i + 1), color: p.color, file: '' })),
+      bg: base.bg.map((b, i) => ({ title: 'Фон ' + (i + 1), file: '' })) });
+  });
+  d.programs.forEach(pr => { pr.pads.forEach((p, i) => { if (!p.id) p.id = 'p' + (i + 1); }); if (!pr.bg) pr.bg = []; });
+  return d;
+}
+/* ключи изменений: "<программа>|p:<id>", "<программа>|b<номер>", "<программа>|order", "<программа>|name" */
+function splitKey(k){ const i = k.indexOf('|'); return i < 0 ? { pid: 'ny', k } : { pid: k.slice(0, i), k: k.slice(i + 1) }; }
+const pk = k => PROG.id + '|' + k;
 const keyOfPad = p => 'p:' + p.id;
 function padIdxByKey(d, key){
   if (key.startsWith('p:')) return d.pads.findIndex(x => x.id === key.slice(2));
   if (/^p\d+$/.test(key)) return +key.slice(1);
   return -1;
 }
-function itemFor(key){
-  if (key[0] === 'p') { const i = padIdxByKey(DATA, key); return DATA.pads[i]; }
-  if (key[0] === 'b') return DATA.bg[+key.slice(1)];
+function itemFor(fullKey){
+  const { pid, k } = splitKey(fullKey), pr = progOf(DATA, pid); if (!pr) return null;
+  if (k === 'name') return { name: pr.name, emoji: pr.emoji };
+  if (k[0] === 'p') return pr.pads[padIdxByKey(pr, k)];
+  if (k[0] === 'b') return pr.bg[+k.slice(1)];
   return null;
 }
 function applyOrder(d, ids){
@@ -447,7 +526,7 @@ async function fetchRemoteData(){
   if (REPO.ok) tries.push(() => fetch(rawURL('data.json') + '?t=' + Date.now(), { cache: 'no-store' }));
   tries.push(() => fetch('data.json?t=' + Date.now(), { cache: 'no-store' }));
   for (const t of tries) {
-    try { const r = await t(); if (r.ok) { const d = await r.json(); if (d && Array.isArray(d.pads)) return ensureIds(d); } } catch(e){}
+    try { const r = await t(); if (r.ok) { const d = await r.json(); if (d && (Array.isArray(d.pads) || Array.isArray(d.programs))) return ensureIds(d); } } catch(e){}
   }
   return null;
 }
@@ -479,7 +558,7 @@ async function refreshBadge(extra){
   if (extra) { b.className = 'badge warn'; b.lastChild.textContent = extra; }
   else if (n === total) { b.className = 'badge ok'; b.lastChild.textContent = 'Офлайн готов'; }
   else { b.className = 'badge warn'; b.lastChild.textContent = n ? `Треки ${n}/${total}` : 'Треки не скачаны'; }
-  $('dlInfo').textContent = `Треков: ${total} (пэды ${DATA.pads.length}, фон ${DATA.bg.length}). Скачано: ${n}.`;
+  $('dlInfo').textContent = `Треков во всех программах: ${total}. Скачано: ${n}.`;
   $('stepDl').classList.toggle('done', n === total);
   return n;
 }
@@ -547,6 +626,11 @@ function renderInstall(){
   const box = $('installBody'), step = $('stepInstall');
   step.classList.toggle('done', isStandalone());
   if (isStandalone()) { box.innerHTML = '<p>✓ Пульт открыт с главного экрана.</p>'; return; }
+  if (isMiniApp) {
+    box.innerHTML = '<p>Вы в Telegram: здесь пульт работает, <b>пока есть интернет</b>. Чтобы он работал без интернета на мероприятии — установите его на экран телефона через браузер.</p><button class="big" id="tgOpenBtn">🌐 Открыть в браузере</button>' +
+      '<p class="hint">' + (isIOS ? 'На iPhone откроется Safari → «Поделиться» → «На экран Домой».' : 'В Chrome нажмите «Скачать и установить».') + '</p>';
+    $('tgOpenBtn').onclick = openInBrowser; return;
+  }
   if (inTelegram) { box.innerHTML = '<p>Вы открыли ссылку внутри Telegram. Нажмите ⋯ вверху и выберите <b>«Открыть в браузере»</b> (Chrome или Safari), затем установите пульт оттуда.</p>'; return; }
   if (isIOS) {
     box.innerHTML = '<div class="ios">1. Нажмите <span class="k">Поделиться ⬆︎</span> внизу Safari<br>2. Выберите <span class="k">На экран «Домой»</span><br>3. Откройте пульт <b>с новой иконки</b> и скачайте треки там</div>' +
@@ -578,7 +662,7 @@ $('mUpdate').onclick = async () => {
 $('mReset').onclick = () => {
   if (!resetArmed) { resetArmed = true; $('mReset').textContent = 'Точно? Нажмите ещё раз'; return; }
   stopPad(); bgStop();
-  LS.set('padsDone', []); LS.set('bgPlayed', []); bgIndex = -1; doneSet.clear();
+  LS.set(doneKey(), []); LS.set(playedKey(), []); bgIndex = -1; doneSet.clear();
   pads.forEach(p => p.el.classList.remove('done'));
   updateBgCount(); $('bgName').textContent = 'Нажмите ▶, чтобы включить фон';
   $('menu').classList.remove('show'); toast('Новая программа: всё сброшено');
@@ -656,11 +740,12 @@ function unduck(){
 
 /* ===== пэды ===== */
 const grid = $('grid');
-let doneSet = new Set(LS.get('padsDone', []));
+let doneSet = new Set();
+const doneKey = () => 'padsDone_' + PROG.id, playedKey = () => 'bgPlayed_' + PROG.id;
 let pads = [];
 function buildPads(){
   grid.innerHTML = '';
-  pads = DATA.pads.map((p, i) => {
+  pads = PROG.pads.map((p, i) => {
     const el = document.createElement('button');
     el.className = 'pad' + (doneSet.has(p.id) ? ' done' : '');
     el.innerHTML = `<span class="led"></span><span class="num">${i + 1}</span><span class="chk">✓</span><div class="fill"></div><span class="lab"></span><span class="rem"></span><span class="dirty"></span>`;
@@ -675,28 +760,30 @@ function buildPads(){
   renderPads(); layout();
 }
 function renderPads(){
-  DATA.pads.forEach((p, i) => {
+  PROG.pads.forEach((p, i) => {
     const P = pads[i]; if (!P) return;
     P.el.style.setProperty('--c', COLORS[p.color] || p.color || COLORS.white);
     P.lab.textContent = p.label; P.el.setAttribute('aria-label', p.label);
-    P.el.classList.toggle('isdirty', PENDING.keys.includes(keyOfPad(p)) || PENDING.keys.includes('p' + i));
+    P.el.classList.toggle('empty', !p.file);
+    P.el.classList.toggle('isdirty', PENDING.keys.includes(pk(keyOfPad(p))));
   });
 }
 let curPad = -1, raf = 0;
 function padPress(i){
+  if (!PROG.pads[i].file) { toast('На этом пэде пока нет трека'); return; }
   if (navigator.vibrate) navigator.vibrate(12);
   if (curPad === i) { stopPad(); return; }
   stopPad(true);
   curPad = i;
   const p = pads[i];
   p.el.classList.add('playing'); p.fill.style.height = '0%';
-  padAudio.src = srcFor(padPath(DATA.pads[i].file));
+  padAudio.src = srcFor(padPath(PROG.pads[i].file));
   padAudio.currentTime = 0;
   setRate(padAudio, 1);
   const pr = padAudio.play();
   if (pr) pr.catch(e => { if (e && e.name === 'AbortError') return; if (curPad === i) { p.el.classList.remove('playing'); p.el.classList.add('err'); setTimeout(() => p.el.classList.remove('err'), 400); curPad = -1; unduck(); toast('Трек не найден. Скачайте треки в меню'); } });
   duck();
-  setMedia(DATA.pads[i].label, 'Пэд ' + (i + 1));
+  setMedia(PROG.pads[i].label, 'Пэд ' + (i + 1));
   cancelAnimationFrame(raf); raf = requestAnimationFrame(tickPad);
 }
 function tickPad(){
@@ -716,32 +803,33 @@ padAudio.addEventListener('ended', () => {
   const i = curPad, p = pads[i];
   cancelAnimationFrame(raf);
   p.el.classList.remove('playing'); p.fill.style.height = '0%';
-  p.el.classList.add('done'); doneSet.add(DATA.pads[i].id); LS.set('padsDone', [...doneSet]);
+  p.el.classList.add('done'); doneSet.add(PROG.pads[i].id); LS.set(doneKey(), [...doneSet]);
   curPad = -1; unduck();
 });
 $('stopPad').onclick = () => stopPad();
 
 /* ===== фон без повторов ===== */
 let bgIndex = -1;
-const bgPlayed = () => new Set(LS.get('bgPlayed', []));
-function updateBgCount(){ $('bgCount').textContent = `сыграно ${bgPlayed().size} / ${DATA.bg.length}`; }
+const bgPlayed = () => new Set(LS.get(playedKey(), []));
+function updateBgCount(){ const n = PROG.bg.filter(b => b.file).length; $('bgCount').textContent = n ? `сыграно ${bgPlayed().size} / ${n}` : 'нет треков'; }
 function pickNextBg(){
   const played = bgPlayed();
-  const left = DATA.bg.map((_, i) => i).filter(i => !played.has(i));
+  const left = PROG.bg.map((_, i) => i).filter(i => !played.has(i) && PROG.bg[i].file);
   return left.length ? left[Math.floor(Math.random() * left.length)] : -1;
 }
 function bgStart(i){
   bgIndex = i;
-  const played = bgPlayed(); played.add(i); LS.set('bgPlayed', [...played]); updateBgCount();
-  bgAudio.src = srcFor(bgPath(DATA.bg[i].file)); bgAudio.currentTime = 0; setRate(bgAudio, 1);
+  const played = bgPlayed(); played.add(i); LS.set(playedKey(), [...played]); updateBgCount();
+  bgAudio.src = srcFor(bgPath(PROG.bg[i].file)); bgAudio.currentTime = 0; setRate(bgAudio, 1);
   applyBgVol();
-  $('bgName').textContent = DATA.bg[i].title;
+  $('bgName').textContent = PROG.bg[i].title;
   if (ducked) { bgPausedByDuck = true; bgUI(); return; }
   bgAudio.play().catch(e => { if (e && e.name === 'AbortError') return; toast('Фон не найден. Скачайте треки в меню'); });
-  setMedia(DATA.bg[i].title, 'Фон');
+  setMedia(PROG.bg[i].title, 'Фон');
 }
 function bgNextTrack(){
   const n = pickNextBg();
+  if (n < 0 && !PROG.bg.some(b => b.file)) { bgStop(); $('bgName').textContent = 'В этой программе нет фона'; toast('Добавьте фоновые треки в режиме бога'); return false; }
   if (n < 0) { bgStop(); $('bgName').textContent = 'Все фоновые треки сыграны'; toast('Фон закончился. «Новая программа» в меню начнёт заново'); return false; }
   bgStart(n); return true;
 }
@@ -794,7 +882,7 @@ setInterval(speedUI, 500);
 function setMedia(title, artist){
   if (!('mediaSession' in navigator)) return;
   try {
-    navigator.mediaSession.metadata = new MediaMetadata({ title, artist, album: C.TITLE, artwork: [{ src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }] });
+    navigator.mediaSession.metadata = new MediaMetadata({ title, artist, album: PROG ? PROG.name : C.TITLE, artwork: [{ src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }] });
     navigator.mediaSession.setActionHandler('pause', () => { stopPad(); bgStop(); });
     navigator.mediaSession.setActionHandler('stop', () => { stopPad(); bgStop(); });
     navigator.mediaSession.setActionHandler('play', () => { if (bgIndex >= 0) bgAudio.play().catch(() => {}); });
@@ -828,7 +916,7 @@ setInterval(tDraw, 250); tDraw();
 /* ===== сетка ===== */
 function layout(){
   const w = $('gridwrap'), W = w.clientWidth, gap = 8;
-  const cols = C.COLUMNS || 4, rows = Math.ceil(DATA.pads.length / cols);
+  const cols = C.COLUMNS || 4, rows = Math.ceil(PROG.pads.length / cols);
   const s = Math.floor((W - gap * (cols - 1)) / cols);
   const h = Math.floor(s * (C.PAD_HEIGHT || 1));
   grid.style.gap = gap + 'px';
@@ -923,6 +1011,45 @@ function updatePendingUI(){
   if (pads.length) renderPads();
 }
 
+/* --- программы --- */
+function renderTitle(){ $('title').textContent = PROG.emoji + ' ' + PROG.name; document.title = PROG.name + ' — пульт'; }
+let renamePid = null;
+function renderProgList(){
+  const box = $('progList'); box.innerHTML = ''; $('progRename').style.display = 'none';
+  DATA.programs.forEach(pr => {
+    const b = document.createElement('div'); b.className = 'progitem' + (pr.id === PROG.id ? ' cur' : ''); b.setAttribute('role', 'button');
+    b.innerHTML = '<span class="em"></span><span class="nm"></span><button class="ed" aria-label="Переименовать">✎</button>';
+    b.querySelector('.em').textContent = pr.emoji; b.querySelector('.nm').textContent = pr.name;
+    b.onclick = () => switchProgram(pr.id);
+    b.querySelector('.ed').onclick = e => { e.stopPropagation(); renamePid = pr.id; $('prEmoji').value = pr.emoji; $('prName').value = pr.name; $('progRename').style.display = ''; };
+    box.appendChild(b);
+  });
+}
+$('progBtn').onclick = () => { renderProgList(); $('progSheet').classList.add('show'); };
+$('progClose').onclick = () => $('progSheet').classList.remove('show');
+$('prCancel').onclick = () => { $('progRename').style.display = 'none'; };
+$('prSave').onclick = async () => {
+  const pr = progOf(DATA, renamePid); if (!pr) return;
+  const name = $('prName').value.trim(), emoji = $('prEmoji').value.trim() || pr.emoji;
+  if (!name) return;
+  if (name === pr.name && emoji === pr.emoji) { $('progRename').style.display = 'none'; return; }
+  pr.name = name; pr.emoji = emoji; await writeLocalData(DATA);
+  addPending(pr.id + '|name'); renderTitle(); renderProgList();
+  toast(role === 'dj' ? 'Сохранено. Когда закончите — «📨 Отправить»' : 'Сохранено. Не забудьте «Опубликовать»');
+};
+function switchProgram(pid){
+  const pr = progOf(DATA, pid); if (!pr) return;
+  $('progSheet').classList.remove('show');
+  if (pr === PROG) return;
+  stopPad(); bgStop(); bgIndex = -1; if (reorderMode) setReorder(false);
+  PROG = pr; LS.set('program', pid);
+  doneSet = new Set(LS.get(doneKey(), []));
+  buildPads(); updateBgCount(); renderTitle();
+  $('bgName').textContent = 'Нажмите ▶, чтобы включить фон'; $('bgBar').style.width = '0';
+  $('gridwrap').scrollTop = 0;
+  toast(pr.emoji + ' ' + pr.name);
+}
+
 /* --- перестановка пэдов --- */
 let reorderMode = false;
 function setReorder(on){
@@ -976,10 +1103,10 @@ async function finishDrag(drop){
   cancelAnimationFrame(d.raf); d.ghost.remove(); d.el.classList.remove('dragging');
   if (d.target >= 0 && pads[d.target]) pads[d.target].el.classList.remove('target');
   if (!drop || d.target < 0 || d.target === d.i) return;
-  const [moved] = DATA.pads.splice(d.i, 1); DATA.pads.splice(d.target, 0, moved);
+  const [moved] = PROG.pads.splice(d.i, 1); PROG.pads.splice(d.target, 0, moved);
   buildPads();
   await writeLocalData(DATA);
-  addPending('order');
+  addPending(pk('order'));
   if (navigator.vibrate) navigator.vibrate(10);
 }
 
@@ -1011,7 +1138,7 @@ const preview = new Audio();
 function stopPreview(){ preview.pause(); $('pePlay').textContent = '▶'; }
 preview.addEventListener('ended', stopPreview);
 function openPadEditor(i){
-  edIdx = i; edFile = null; const p = DATA.pads[i];
+  edIdx = i; edFile = null; const p = PROG.pads[i];
   $('peTitle').textContent = 'Пэд ' + (i + 1);
   $('peLabel').value = p.label; edColor = p.color; $('peErr').textContent = '';
   const sw = $('peColors'); sw.innerHTML = '';
@@ -1021,12 +1148,13 @@ function openPadEditor(i){
     b.onclick = () => { edColor = k; sw.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); };
     sw.appendChild(b);
   });
-  $('peTrack').innerHTML = `${p.file}<small>текущий трек</small>`;
+  $('peTrack').innerHTML = p.file ? `${p.file}<small>текущий трек</small>` : `Нет трека<small>нажмите «🎵 Заменить»</small>`;
   stopPreview(); $('padEd').classList.add('show');
 }
 $('pePlay').onclick = async () => {
   if (!preview.paused) { stopPreview(); return; }
-  preview.src = edFile ? URL.createObjectURL(edFile) : srcFor(padPath(DATA.pads[edIdx].file));
+  if (!edFile && !PROG.pads[edIdx].file) { $('peErr').textContent = 'Сначала выберите трек'; return; }
+  preview.src = edFile ? URL.createObjectURL(edFile) : srcFor(padPath(PROG.pads[edIdx].file));
   preview.play().then(() => $('pePlay').textContent = '■').catch(() => $('peErr').textContent = 'Не удалось воспроизвести');
 };
 $('peFileBtn').onclick = () => $('peFile').click();
@@ -1039,19 +1167,19 @@ $('peFile').onchange = e => {
 $('peCancel').onclick = () => { stopPreview(); $('padEd').classList.remove('show'); };
 $('peSave').onclick = async () => {
   stopPreview();
-  const p = DATA.pads[edIdx], label = $('peLabel').value.trim() || p.label;
+  const p = PROG.pads[edIdx], label = $('peLabel').value.trim() || p.label;
   const changed = label !== p.label || edColor !== p.color || edFile;
   if (!changed) { $('padEd').classList.remove('show'); return; }
   $('peSave').disabled = true;
   try {
     let newPath = null, oldPath = padPath(p.file);
     if (edFile) {
-      const nf = String(edIdx + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(edFile);
+      const nf = PROG.id + '-' + String(edIdx + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(edFile);
       newPath = padPath(nf); await storeLocalTrack(newPath, edFile); p.file = nf;
     }
     p.label = label; p.color = edColor;
     await writeLocalData(DATA);
-    addPending(keyOfPad(p), newPath, oldPath);
+    addPending(pk(keyOfPad(p)), newPath, oldPath);
     renderPads();
     $('padEd').classList.remove('show'); toast(role === 'dj' ? 'Сохранено. Когда закончите — «📨 Отправить»' : 'Сохранено на телефоне. Не забудьте «Опубликовать»');
   } catch(e){ $('peErr').textContent = 'Не удалось сохранить: ' + e.message; }
@@ -1064,7 +1192,7 @@ $('bgBox').addEventListener('click', () => { if (admin) openBgEditor(); });
 function openBgEditor(){
   bgEdFiles = {}; $('bgErr').textContent = '';
   const rows = $('bgRows'); rows.innerHTML = '';
-  DATA.bg.forEach((b, i) => {
+  PROG.bg.forEach((b, i) => {
     const r = document.createElement('div'); r.className = 'bgrow';
     r.innerHTML = `<input class="field" maxlength="40"><button class="sbtn">🎵</button>`;
     r.querySelector('input').value = b.title;
@@ -1086,16 +1214,16 @@ $('bgEdSave').onclick = async () => {
   $('bgEdSave').disabled = true;
   try {
     const rows = [...$('bgRows').children];
-    for (let i = 0; i < DATA.bg.length; i++) {
-      const b = DATA.bg[i], title = rows[i].querySelector('input').value.trim() || b.title, f = bgEdFiles[i];
+    for (let i = 0; i < PROG.bg.length; i++) {
+      const b = PROG.bg[i], title = rows[i].querySelector('input').value.trim() || b.title, f = bgEdFiles[i];
       if (title === b.title && !f) continue;
       let newPath = null, oldPath = bgPath(b.file);
-      if (f) { const nf = String(i + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(f); newPath = bgPath(nf); await storeLocalTrack(newPath, f); b.file = nf; }
+      if (f) { const nf = PROG.id + '-' + String(i + 1).padStart(2, '0') + '-' + uid() + '.' + extOf(f); newPath = bgPath(nf); await storeLocalTrack(newPath, f); b.file = nf; }
       b.title = title;
-      addPending('b' + i, newPath, oldPath);
+      addPending(pk('b' + i), newPath, oldPath);
     }
     await writeLocalData(DATA);
-    if (bgIndex >= 0) $('bgName').textContent = DATA.bg[bgIndex].title;
+    if (bgIndex >= 0) $('bgName').textContent = PROG.bg[bgIndex].title;
     $('bgEd').classList.remove('show'); toast(role === 'dj' ? 'Сохранено. Когда закончите — «📨 Отправить»' : 'Сохранено на телефоне. Не забудьте «Опубликовать»');
   } catch(e){ $('bgErr').textContent = 'Не удалось сохранить: ' + e.message; }
   $('bgEdSave').disabled = false;
@@ -1118,7 +1246,7 @@ async function readDataAt(sha){
     const f = await gh(`/contents/data.json?ref=${sha}`);
     const bin = Uint8Array.from(atob(String(f.content).replace(/\n/g, '')), ch => ch.charCodeAt(0));
     const d = JSON.parse(new TextDecoder().decode(bin));
-    return d && Array.isArray(d.pads) ? ensureIds(d) : null;
+    return d && (Array.isArray(d.pads) || Array.isArray(d.programs)) ? ensureIds(d) : null;
   } catch(e){ return null; }
 }
 
@@ -1153,18 +1281,21 @@ async function commitMain({ files = [], patch, message, say = () => {} }){
   await gh(`/git/refs/heads/${REPO.branch}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
   return merged;
 }
-const slotPath = (key, item) => key[0] === 'p' ? padPath(item.file) : bgPath(item.file);
-function copySlot(merged, key, item, oldPaths, order){
-  if (key === 'order') { if (order) applyOrder(merged, order); return; }
+const slotPath = (fullKey, item) => splitKey(fullKey).k[0] === 'p' ? padPath(item.file) : bgPath(item.file);
+function copySlot(merged, fullKey, item, oldPaths, order){
+  ensureIds(merged);
+  const { pid, k: key } = splitKey(fullKey), pr = progOf(merged, pid); if (!pr) return;
+  if (key === 'order') { if (order) applyOrder(pr, order); return; }
   if (!item) return;
+  if (key === 'name') { pr.name = item.name; if (item.emoji) pr.emoji = item.emoji; return; }
   if (key[0] === 'p') {
-    const i = padIdxByKey(merged, item.id ? 'p:' + item.id : key);
+    const i = padIdxByKey(pr, item.id ? 'p:' + item.id : key);
     if (i < 0) return;
-    oldPaths.push(padPath(merged.pads[i].file)); merged.pads[i] = { ...item };
+    oldPaths.push(padPath(pr.pads[i].file)); pr.pads[i] = { ...item };
   } else {
     const i = +key.slice(1);
-    if (merged.bg[i]) oldPaths.push(bgPath(merged.bg[i].file));
-    merged.bg[i] = { ...item };
+    if (pr.bg[i]) oldPaths.push(bgPath(pr.bg[i].file));
+    pr.bg[i] = { ...item };
   }
 }
 
@@ -1223,8 +1354,11 @@ async function publishMain(){
     const merged = await commitMain({ files, say, message: 'Пульт: изменения из режима бога (' + keys.length + ')',
       patch: (m, oldPaths) => {
         PENDING.files.forEach(f => oldPaths.push(f.oldPath));
-        keys.filter(k => k !== 'order').forEach(k => copySlot(m, k, itemFor(k), oldPaths));
-        if (keys.includes('order')) applyOrder(m, DATA.pads.map(p => p.id));
+        keys.forEach(k => {
+          const { pid, k: kk } = splitKey(k);
+          if (kk === 'order') { const pr = progOf(DATA, pid); if (pr) copySlot(m, k, null, oldPaths, pr.pads.map(p => p.id)); }
+          else copySlot(m, k, itemFor(k), oldPaths);
+        });
       } });
     PENDING = { keys: [], files: [], removed: [] };
     await writeLocalData(merged); applyData(merged); savePending();
@@ -1235,10 +1369,13 @@ async function publishMain(){
 }
 
 /* --- отправка на подтверждение (диджей) --- */
-function describeChange(key, item, hasTrack){
-  if (key === 'order') return '⇅ Изменён порядок пэдов';
-  if (key[0] === 'p') { const i = item && item.id ? DATA.pads.findIndex(x => x.id === item.id) : +key.slice(1); return `Пэд ${i + 1} → «${item.label}»` + (hasTrack ? ' · 🎵 новый трек' : ''); }
-  return `Фон ${+key.slice(1) + 1} → «${item.title}»` + (hasTrack ? ' · 🎵 новый трек' : '');
+function describeChange(fullKey, item, hasTrack){
+  const { pid, k: key } = splitKey(fullKey), pr = progOf(DATA, pid);
+  const pre = pr ? pr.emoji + ' ' + pr.name + ': ' : '';
+  if (key === 'order') return pre + '⇅ изменён порядок пэдов';
+  if (key === 'name') return pre + `название → «${item.name}»`;
+  if (key[0] === 'p') { const i = item && item.id && pr ? pr.pads.findIndex(x => x.id === item.id) : +key.slice(1); return pre + `пэд ${i + 1} → «${item.label}»` + (hasTrack ? ' · 🎵 новый трек' : ''); }
+  return pre + `фон ${+key.slice(1) + 1} → «${item.title}»` + (hasTrack ? ' · 🎵 новый трек' : '');
 }
 function openSend(){
   $('sendName').value = LS.get('djName', '');
@@ -1270,7 +1407,7 @@ $('sendOk').onclick = async () => {
     const c = await caches.open(TRACK_CACHE), tree = [], changes = [];
     for (let n = 0; n < PENDING.keys.length; n++) {
       const key = PENDING.keys[n];
-      if (key === 'order') { changes.push({ key, order: DATA.pads.map(p => p.id) }); continue; }
+      if (splitKey(key).k === 'order') { const pr = progOf(DATA, splitKey(key).pid); changes.push({ key, order: pr ? pr.pads.map(p => p.id) : [] }); continue; }
       const item = itemFor(key);
       const pf = PENDING.files.find(f => f.key === key); let src = null;
       if (pf) {
@@ -1371,7 +1508,7 @@ async function acceptRequest(req, err){
   try {
     const c = await caches.open(TRACK_CACHE), files = [];
     for (const ch of req.changes) {
-      if (!ch.src || ch.key === 'order') continue;
+      if (!ch.src || splitKey(ch.key).k === 'order') continue;
       const finalPath = slotPath(ch.key, ch.item), sha = inboxTree[ch.src];
       if (!sha) throw new Error('трек из запроса не найден');
       files.push({ path: finalPath, sha });
@@ -1421,18 +1558,16 @@ $('histBtn').onclick = async () => {
 
 /* ===== синхронизация с сайтом ===== */
 function applyData(d){
-  const oldBgLen = DATA ? DATA.bg.length : 0;
-  DATA = d;
-  if (pads.length !== DATA.pads.length) buildPads(); else renderPads();
-  if (oldBgLen && oldBgLen !== DATA.bg.length) LS.set('bgPlayed', []);
-  updateBgCount();
-  if (bgIndex >= 0 && DATA.bg[bgIndex]) $('bgName').textContent = DATA.bg[bgIndex].title;
+  DATA = ensureIds(d);
+  PROG = progOf(DATA, PROG ? PROG.id : 'ny') || DATA.programs[0];
+  buildPads(); updateBgCount(); renderTitle();
+  if (bgIndex >= 0 && PROG.bg[bgIndex]) $('bgName').textContent = PROG.bg[bgIndex].title;
 }
 async function syncRemote(manual){
   if (isDirty()) { if (manual) toast('Есть неопубликованные изменения — сначала «Опубликовать»'); return false; }
   const remote = await fetchRemoteData();
   if (!remote) { if (manual) toast('Не удалось проверить обновления'); return false; }
-  const same = JSON.stringify({ p: remote.pads, b: remote.bg }) === JSON.stringify({ p: DATA.pads, b: DATA.bg });
+  const same = JSON.stringify(remote.programs) === JSON.stringify(DATA.programs);
   if (!same && (remote.rev || 0) < (DATA.rev || 0)) { if (manual) toast('Сайт ещё обновляется, попробуйте через пару минут'); return false; }
   if (same) { await refreshBadge(); const n = await countCached(); if (n < allPaths().length) await downloadTracks(false, true); return false; }
   await writeLocalData(remote);
@@ -1451,8 +1586,14 @@ async function syncRemote(manual){
     await writeLocalData(DATA);
   }
   ensureIds(DATA);
-  if ([...doneSet].some(x => typeof x === 'number')) { doneSet = new Set([...doneSet].map(x => typeof x === 'number' && DATA.pads[x] ? DATA.pads[x].id : x)); LS.set('padsDone', [...doneSet]); }
-  buildPads(); updateBgCount(); setRole(role);
+  PROG = progOf(DATA, LS.get('program', 'ny')) || DATA.programs[0];
+  // перенос старых отметок (до появления программ)
+  if (PROG.id === 'ny' && LS.get('padsDone_ny', null) === null) {
+    const old = LS.get('padsDone', []); LS.set('padsDone_ny', old.map(x => typeof x === 'number' && PROG.pads[x] ? PROG.pads[x].id : x));
+    LS.set('bgPlayed_ny', LS.get('bgPlayed', []));
+  }
+  doneSet = new Set(LS.get(doneKey(), []));
+  buildPads(); updateBgCount(); renderTitle(); setRole(role);
   const n = await refreshBadge();
   if (n < allPaths().length || (isIOS && !isStandalone() && !LS.get('setupSeen', false))) { LS.set('setupSeen', true); openSetup(); }
   prepareAll();
