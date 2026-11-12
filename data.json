@@ -1,6 +1,6 @@
 {
- "rev": 8,
- "updated": "2026-11-12T09:28:17.120Z",
+ "rev": 9,
+ "updated": "2026-11-12T09:28:29.110Z",
  "pads": [
   {
    "label": "Выход героя",
@@ -27,28 +27,10 @@
    "id": "p4"
   },
   {
-   "label": "Снег",
-   "color": "blue",
-   "file": "05-mwd9zotzfd9w.mp3",
-   "id": "p5"
-  },
-  {
-   "label": "Конкурс 2 betsy",
-   "color": "green",
-   "file": "06-mwda5ahw3gbk.mp3",
-   "id": "p6"
-  },
-  {
    "label": "Конкурс песня",
    "color": "yellow",
    "file": "07.mp3",
    "id": "p7"
-  },
-  {
-   "label": "Конкурс песня",
-   "color": "yellow",
-   "file": "08.mp3",
-   "id": "p8"
   },
   {
    "label": "Танец Героя",
@@ -75,28 +57,28 @@
    "id": "p12"
   },
   {
+   "label": "Снег",
+   "color": "blue",
+   "file": "05-mwd9zotzfd9w.mp3",
+   "id": "p5"
+  },
+  {
+   "label": "Конкурс 2 betsy",
+   "color": "green",
+   "file": "06-mwda5ahw3gbk.mp3",
+   "id": "p6"
+  },
+  {
+   "label": "Конкурс песня",
+   "color": "yellow",
+   "file": "08.mp3",
+   "id": "p8"
+  },
+  {
    "label": "Танец снежинок",
    "color": "cyan",
    "file": "13.mp3",
    "id": "p13"
-  },
-  {
-   "label": "Выход Бабы-яги",
-   "color": "orange",
-   "file": "14.mp3",
-   "id": "p14"
-  },
-  {
-   "label": "Выход Снеговика",
-   "color": "orange",
-   "file": "15.mp3",
-   "id": "p15"
-  },
-  {
-   "label": "Хоровод",
-   "color": "pink",
-   "file": "16-mwdapm3q9kdl.mp3",
-   "id": "p16"
   },
   {
    "label": "Фотосессия",
@@ -117,6 +99,12 @@
    "id": "p19"
   },
   {
+   "label": "Выход Снеговика",
+   "color": "orange",
+   "file": "15.mp3",
+   "id": "p15"
+  },
+  {
    "label": "Сюрприз",
    "color": "pink",
    "file": "20.mp3",
@@ -135,10 +123,22 @@
    "id": "p22"
   },
   {
+   "label": "Выход Бабы-яги",
+   "color": "orange",
+   "file": "14.mp3",
+   "id": "p14"
+  },
+  {
    "label": "Фото с Дедом Морозом",
    "color": "blue",
    "file": "23.mp3",
    "id": "p23"
+  },
+  {
+   "label": "Хоровод",
+   "color": "pink",
+   "file": "16-mwdapm3q9kdl.mp3",
+   "id": "p16"
   },
   {
    "label": "Дискотека 1",
