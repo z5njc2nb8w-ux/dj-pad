@@ -1,6 +1,6 @@
 {
- "rev": 1,
- "updated": "2026-11-12T06:35:40.043Z",
+ "rev": 2,
+ "updated": "2026-11-12T07:58:42.962Z",
  "pads": [
   {
    "label": "Старт программы",
@@ -194,5 +194,10 @@
    "title": "Фон 10",
    "file": "10.mp3"
   }
- ]
+ ],
+ "dj": {
+  "salt": "MSA+IjHIEMXebIj5QUNo4Q==",
+  "iv": "kS7d2VHxz3oSJVIa",
+  "ct": "TplJfubPMSSF1LHnPLuUlUw+eX9c9f+WC1M6gZQvKpgU3oF2JMLK/sSUBH4tsENLc6Q1f+nZL1txU3YxpYk/E7S+q+UXTXm/d95kii0fGMVr0i4Ac9F3H0zkcjdgoLWOy2CIAbNsOIQ2s4zcmg=="
+ }
 }
