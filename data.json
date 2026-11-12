@@ -1,6 +1,6 @@
 {
- "rev": 9,
- "updated": "2026-11-12T09:28:29.110Z",
+ "rev": 10,
+ "updated": "2026-11-12T10:14:34.142Z",
  "pads": [
   {
    "label": "Выход героя",
@@ -226,8 +226,8 @@
   }
  ],
  "dj": {
-  "salt": "gdHbnaQZl4ct0KD3g/b/KA==",
-  "iv": "FP3R8UyBI7XEZGsm",
-  "ct": "Oxvz/cR4HqA3L8t/RtdPEZasBJbpSoojAYSGfdbD9y0z7V6y+8/2GBBJ3tLeCeh/HApZsOk31UY/ZQDZPU16vjq0tFx7KTzz+ZQ3y0FwlMYWiID6mZ9xLpx9OYJlgK7UG4H9a92cgDE1PTBRAg=="
+  "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
+  "iv": "oZpxT08LhEs7NBAO",
+  "ct": "lOimz5hPWfPxUvuTTgI8SOtJm7TKkFG+f+pAwLZyr71EgPwvfof5bmuGPjFX4q438MOVCUV2T52KhYws7JB7dnd+cgByRE6Nv8MmDiYi3XrG5FcSNgFCVHtphcLe+cWkBgePFVr//eynPeTSOA=="
  }
 }
