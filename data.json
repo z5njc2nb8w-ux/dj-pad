@@ -1,6 +1,6 @@
 {
- "rev": 14,
- "updated": "2026-11-24T10:19:17.376Z",
+ "rev": 15,
+ "updated": "2026-11-24T10:26:09.641Z",
  "dj": {
   "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
   "iv": "oZpxT08LhEs7NBAO",
@@ -87,8 +87,14 @@
     {
      "label": "Снег",
      "color": "blue",
-     "file": "05-mwd9zotzfd9w.mp3",
+     "file": "ny-13-mwujq3rezdwb.mp3",
      "id": "p5"
+    },
+    {
+     "label": "Сег 2 нюша",
+     "color": "yellow",
+     "file": "ny-30-mwujs5xzydq9.mp3",
+     "id": "p27"
     },
     {
      "label": "Хоровод",
@@ -99,7 +105,7 @@
     {
      "label": "Фотосессия",
      "color": "white",
-     "file": "17-mwdarep1lqax.mp3",
+     "file": "ny-15-mwujsj76e4fq.mp3",
      "id": "p17"
     },
     {
@@ -185,12 +191,6 @@
      "color": "pink",
      "file": "26.mp3",
      "id": "p26"
-    },
-    {
-     "label": "Бой курантов",
-     "color": "yellow",
-     "file": "27.mp3",
-     "id": "p27"
     }
    ],
    "bg": [
