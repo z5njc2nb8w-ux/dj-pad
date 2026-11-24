@@ -1,6 +1,6 @@
 {
- "rev": 18,
- "updated": "2026-11-24T10:44:07.692Z",
+ "rev": 19,
+ "updated": "2026-11-24T10:49:27.945Z",
  "dj": {
   "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
   "iv": "oZpxT08LhEs7NBAO",
@@ -115,21 +115,21 @@
      "id": "p16"
     },
     {
-     "label": "Фотосессия",
+     "label": "Подарки",
      "color": "white",
      "file": "ny-15-mwujsj76e4fq.mp3",
      "id": "p17"
     },
     {
-     "label": "Конкурс песня",
+     "label": "Фотосессия",
      "color": "yellow",
-     "file": "07.mp3",
+     "file": "ny-19-mwukn4u0z4qm.mp3",
      "id": "p7"
     },
     {
-     "label": "Танец снежинок",
+     "label": "Фотосессия 2",
      "color": "cyan",
-     "file": "13.mp3",
+     "file": "ny-20-mwuko1ypqdgg.mp3",
      "id": "p13"
     },
     {
