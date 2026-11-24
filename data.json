@@ -1,6 +1,6 @@
 {
- "rev": 17,
- "updated": "2026-11-24T10:41:48.247Z",
+ "rev": 18,
+ "updated": "2026-11-24T10:44:07.692Z",
  "dj": {
   "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
   "iv": "oZpxT08LhEs7NBAO",
@@ -25,16 +25,16 @@
      "id": "p1"
     },
     {
-     "label": "зовем деда выходит герой",
-     "color": "red",
-     "file": "ny-03-mwujl7dw9eo6.m4a",
-     "id": "p30"
-    },
-    {
      "label": "страшная музыка письмо",
      "color": "red",
      "file": "ny-30-mwujgkddgw7v.mp3",
      "id": "p28"
+    },
+    {
+     "label": "зовем деда выходит герой",
+     "color": "red",
+     "file": "ny-03-mwujl7dw9eo6.m4a",
+     "id": "p30"
     },
     {
      "label": "гром",
@@ -61,16 +61,16 @@
      "id": "p6"
     },
     {
-     "label": "Танец Снегурки",
-     "color": "purple",
-     "file": "09-mwdaaixoxbje.mp3",
-     "id": "p9"
-    },
-    {
      "label": "Танец Героя",
      "color": "purple",
      "file": "ny-10-mwuke42tv4kd.mp3",
      "id": "p10"
+    },
+    {
+     "label": "Танец Снегурки",
+     "color": "purple",
+     "file": "09-mwdaaixoxbje.mp3",
+     "id": "p9"
     },
     {
      "label": "Скрип деда",
@@ -97,6 +97,18 @@
      "id": "p27"
     },
     {
+     "label": "конкурс",
+     "color": "white",
+     "file": "19.mp3",
+     "id": "p19"
+    },
+    {
+     "label": "Конкурс песня",
+     "color": "yellow",
+     "file": "08.mp3",
+     "id": "p8"
+    },
+    {
      "label": "Хоровод",
      "color": "pink",
      "file": "16-mwdapm3q9kdl.mp3",
@@ -107,12 +119,6 @@
      "color": "white",
      "file": "ny-15-mwujsj76e4fq.mp3",
      "id": "p17"
-    },
-    {
-     "label": "Конкурс песня",
-     "color": "yellow",
-     "file": "08.mp3",
-     "id": "p8"
     },
     {
      "label": "Конкурс песня",
@@ -131,12 +137,6 @@
      "color": "white",
      "file": "18.mp3",
      "id": "p18"
-    },
-    {
-     "label": "Барабанная дробь",
-     "color": "white",
-     "file": "19.mp3",
-     "id": "p19"
     },
     {
      "label": "Выход Снеговика",
