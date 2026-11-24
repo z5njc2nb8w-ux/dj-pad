@@ -1,6 +1,6 @@
 {
- "rev": 16,
- "updated": "2026-11-24T10:30:35.683Z",
+ "rev": 17,
+ "updated": "2026-11-24T10:41:48.247Z",
  "dj": {
   "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
   "iv": "oZpxT08LhEs7NBAO",
@@ -61,15 +61,15 @@
      "id": "p6"
     },
     {
-     "label": "Танец Героя",
+     "label": "Танец Снегурки",
      "color": "purple",
      "file": "09-mwdaaixoxbje.mp3",
      "id": "p9"
     },
     {
-     "label": "Танец Снегурочки Могну",
+     "label": "Танец Героя",
      "color": "purple",
-     "file": "10-mwdae2n2fg58.mp3",
+     "file": "ny-10-mwuke42tv4kd.mp3",
      "id": "p10"
     },
     {
