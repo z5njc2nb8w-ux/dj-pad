@@ -1,233 +1,698 @@
 {
- "rev": 12,
- "updated": "2026-11-12T10:17:39.999Z",
- "pads": [
-  {
-   "label": "Выход героя",
-   "color": "red",
-   "file": "01-mwd9xmr74ub7.mp3",
-   "id": "p1"
-  },
-  {
-   "label": "Выход Снегурочки",
-   "color": "orange",
-   "file": "02-mwd9xc9epugv.mp3",
-   "id": "p2"
-  },
-  {
-   "label": "Выход Деда",
-   "color": "cyan",
-   "file": "03-mwdbo051iskw.mp3",
-   "id": "p3"
-  },
-  {
-   "label": "Конкурс 1",
-   "color": "blue",
-   "file": "04-mwd9yvir26t0.mp3",
-   "id": "p4"
-  },
-  {
-   "label": "Танец Героя",
-   "color": "purple",
-   "file": "09-mwdaaixoxbje.mp3",
-   "id": "p9"
-  },
-  {
-   "label": "Танец Снегурочки Могну",
-   "color": "purple",
-   "file": "10-mwdae2n2fg58.mp3",
-   "id": "p10"
-  },
-  {
-   "label": "Скрип деда",
-   "color": "purple",
-   "file": "11-mwdaerr8nb6n.mp3",
-   "id": "p11"
-  },
-  {
-   "label": "Танец деда",
-   "color": "purple",
-   "file": "12-mwdajxvvh6qq.mp3",
-   "id": "p12"
-  },
-  {
-   "label": "Снег",
-   "color": "blue",
-   "file": "05-mwd9zotzfd9w.mp3",
-   "id": "p5"
-  },
-  {
-   "label": "Конкурс 2 betsy",
-   "color": "green",
-   "file": "06-mwda5ahw3gbk.mp3",
-   "id": "p6"
-  },
-  {
-   "label": "Хоровод",
-   "color": "pink",
-   "file": "16-mwdapm3q9kdl.mp3",
-   "id": "p16"
-  },
-  {
-   "label": "Фотосессия",
-   "color": "white",
-   "file": "17-mwdarep1lqax.mp3",
-   "id": "p17"
-  },
-  {
-   "label": "Конкурс песня",
-   "color": "yellow",
-   "file": "08.mp3",
-   "id": "p8"
-  },
-  {
-   "label": "Конкурс песня",
-   "color": "yellow",
-   "file": "07.mp3",
-   "id": "p7"
-  },
-  {
-   "label": "Танец снежинок",
-   "color": "cyan",
-   "file": "13.mp3",
-   "id": "p13"
-  },
-  {
-   "label": "Аплодисменты",
-   "color": "white",
-   "file": "18.mp3",
-   "id": "p18"
-  },
-  {
-   "label": "Барабанная дробь",
-   "color": "white",
-   "file": "19.mp3",
-   "id": "p19"
-  },
-  {
-   "label": "Выход Снеговика",
-   "color": "orange",
-   "file": "15.mp3",
-   "id": "p15"
-  },
-  {
-   "label": "Сюрприз",
-   "color": "pink",
-   "file": "20.mp3",
-   "id": "p20"
-  },
-  {
-   "label": "Подарки",
-   "color": "red",
-   "file": "21.mp3",
-   "id": "p21"
-  },
-  {
-   "label": "Мешок с подарками",
-   "color": "red",
-   "file": "22.mp3",
-   "id": "p22"
-  },
-  {
-   "label": "Выход Бабы-яги",
-   "color": "orange",
-   "file": "14.mp3",
-   "id": "p14"
-  },
-  {
-   "label": "Фото с Дедом Морозом",
-   "color": "blue",
-   "file": "23.mp3",
-   "id": "p23"
-  },
-  {
-   "label": "Дискотека 1",
-   "color": "green",
-   "file": "24.mp3",
-   "id": "p24"
-  },
-  {
-   "label": "Дискотека 2",
-   "color": "green",
-   "file": "25.mp3",
-   "id": "p25"
-  },
-  {
-   "label": "Медленный танец",
-   "color": "pink",
-   "file": "26.mp3",
-   "id": "p26"
-  },
-  {
-   "label": "Бой курантов",
-   "color": "yellow",
-   "file": "27.mp3",
-   "id": "p27"
-  },
-  {
-   "label": "С Новым годом!",
-   "color": "red",
-   "file": "28.mp3",
-   "id": "p28"
-  },
-  {
-   "label": "Прощание",
-   "color": "cyan",
-   "file": "29.mp3",
-   "id": "p29"
-  },
-  {
-   "label": "Финал",
-   "color": "red",
-   "file": "30.mp3",
-   "id": "p30"
-  }
- ],
- "bg": [
-  {
-   "title": "Wood - Never A Day (OST Интуиция)",
-   "file": "01-mwde4r3244tr.mp3"
-  },
-  {
-   "title": "Barenaked Ladies - Green Christmas (OST",
-   "file": "02-mwde4r5e6nbx.mp3"
-  },
-  {
-   "title": "Dean Martin - Let It Snow! Let It Snow!",
-   "file": "03-mwde4r7y948i.mp3"
-  },
-  {
-   "title": "Andy Williams - It's The Most Wonderful",
-   "file": "04-mwde4radc7ly.mp3"
-  },
-  {
-   "title": "Фон 5",
-   "file": "05.mp3"
-  },
-  {
-   "title": "Фон 6",
-   "file": "06.mp3"
-  },
-  {
-   "title": "Фон 7",
-   "file": "07.mp3"
-  },
-  {
-   "title": "Фон 8",
-   "file": "08.mp3"
-  },
-  {
-   "title": "Фон 9",
-   "file": "09.mp3"
-  },
-  {
-   "title": "Фон 10",
-   "file": "10.mp3"
-  }
- ],
+ "rev": 13,
+ "updated": "2026-11-24T10:16:08.347Z",
  "dj": {
   "salt": "gdUs4ucjk9EyyU/x4yvt/A==",
   "iv": "oZpxT08LhEs7NBAO",
   "ct": "lOimz5hPWfPxUvuTTgI8SOtJm7TKkFG+f+pAwLZyr71EgPwvfof5bmuGPjFX4q438MOVCUV2T52KhYws7JB7dnd+cgByRE6Nv8MmDiYi3XrG5FcSNgFCVHtphcLe+cWkBgePFVr//eynPeTSOA=="
- }
+ },
+ "programs": [
+  {
+   "id": "ny",
+   "name": "Новогодняя",
+   "emoji": "🎄",
+   "pads": [
+    {
+     "label": "Выход Снегурочки",
+     "color": "orange",
+     "file": "02-mwd9xc9epugv.mp3",
+     "id": "p2"
+    },
+    {
+     "label": "Выход деда не выходит",
+     "color": "red",
+     "file": "ny-02-mwujapri5uvk.mp3",
+     "id": "p1"
+    },
+    {
+     "label": "зовем деда выходит герой",
+     "color": "red",
+     "file": "30.mp3",
+     "id": "p30"
+    },
+    {
+     "label": "страшная музыка письмо",
+     "color": "red",
+     "file": "ny-30-mwujgkddgw7v.mp3",
+     "id": "p28"
+    },
+    {
+     "label": "гром",
+     "color": "cyan",
+     "file": "ny-29-mwuje3nu4fxd.mp3",
+     "id": "p29"
+    },
+    {
+     "label": "Выход Деда",
+     "color": "cyan",
+     "file": "03-mwdbo051iskw.mp3",
+     "id": "p3"
+    },
+    {
+     "label": "Конкурс 1",
+     "color": "blue",
+     "file": "04-mwd9yvir26t0.mp3",
+     "id": "p4"
+    },
+    {
+     "label": "Конкурс 2 betsy",
+     "color": "green",
+     "file": "06-mwda5ahw3gbk.mp3",
+     "id": "p6"
+    },
+    {
+     "label": "Танец Героя",
+     "color": "purple",
+     "file": "09-mwdaaixoxbje.mp3",
+     "id": "p9"
+    },
+    {
+     "label": "Танец Снегурочки Могну",
+     "color": "purple",
+     "file": "10-mwdae2n2fg58.mp3",
+     "id": "p10"
+    },
+    {
+     "label": "Скрип деда",
+     "color": "purple",
+     "file": "ny-07-mwuj7vf5jyoh.mp3",
+     "id": "p11"
+    },
+    {
+     "label": "Танец деда",
+     "color": "purple",
+     "file": "12-mwdajxvvh6qq.mp3",
+     "id": "p12"
+    },
+    {
+     "label": "Снег",
+     "color": "blue",
+     "file": "05-mwd9zotzfd9w.mp3",
+     "id": "p5"
+    },
+    {
+     "label": "Хоровод",
+     "color": "pink",
+     "file": "16-mwdapm3q9kdl.mp3",
+     "id": "p16"
+    },
+    {
+     "label": "Фотосессия",
+     "color": "white",
+     "file": "17-mwdarep1lqax.mp3",
+     "id": "p17"
+    },
+    {
+     "label": "Конкурс песня",
+     "color": "yellow",
+     "file": "08.mp3",
+     "id": "p8"
+    },
+    {
+     "label": "Конкурс песня",
+     "color": "yellow",
+     "file": "07.mp3",
+     "id": "p7"
+    },
+    {
+     "label": "Танец снежинок",
+     "color": "cyan",
+     "file": "13.mp3",
+     "id": "p13"
+    },
+    {
+     "label": "Аплодисменты",
+     "color": "white",
+     "file": "18.mp3",
+     "id": "p18"
+    },
+    {
+     "label": "Барабанная дробь",
+     "color": "white",
+     "file": "19.mp3",
+     "id": "p19"
+    },
+    {
+     "label": "Выход Снеговика",
+     "color": "orange",
+     "file": "15.mp3",
+     "id": "p15"
+    },
+    {
+     "label": "Сюрприз",
+     "color": "pink",
+     "file": "20.mp3",
+     "id": "p20"
+    },
+    {
+     "label": "Подарки",
+     "color": "red",
+     "file": "21.mp3",
+     "id": "p21"
+    },
+    {
+     "label": "Мешок с подарками",
+     "color": "red",
+     "file": "22.mp3",
+     "id": "p22"
+    },
+    {
+     "label": "Выход Бабы-яги",
+     "color": "orange",
+     "file": "14.mp3",
+     "id": "p14"
+    },
+    {
+     "label": "Фото с Дедом Морозом",
+     "color": "blue",
+     "file": "23.mp3",
+     "id": "p23"
+    },
+    {
+     "label": "Дискотека 1",
+     "color": "green",
+     "file": "24.mp3",
+     "id": "p24"
+    },
+    {
+     "label": "Дискотека 2",
+     "color": "green",
+     "file": "25.mp3",
+     "id": "p25"
+    },
+    {
+     "label": "Медленный танец",
+     "color": "pink",
+     "file": "26.mp3",
+     "id": "p26"
+    },
+    {
+     "label": "Бой курантов",
+     "color": "yellow",
+     "file": "27.mp3",
+     "id": "p27"
+    }
+   ],
+   "bg": [
+    {
+     "title": "Wood - Never A Day (OST Интуиция)",
+     "file": "01-mwde4r3244tr.mp3"
+    },
+    {
+     "title": "Barenaked Ladies - Green Christmas (OST",
+     "file": "02-mwde4r5e6nbx.mp3"
+    },
+    {
+     "title": "Dean Martin - Let It Snow! Let It Snow!",
+     "file": "03-mwde4r7y948i.mp3"
+    },
+    {
+     "title": "Andy Williams - It's The Most Wonderful",
+     "file": "04-mwde4radc7ly.mp3"
+    },
+    {
+     "title": "Фон 5",
+     "file": "05.mp3"
+    },
+    {
+     "title": "Фон 6",
+     "file": "06.mp3"
+    },
+    {
+     "title": "Фон 7",
+     "file": "07.mp3"
+    },
+    {
+     "title": "Фон 8",
+     "file": "08.mp3"
+    },
+    {
+     "title": "Фон 9",
+     "file": "09.mp3"
+    },
+    {
+     "title": "Фон 10",
+     "file": "10.mp3"
+    }
+   ]
+  },
+  {
+   "id": "std",
+   "name": "Стандартная",
+   "emoji": "🎈",
+   "pads": [
+    {
+     "label": "Пэд 1",
+     "color": "red",
+     "file": "",
+     "id": "p1"
+    },
+    {
+     "label": "Пэд 2",
+     "color": "orange",
+     "file": "",
+     "id": "p2"
+    },
+    {
+     "label": "Пэд 3",
+     "color": "cyan",
+     "file": "",
+     "id": "p3"
+    },
+    {
+     "label": "Пэд 4",
+     "color": "blue",
+     "file": "",
+     "id": "p4"
+    },
+    {
+     "label": "Пэд 5",
+     "color": "purple",
+     "file": "",
+     "id": "p5"
+    },
+    {
+     "label": "Пэд 6",
+     "color": "purple",
+     "file": "",
+     "id": "p6"
+    },
+    {
+     "label": "Пэд 7",
+     "color": "purple",
+     "file": "",
+     "id": "p7"
+    },
+    {
+     "label": "Пэд 8",
+     "color": "purple",
+     "file": "",
+     "id": "p8"
+    },
+    {
+     "label": "Пэд 9",
+     "color": "blue",
+     "file": "",
+     "id": "p9"
+    },
+    {
+     "label": "Пэд 10",
+     "color": "green",
+     "file": "",
+     "id": "p10"
+    },
+    {
+     "label": "Пэд 11",
+     "color": "pink",
+     "file": "",
+     "id": "p11"
+    },
+    {
+     "label": "Пэд 12",
+     "color": "white",
+     "file": "",
+     "id": "p12"
+    },
+    {
+     "label": "Пэд 13",
+     "color": "yellow",
+     "file": "",
+     "id": "p13"
+    },
+    {
+     "label": "Пэд 14",
+     "color": "yellow",
+     "file": "",
+     "id": "p14"
+    },
+    {
+     "label": "Пэд 15",
+     "color": "cyan",
+     "file": "",
+     "id": "p15"
+    },
+    {
+     "label": "Пэд 16",
+     "color": "white",
+     "file": "",
+     "id": "p16"
+    },
+    {
+     "label": "Пэд 17",
+     "color": "white",
+     "file": "",
+     "id": "p17"
+    },
+    {
+     "label": "Пэд 18",
+     "color": "orange",
+     "file": "",
+     "id": "p18"
+    },
+    {
+     "label": "Пэд 19",
+     "color": "pink",
+     "file": "",
+     "id": "p19"
+    },
+    {
+     "label": "Пэд 20",
+     "color": "red",
+     "file": "",
+     "id": "p20"
+    },
+    {
+     "label": "Пэд 21",
+     "color": "red",
+     "file": "",
+     "id": "p21"
+    },
+    {
+     "label": "Пэд 22",
+     "color": "orange",
+     "file": "",
+     "id": "p22"
+    },
+    {
+     "label": "Пэд 23",
+     "color": "blue",
+     "file": "",
+     "id": "p23"
+    },
+    {
+     "label": "Пэд 24",
+     "color": "green",
+     "file": "",
+     "id": "p24"
+    },
+    {
+     "label": "Пэд 25",
+     "color": "green",
+     "file": "",
+     "id": "p25"
+    },
+    {
+     "label": "Пэд 26",
+     "color": "pink",
+     "file": "",
+     "id": "p26"
+    },
+    {
+     "label": "Пэд 27",
+     "color": "yellow",
+     "file": "",
+     "id": "p27"
+    },
+    {
+     "label": "Пэд 28",
+     "color": "red",
+     "file": "",
+     "id": "p28"
+    },
+    {
+     "label": "Пэд 29",
+     "color": "cyan",
+     "file": "",
+     "id": "p29"
+    },
+    {
+     "label": "Пэд 30",
+     "color": "red",
+     "file": "",
+     "id": "p30"
+    }
+   ],
+   "bg": [
+    {
+     "title": "Фон 1",
+     "file": ""
+    },
+    {
+     "title": "Фон 2",
+     "file": ""
+    },
+    {
+     "title": "Фон 3",
+     "file": ""
+    },
+    {
+     "title": "Фон 4",
+     "file": ""
+    },
+    {
+     "title": "Фон 5",
+     "file": ""
+    },
+    {
+     "title": "Фон 6",
+     "file": ""
+    },
+    {
+     "title": "Фон 7",
+     "file": ""
+    },
+    {
+     "title": "Фон 8",
+     "file": ""
+    },
+    {
+     "title": "Фон 9",
+     "file": ""
+    },
+    {
+     "title": "Фон 10",
+     "file": ""
+    }
+   ]
+  },
+  {
+   "id": "vech",
+   "name": "Вечерки",
+   "emoji": "🥂",
+   "pads": [
+    {
+     "label": "Пэд 1",
+     "color": "red",
+     "file": "",
+     "id": "p1"
+    },
+    {
+     "label": "Пэд 2",
+     "color": "orange",
+     "file": "",
+     "id": "p2"
+    },
+    {
+     "label": "Пэд 3",
+     "color": "cyan",
+     "file": "",
+     "id": "p3"
+    },
+    {
+     "label": "Пэд 4",
+     "color": "blue",
+     "file": "",
+     "id": "p4"
+    },
+    {
+     "label": "Пэд 5",
+     "color": "purple",
+     "file": "",
+     "id": "p5"
+    },
+    {
+     "label": "Пэд 6",
+     "color": "purple",
+     "file": "",
+     "id": "p6"
+    },
+    {
+     "label": "Пэд 7",
+     "color": "purple",
+     "file": "",
+     "id": "p7"
+    },
+    {
+     "label": "Пэд 8",
+     "color": "purple",
+     "file": "",
+     "id": "p8"
+    },
+    {
+     "label": "Пэд 9",
+     "color": "blue",
+     "file": "",
+     "id": "p9"
+    },
+    {
+     "label": "Пэд 10",
+     "color": "green",
+     "file": "",
+     "id": "p10"
+    },
+    {
+     "label": "Пэд 11",
+     "color": "pink",
+     "file": "",
+     "id": "p11"
+    },
+    {
+     "label": "Пэд 12",
+     "color": "white",
+     "file": "",
+     "id": "p12"
+    },
+    {
+     "label": "Пэд 13",
+     "color": "yellow",
+     "file": "",
+     "id": "p13"
+    },
+    {
+     "label": "Пэд 14",
+     "color": "yellow",
+     "file": "",
+     "id": "p14"
+    },
+    {
+     "label": "Пэд 15",
+     "color": "cyan",
+     "file": "",
+     "id": "p15"
+    },
+    {
+     "label": "Пэд 16",
+     "color": "white",
+     "file": "",
+     "id": "p16"
+    },
+    {
+     "label": "Пэд 17",
+     "color": "white",
+     "file": "",
+     "id": "p17"
+    },
+    {
+     "label": "Пэд 18",
+     "color": "orange",
+     "file": "",
+     "id": "p18"
+    },
+    {
+     "label": "Пэд 19",
+     "color": "pink",
+     "file": "",
+     "id": "p19"
+    },
+    {
+     "label": "Пэд 20",
+     "color": "red",
+     "file": "",
+     "id": "p20"
+    },
+    {
+     "label": "Пэд 21",
+     "color": "red",
+     "file": "",
+     "id": "p21"
+    },
+    {
+     "label": "Пэд 22",
+     "color": "orange",
+     "file": "",
+     "id": "p22"
+    },
+    {
+     "label": "Пэд 23",
+     "color": "blue",
+     "file": "",
+     "id": "p23"
+    },
+    {
+     "label": "Пэд 24",
+     "color": "green",
+     "file": "",
+     "id": "p24"
+    },
+    {
+     "label": "Пэд 25",
+     "color": "green",
+     "file": "",
+     "id": "p25"
+    },
+    {
+     "label": "Пэд 26",
+     "color": "pink",
+     "file": "",
+     "id": "p26"
+    },
+    {
+     "label": "Пэд 27",
+     "color": "yellow",
+     "file": "",
+     "id": "p27"
+    },
+    {
+     "label": "Пэд 28",
+     "color": "red",
+     "file": "",
+     "id": "p28"
+    },
+    {
+     "label": "Пэд 29",
+     "color": "cyan",
+     "file": "",
+     "id": "p29"
+    },
+    {
+     "label": "Пэд 30",
+     "color": "red",
+     "file": "",
+     "id": "p30"
+    }
+   ],
+   "bg": [
+    {
+     "title": "Фон 1",
+     "file": ""
+    },
+    {
+     "title": "Фон 2",
+     "file": ""
+    },
+    {
+     "title": "Фон 3",
+     "file": ""
+    },
+    {
+     "title": "Фон 4",
+     "file": ""
+    },
+    {
+     "title": "Фон 5",
+     "file": ""
+    },
+    {
+     "title": "Фон 6",
+     "file": ""
+    },
+    {
+     "title": "Фон 7",
+     "file": ""
+    },
+    {
+     "title": "Фон 8",
+     "file": ""
+    },
+    {
+     "title": "Фон 9",
+     "file": ""
+    },
+    {
+     "title": "Фон 10",
+     "file": ""
+    }
+   ]
+  }
+ ]
 }
